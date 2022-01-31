@@ -1,0 +1,159 @@
+\documentclass[a4paper,11pt,oneside]{memoir}
+
+% Style of front page, title page, and stuff page
+\usepackage{dikuReport}
+
+%% Packages
+% Formatting
+\usepackage{fancyvrb}
+\usepackage[utf8]{inputenc}
+\usepackage{latexsym}
+\usepackage[T1]{fontenc}
+\usepackage{relsize}
+\usepackage{fix-cm}
+% Ordering of references
+\usepackage{cite}
+% Useful for graphics
+\usepackage{tikz}
+\usepackage{graphicx}
+\usepackage{color}
+% Useful for mats
+\usepackage{amsbsy}
+\usepackage{amssymb}
+\usepackage{amsmath}
+% Better float of figures
+\usepackage{float}
+% Good for space when using commands for text definitions
+\usepackage{xspace}
+% Codeformatting
+\usepackage{listings}
+% URLs - what else
+\usepackage{url}
+% Alters the margins of the pages such that text are _not_ centered. This makes better room for the glue bindings.
+
+\usepackage{lettrine}
+\usepackage{lipsum}
+
+%%%%% Make abbreviations emphasized. Use if you like.
+\newcommand{\ie}{\emph{i.e.}\xspace}
+\newcommand{\eg}{\emph{e.g.}\xspace}
+\newcommand{\etc}{\emph{etc.}\xspace}
+\newcommand{\vs}{\emph{vs.}\xspace}
+\newcommand{\cf}{\emph{cf.}\xspace}
+\newcommand{\viz}{\emph{viz.}\xspace}
+\newcommand{\etal}{\emph{et~al.}\xspace}
+
+% Where graphic files are located
+\graphicspath{figures/}
+
+% packages and commands for long-division
+\usepackage{scalerel}
+\usepackage{stackengine}
+\usepackage{xcolor}
+\newcommand\showdiv[1]{\overline{\smash{\hstretch{.5}{)}\mkern-3.2mu\hstretch{.5}{)}}#1}}
+\newcommand\ph[1]{\textcolor{white}{#1}}
+
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Basic information
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\thesistype{BSc thesis}
+% \thesistype{MSc thesis}
+
+\thesiscomment{} % You can leave this blank
+\title{Asymmetric Cryptography with Hermes}
+\subtitle{An exploration of the theory and application of asymmetric cryptography in a reversible programming language.} % If you want one
+\author{%
+  Daniel Støvring Alstrup - MLD421\\[4pt]
+  Alexander Severin Hou Borgert - CQV636}
+\supervisor{Michael Kirkedal Thomsen}
+\date{June 8, 2020} % Hand-in date
+%\subject{The short description that is suitable for a database.} % This is not needed.
+
+% Make the front page, title page, and other required information.
+\pagestyle{plain}
+\maketitle
+
+% Start at page 3. I do not count the front page in the numbering.
+\cleardoublepage
+\pagenumbering{roman}
+\setcounter{page}{3}
+
+% English Abstract
+\cleardoublepage
+\pagestyle{plain}
+\begin{abstract}
+
+
+\end{abstract}
+
+% Danish résume
+
+\begin{resume}
+
+\end{resume}
+
+% Table of contents
+\cleardoublepage
+\chapterstyle{combined}
+\tableofcontents*
+
+% Starting the real text.
+\cleardoublepage
+\pagenumbering{arabic}
+\setcounter{page}{1}
+
+
+% It can be an advantage to seperate some of the following chapters into seperate files.
+% Make a bachground.tex and include with \input{background}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Introduction
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\input{Introduction/main}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Background
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\input{Background/main}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Your work
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\input{"Your Work"/main}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Results
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\input{Results/main}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Discussion
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\input{Discussion/main}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Conclusion
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\input{Conclusion/main}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% BIBLIOGRAPHY
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\input{Bibliography/main}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% APPENDIX
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\input{Appendix/main}
+
+
+\end{document}
