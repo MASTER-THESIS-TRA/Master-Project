@@ -1,0 +1,29 @@
+Classes: 
+  - Resources: 
+    - Can neither be dublicated nor discarded (but should be consued upon transformation). 
+    - Location
+    - 
+  - Events: 
+    - Transfer
+    - Transform
+    - Transport
+
+  - Information (is this part of the system??)
+    - Probably easiest implemented as dokuments that can be uploaded and shared. 
+
+  - Strategies
+    - An option to automatically follow a strategy (pay money in accordance with a contract etc.) 
+    - this seems out of scope for our system, no? 
+
+  - Contracts
+
+Agents:
+  - Users: Can be associated with an organisation. 
+  - Organisations
+  - IoT devices (probably necessary for introducing new Resources. 
+  - 
+
+
+Possible pitfalls: 
+  - Calendars: we need to look into ways of enforcing calendars (bank holidays etc). 
+  - Identities: Should each object just have an identity field/username, og should identities be actual classes that can be linked to some resource og agent. 
