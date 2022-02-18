@@ -1,0 +1,22 @@
+Spørgsmål til Fritz: 
+  - Virtuelle agenter? Jeg går ikke ud fra at vi som sådan skal implementere en bruger for mother earth? Jeg forstår ikke helt hvad din Mother Earth er? Den globale logik? 
+    - En måde at transferere røg til moder jord, og trække resourcer ud af moder jord. 
+  - I dine slides nævner du kun TTT events, hvilket også er dem vi primært har fokus på i vores Requirement Elicitation, men hvad med resten? Skal vi ignorere dem i første omgang? 
+    - Nej de andre er selvfølgelig også vigtige. 
+  - Så vi skal bare ignorere block-chain? Ja...
+
+Transform: 
+  - Skal KLART være en klasse i sig sev. 
+  - Man skal kunne lave algebra på transformationer (i.e. hvis man laver flere transformationer, kan man lægge dem sammen, og hvis man laver den samme transformation flere gange, kan man gange en konstant på)
+  - 
+
+
+Events kommer altid med 3 elementer (kan være null):
+Hvem har taget ansvar for eventet? (hvem asserter eventet) 
+Tid! Hændelsen sker på et tidspunkt og bliver registreret på et andet tidspunt. 
+Associated documentation. (en blob af hvad du nu engang har lyst til) 
+Location kan også være brugbart! 
+
+
+Jens står for discord: jkl@di.ku.dk
+
