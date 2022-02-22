@@ -1,0 +1,19 @@
+Spørgsmål til Fritz: 
+  - Der kommer jo til at være problemer med at tjekke at der ikke bliver lavet mere end der kom ind, med mindre vi vælger en standard unit of meassurement.
+    i.e. 200g uld -> 1stk sok fortæller os ikke så meget om hvor meget uld der faktisk er i en sok. 
+    Vi tænker at vægt er den nemmeste standard at følge. 
+
+Det skal (i sidste ende) være en distributed ledger, men betyder det at det kun er events der skal logges på BC? 
+  - Altså skal systemet stadig fungere med en almindelig database til at holde styr på resourcer osv, men der bliver bare holdt styr på events med BC?
+
+To muligheder i forhold til det endelige produkt: 
+ 1) Vi producerer et bibliotek, som kan bruges til at bygge supply chains af forskellig art, men individuelle organisationer vil være nødt til at lave noget udvikling selv. 
+ 2) Vi laver en helt generel platform, hvilket naturligvis har den ulempe at det ikke kan blive lige så skræddersyet/specialiceret for den individuelle organisation. 
+ 3) Vi laver kernen, bygger en generel app på kernen, og ser hvordan det ender med at gå!! Best of both worlds! 
+
+Hvad er identities i forhold til resourcer? 
+ - Deres certifikat? 
+ - 
+
+Hvordan skal vi tracke transport??
+  - Ideelt vil man jo gerne holde styr på den præcise CO2 emission undervejs, men er det udenfor scope for vores opgave? 
