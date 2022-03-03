@@ -1,6 +1,6 @@
 package Classes;
 
-public class Address extends Location {
+public class Address {
 
     public String
             country,
