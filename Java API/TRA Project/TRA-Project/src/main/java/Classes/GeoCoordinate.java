@@ -1,6 +1,6 @@
 package Classes;
 
-public class GeoCoordinate extends Location {
+public class GeoCoordinate {
 
     public float longitude, latitude;
 

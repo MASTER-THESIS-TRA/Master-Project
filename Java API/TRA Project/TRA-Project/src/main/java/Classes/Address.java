@@ -1,6 +1,6 @@
 package Classes;
 
-public class Address extends Location {
+public class Address {
 
     public String
             country,
@@ -11,6 +11,7 @@ public class Address extends Location {
             number;
 
     public Address(String country, String region, String postalCode, String city, String street, String number) {
+        super();
         this.country = country;
         this.region = region;
         this.postalCode = postalCode;

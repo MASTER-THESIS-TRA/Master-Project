@@ -4,5 +4,6 @@ import Classes.Location;
 
 public interface IResource {
     void  transfer();
-    Location getLocation();
+    void multItem(String key, float x);
+    void multAll(float x);
 }
