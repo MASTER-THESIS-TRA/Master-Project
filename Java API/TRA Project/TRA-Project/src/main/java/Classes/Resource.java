@@ -33,7 +33,7 @@ public class Resource {
     }
     // Maybe we would like to clear the old resources??? To ensure no accidental duplication?
     // Seems like the way to go about it. All resources can be retrieved from the new one anyways.
-    b.resource.clear();
+    //b.resource.clear();
     }
 
     public void multItem(String key, float x){
@@ -58,6 +58,7 @@ public class Resource {
     @Override
     public boolean equals(Object o){
         try {
+
             Resource cmp = (Resource) o;
             if (cmp.resource.keySet().equals(resource.keySet())){
                 for (String k : resource.keySet()){
@@ -72,5 +73,9 @@ public class Resource {
             System.out.println(ExceptionConstants.ILLEGAL_RESOURCE_COMPARISON + " " + o);
             return false;
         }
+    }
+
+    public boolean isZero(){
+        throw new NotImplementedException();
     }
 }
