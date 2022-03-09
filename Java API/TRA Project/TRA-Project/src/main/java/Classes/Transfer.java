@@ -19,15 +19,15 @@ public class Transfer {
         }
     }
 
-    public boolean Validtransfer(){
+    public boolean validTransfer(){
         boolean ret = false;
         Resource checker = new Resource();
         for (Agent a : transfers.keySet()){
             checker.add(transfers.get(a));
             // Maybe also check oif the agents can afford the transfer?
-            if (!a.canAfford(transfers.get(a))){
+            /*if (!a.canAfford(transfers.get(a))){
                 return false;
-            }
+            }*/
         }
 
 
