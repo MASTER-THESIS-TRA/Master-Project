@@ -328,4 +328,50 @@ class ResourceTests {
             assert(false);
         }
     }
+
+    ////////////////////////////////////////////////////////////////
+    /////////////////////// Zero tests /////////////////////////////
+    ////////////////////////////////////////////////////////////////
+    @Test
+    void TestCannotBreakOffIfNotEnough() {
+        try{
+            Resource a = new Resource("a",0);
+            Resource b = a.breakOff("a", 1); // This should not be legal, so an exception is expected.
+            assert(false);
+        } catch (TRAException e){
+            assert(true);
+        }
+    }
+    @Test
+    void TestBasicBreakOff() {
+        try{
+            Resource a = new Resource("a",10);
+            Resource b = a.breakOff("a", 1);
+            assert(b.getResource().get("a")==1);
+            assert(a.getResource().get("a")==9);
+        } catch (TRAException e){
+            assert(false);
+        }
+    }
+    @Test
+    void TestBreakOffKeyDoesNotExist() {
+        try{
+            Resource a = new Resource("a",10);
+            Resource b = a.breakOff("", 1); // This should not be legal, so an exception is expected.
+            assert(false);
+        } catch (TRAException e){
+            assert(true);
+        }
+    }
+    @Test
+    void TestBreakOffNegativeValue() {
+        try{
+            Resource a = new Resource("a",10);
+            Resource b = a.breakOff("a", -1); // This should not be legal, so an exception is expected.
+            assert(false);
+        } catch (TRAException e){
+            assert(true);
+        }
+    }
+
 }
