@@ -10,7 +10,7 @@ import java.util.HashMap;
 
 public class Resource {
     private HashMap<String, Float> resource;
-    public float amount;
+    public float amount;  // So far, not used. 
 
     public Resource (){
         resource = new HashMap<>();
