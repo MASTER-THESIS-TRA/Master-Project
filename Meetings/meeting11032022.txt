@@ -2,3 +2,5 @@ Ownership states: What are they and how do they work?
  - Juan describes ownership states as being one state for the entire system. This seems like something that could easilly grow out of proportions, no? 
  - If this is truly what we want, maybe a singleton?? 
  
+
+Jeg tester lige om det er nemt at pushe stadig
