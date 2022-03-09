@@ -8,12 +8,13 @@ import java.io.Console;
 import java.util.HashMap;
 
 public class Resource {
-    public HashMap<String, Float> resource;
+    private HashMap<String, Float> resource;
     public float amount;
 
     public Resource (){
         resource = new HashMap<>();
     }
+
     public Resource(String resourceName, float amount) throws TRAException {
         if (resourceName == null){
             throw new TRAException(ExceptionConstants.ILLEGAL_RESOURCE_INIT + " " +amount + " " + resourceName);
@@ -21,6 +22,10 @@ public class Resource {
         this.resource = new HashMap<>();
         this.resource.put(resourceName, amount);
         this.amount = amount;
+    }
+
+    public HashMap<String, Float> getResource() {
+        return resource;
     }
 
     public void add(Resource b){
@@ -62,16 +67,23 @@ public class Resource {
             Resource cmp = (Resource) o;
             HashMap<String, Float> tmpA = (HashMap<String, Float>) resource.clone();
             HashMap<String, Float> tmpB = (HashMap<String, Float>) cmp.resource.clone();
-            /// Now remove all keys from both, where the value is exactly 0.
+            tmpA.entrySet().removeIf(entry -> entry.getValue() == 0);
+            tmpB.entrySet().removeIf(entry -> entry.getValue() == 0);
 
             if (tmpB.keySet().equals(tmpA.keySet())){
                 for (String k : tmpA.keySet()){
                     if (!tmpB.get(k).equals(tmpA.get(k))){
+                        tmpA.clear();
+                        tmpB.clear();
                         return false;
                     }
                 }
+                tmpA.clear();
+                tmpB.clear();
                 return true;
             }
+            tmpA.clear();
+            tmpB.clear();
             return false;
         } catch (ClassCastException e){
             System.out.println(ExceptionConstants.ILLEGAL_RESOURCE_COMPARISON + " " + o);
