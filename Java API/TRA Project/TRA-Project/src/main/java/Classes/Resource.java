@@ -50,12 +50,15 @@ public class Resource {
         resource.replaceAll((key, value)
                 -> value * x);
     }
-    public Resource breakOff(String key, float amount) throws TRAException {
+    public Resource breakOne(String key, float amount) throws TRAException {
         throw new NotImplementedException();
         /*if (amount < 0){
             throw new TRAException(ExceptionConstants.ILLEGAL_RESOURCE_ACTION);
         }
         return new Resource();*/
+    }
+    public Resource breakMultiple(HashMap<String, Float> itemsToBreak) throws TRAException {
+        throw new NotImplementedException();
     }
 
     // It does not make sense to check which resource is "biggest", because of compact resources.
