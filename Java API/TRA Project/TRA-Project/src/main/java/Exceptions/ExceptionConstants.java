@@ -6,5 +6,6 @@ public class ExceptionConstants {
     public static final String ILLEGAL_RESOURCE_INIT = "An error occurred while creating a resource";
     public static final String ILLEGAL_RESOURCE_COMPARISON = "Trying to compare to a non-resource object";
     public static final String ILLEGAL_TRANSFER = "An illegal transfer was attempted";
+    public static final String ILLEGAL_BREAKOF = "The item(s) used in the splitting resulted in an error";
 
 }

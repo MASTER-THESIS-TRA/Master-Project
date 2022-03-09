@@ -5,6 +5,7 @@ import Exceptions.TRAException;
 import org.junit.jupiter.api.Test;
 
 import java.io.Console;
+import java.lang.reflect.Array;
 import java.util.*;
 
 class ResourceTests {
@@ -263,6 +264,7 @@ class ResourceTests {
         }
     }
 
+
     ////////////////////////////////////////////////////////////////
     /////////////////////// Zero tests /////////////////////////////
     ////////////////////////////////////////////////////////////////
@@ -425,5 +427,4 @@ class ResourceTests {
             assert(false);
         }
     }
-
 }

@@ -5,6 +5,7 @@ import Exceptions.TRAException;
 import org.apache.commons.lang3.NotImplementedException;
 
 import java.io.Console;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Resource {
@@ -14,6 +15,8 @@ public class Resource {
     public Resource (){
         resource = new HashMap<>();
     }
+
+    public Resource(HashMap<String, Float> resource) { this.resource = resource; }
 
     public Resource(String resourceName, float amount) throws TRAException {
         if (resourceName == null){
@@ -49,16 +52,6 @@ public class Resource {
     public void multAll(float x){
         resource.replaceAll((key, value)
                 -> value * x);
-    }
-    public Resource breakOne(String key, float amount) throws TRAException {
-        throw new NotImplementedException();
-        /*if (amount < 0){
-            throw new TRAException(ExceptionConstants.ILLEGAL_RESOURCE_ACTION);
-        }
-        return new Resource();*/
-    }
-    public Resource breakMultiple(HashMap<String, Float> itemsToBreak) throws TRAException {
-        throw new NotImplementedException();
     }
 
     // It does not make sense to check which resource is "biggest", because of compact resources.
@@ -101,5 +94,28 @@ public class Resource {
             }
         }
         return true;
+    }
+
+    public Resource breakOne(String key, float amount) throws TRAException {
+        if(key == null || !this.resource.containsKey(key)) { throw new TRAException("Value is either null or did not exist in the hashmap"); }
+        if(this.resource.get(key) < amount) { throw new TRAException(ExceptionConstants.ILLEGAL_BREAKOF + " Key: " + key + " Amount: " + amount); }
+
+        this.resource.computeIfPresent(key, (k, val) -> val-amount);
+
+        Resource breakOf = new Resource(key, amount);
+        return breakOf;
+    }
+
+    public Resource breakMultiple(HashMap<String, Float> itemsToBreak) {
+        Resource breakOff = new Resource();
+        for(String key : itemsToBreak.keySet()) {
+            try {
+                Resource temp = breakOne(key, itemsToBreak.get(key));
+                temp.resource.putAll(breakOff.resource);
+            } catch (TRAException e) {
+                e.printStackTrace();
+            }
+        }
+        return breakOff;
     }
 }
