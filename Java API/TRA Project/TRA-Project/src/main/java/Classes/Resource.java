@@ -57,12 +57,16 @@ public class Resource {
     // Equality is nice to be able to verify though.
     @Override
     public boolean equals(Object o){
+        // This is not sufficient! If one resource has a resource type that the other does not have, but it is zero, that is still okay.
         try {
-
             Resource cmp = (Resource) o;
-            if (cmp.resource.keySet().equals(resource.keySet())){
-                for (String k : resource.keySet()){
-                    if (!cmp.resource.get(k).equals(resource.get(k))){
+            HashMap<String, Float> tmpA = (HashMap<String, Float>) resource.clone();
+            HashMap<String, Float> tmpB = (HashMap<String, Float>) cmp.resource.clone();
+            /// Now remove all keys from both, where the value is exactly 0.
+
+            if (tmpB.keySet().equals(tmpA.keySet())){
+                for (String k : tmpA.keySet()){
+                    if (!tmpB.get(k).equals(tmpA.get(k))){
                         return false;
                     }
                 }
@@ -76,6 +80,11 @@ public class Resource {
     }
 
     public boolean isZero(){
-        throw new NotImplementedException();
+        for (String key : resource.keySet()){
+            if (resource.get(key)!= 0){
+                return false;
+            }
+        }
+        return true;
     }
 }

@@ -61,7 +61,10 @@ class ResourceTests {
         }
     }
 
-    @Test
+    /* *
+    * This test is needed if we decide to implement addition as a consumption of the added resource.
+    * */
+    /*@Test
     void TestAddedResourceIsConsumed() {
         try{
             Resource a = new Resource("a",1337);
@@ -71,7 +74,7 @@ class ResourceTests {
         } catch (TRAException e){
             assert(false);
         }
-    }
+    }*/
 
     @Test
     void TestEqualityCheck() {
@@ -128,7 +131,7 @@ class ResourceTests {
         }
     }
     @Test
-    void TestMultiplySingleElementbyNeg1() {
+    void TestMultiplySingleElementByNeg1() {
         try{
             Resource a = new Resource("a",1337);
             Resource b = new Resource("a",-1337);
@@ -138,5 +141,53 @@ class ResourceTests {
             assert(false);
         }
     }
+
+    @Test
+    void TestMultiplySingleElementByZero() {
+        try{
+            Resource a = new Resource("a",1337);
+            Resource b = new Resource("a",0);
+            a.multItem("a", 0);
+            assert(a.equals(b));
+        } catch (TRAException e){
+            assert(false);
+        }
+    }
+
+
+    @Test
+    void TestMultiplyAllBy1() {
+        try{
+            Resource a = new Resource("a",1337);
+            Resource b = new Resource("a",1337);
+            a.multItem("a", 1);
+            assert(a.equals(b));
+        } catch (TRAException e){
+            assert(false);
+        }
+    }
+    @Test
+    void TestMultiplyAllByNeg1() {
+        try{
+            Resource a = new Resource("a",1337);
+            Resource b = new Resource("a",-1337);
+            a.multItem("a", -1);
+            assert(a.equals(b));
+        } catch (TRAException e){
+            assert(false);
+        }
+    }
+    @Test
+    void TestMultiplyAllByZero() {
+        try{
+            Resource a = new Resource("a",1337);
+            Resource b = new Resource("a",0);
+            a.multItem("a", 0);
+            assert(a.equals(b));
+        } catch (TRAException e){
+            assert(false);
+        }
+    }
+
 
 }
