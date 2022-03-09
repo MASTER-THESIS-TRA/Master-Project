@@ -5,7 +5,10 @@ import Exceptions.TRAException;
 import org.apache.commons.lang3.NotImplementedException;
 
 import java.io.Console;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.stream.Stream;
 
 public class Resource {
     public HashMap<String, Float> resource;
@@ -14,6 +17,7 @@ public class Resource {
     public Resource (){
         resource = new HashMap<>();
     }
+    public Resource(HashMap<String, Float> resource) { this.resource = resource; }
     public Resource(String resourceName, float amount) throws TRAException {
         if (resourceName == null){
             throw new TRAException(ExceptionConstants.ILLEGAL_RESOURCE_INIT + " " +amount + " " + resourceName);
@@ -86,5 +90,28 @@ public class Resource {
             }
         }
         return true;
+    }
+
+    public Resource breakOne(String key, float amount) throws TRAException {
+        if(key == null || !this.resource.containsKey(key)) { throw new TRAException("Value is either null or did not exist in the hashmap"); }
+        if(this.resource.get(key) < amount) { throw new TRAException(ExceptionConstants.ILLEGAL_BREAKOF + " Key: " + key + " Amount: " + amount)}
+
+        this.resource.computeIfPresent(key, (k, val) -> val-amount);
+
+        Resource breakOf = new Resource(key, amount);
+        return breakOf;
+    }
+
+    public Resource breakMultiple(HashMap<String, Float> itemsToBreak) {
+        Resource breakOff = new Resource();
+        for(String key : itemsToBreak.keySet()) {
+            try {
+                Resource temp = breakOne(key, itemsToBreak.get(key));
+                temp.resource.putAll(breakOff.resource);
+            } catch (TRAException e) {
+                e.printStackTrace();
+            }
+        }
+        return breakOff;
     }
 }
