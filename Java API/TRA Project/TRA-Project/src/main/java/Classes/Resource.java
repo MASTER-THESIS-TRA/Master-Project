@@ -97,7 +97,7 @@ public class Resource {
     }
 
     public Resource breakOne(String key, float amount) throws TRAException {
-        if(key == null || !this.resource.containsKey(key)) { throw new TRAException("Value is either null or did not exist in the hashmap"); }
+        if(key == null || !this.resource.containsKey(key) || amount < 0) { throw new TRAException("Value is either null or did not exist in the hashmap"); }
         if(this.resource.get(key) < amount) { throw new TRAException(ExceptionConstants.ILLEGAL_BREAKOF + " Key: " + key + " Amount: " + amount); }
 
         this.resource.computeIfPresent(key, (k, val) -> val-amount);
@@ -106,14 +106,14 @@ public class Resource {
         return breakOf;
     }
 
-    public Resource breakMultiple(HashMap<String, Float> itemsToBreak) {
+    public Resource breakMultiple(HashMap<String, Float> itemsToBreak) throws TRAException {
         Resource breakOff = new Resource();
         for(String key : itemsToBreak.keySet()) {
             try {
                 Resource temp = breakOne(key, itemsToBreak.get(key));
-                temp.resource.putAll(breakOff.resource);
+                breakOff.resource.putAll(temp.resource);
             } catch (TRAException e) {
-                e.printStackTrace();
+                throw new TRAException(ExceptionConstants.ILLEGAL_BREAKOF);
             }
         }
         return breakOff;
