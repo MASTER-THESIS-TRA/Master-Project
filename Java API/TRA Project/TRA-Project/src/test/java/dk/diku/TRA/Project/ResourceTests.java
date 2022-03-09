@@ -330,23 +330,23 @@ class ResourceTests {
     }
 
     ////////////////////////////////////////////////////////////////
-    /////////////////////// Zero tests /////////////////////////////
+    /////////////////////// Break tests ////////////////////////////
     ////////////////////////////////////////////////////////////////
     @Test
-    void TestCannotBreakOffIfNotEnough() {
+    void TestCannotBreakOneIfNotEnough() {
         try{
             Resource a = new Resource("a",0);
-            Resource b = a.breakOff("a", 1); // This should not be legal, so an exception is expected.
+            Resource b = a.breakOne("a", 1); // This should not be legal, so an exception is expected.
             assert(false);
         } catch (TRAException e){
             assert(true);
         }
     }
     @Test
-    void TestBasicBreakOff() {
+    void TestBasicBreakOne() {
         try{
             Resource a = new Resource("a",10);
-            Resource b = a.breakOff("a", 1);
+            Resource b = a.breakOne("a", 1);
             assert(b.getResource().get("a")==1);
             assert(a.getResource().get("a")==9);
         } catch (TRAException e){
@@ -354,23 +354,75 @@ class ResourceTests {
         }
     }
     @Test
-    void TestBreakOffKeyDoesNotExist() {
+    void TestBreakOneKeyDoesNotExist() {
         try{
             Resource a = new Resource("a",10);
-            Resource b = a.breakOff("", 1); // This should not be legal, so an exception is expected.
+            Resource b = a.breakOne("", 1); // This should not be legal, so an exception is expected.
             assert(false);
         } catch (TRAException e){
             assert(true);
         }
     }
     @Test
-    void TestBreakOffNegativeValue() {
+    void TestBreakOneNegativeValue() {
         try{
             Resource a = new Resource("a",10);
-            Resource b = a.breakOff("a", -1); // This should not be legal, so an exception is expected.
+            Resource b = a.breakOne("a", -1); // This should not be legal, so an exception is expected.
             assert(false);
         } catch (TRAException e){
             assert(true);
+        }
+    }
+
+    ////////////////////////////////////////////////////////////////
+    //////////////////// Break Multi tests /////////////////////////
+    ////////////////////////////////////////////////////////////////
+    @Test
+    void TestCannotBreakIfOneNotEnough() {
+        try{
+            Resource a1 = new Resource("a",0);
+            Resource a2 = new Resource("b", 2);
+            a1.add(a2);
+            HashMap<String, Float> toBreak = new HashMap<>();
+            toBreak.put("a", 2f);
+            toBreak.put("b", 2f);
+            Resource b = a1.breakMultiple(toBreak); // This should not be legal, so an exception is expected.
+            assert(false);
+        } catch (TRAException e){
+            assert(true);
+        }
+    }
+    @Test
+    void TestCannotBreakNegative() {
+        try{
+            Resource a1 = new Resource("a",0);
+            Resource a2 = new Resource("b", 2);
+            a1.add(a2);
+            HashMap<String, Float> toBreak = new HashMap<>();
+            toBreak.put("a", -2f);
+            toBreak.put("b", 2f);
+            Resource b = a1.breakMultiple(toBreak); // This should not be legal, so an exception is expected.
+            assert(false);
+        } catch (TRAException e){
+            assert(true);
+        }
+    }
+    @Test
+    void TestBasicBreakMultiple() {
+        try{
+            Resource a1 = new Resource("a",2);
+            Resource a2 = new Resource("b", 2);
+            a1.add(a2);
+            HashMap<String, Float> toBreak = new HashMap<>();
+            toBreak.put("a", 2f);
+            toBreak.put("b", 2f);
+            Resource b = a1.breakMultiple(toBreak); // This should not be legal, so an exception is expected.
+            assert(b.getResource().get("a")==2);
+            assert(b.getResource().get("b")==2);
+            assert(a1.getResource().get("a")==0);
+            assert(a1.getResource().get("b")==0);
+        } catch (TRAException e){
+            assert(false);
         }
     }
 
