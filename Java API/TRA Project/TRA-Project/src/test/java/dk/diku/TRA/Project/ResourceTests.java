@@ -9,6 +9,10 @@ import java.lang.reflect.Array;
 import java.util.*;
 
 class ResourceTests {
+
+    ////////////////////////////////////////////////////////////////
+    /////////////////////// Init tests /////////////////////////////
+    ////////////////////////////////////////////////////////////////
     @Test
     void TestNoNullValue() {
         try{
@@ -19,6 +23,9 @@ class ResourceTests {
         }
     }
 
+    ////////////////////////////////////////////////////////////////
+    /////////////////////// Add tests //////////////////////////////
+    ////////////////////////////////////////////////////////////////
     @Test
     void TestAddDifferent() {
         try{
@@ -26,9 +33,9 @@ class ResourceTests {
             Resource b = new Resource("b",42);
             a.add(b);
             Set<String> keys = new HashSet<>(Arrays.asList("a", "b"));
-            assert(a.resource.keySet().equals(keys));
-            assert(a.resource.get("a")==1337);
-            assert(a.resource.get("b")==42);
+            assert(a.getResource().keySet().equals(keys));
+            assert(a.getResource().get("a")==1337);
+            assert(a.getResource().get("b")==42);
         } catch (TRAException e){
             assert(false);
         }
@@ -41,8 +48,8 @@ class ResourceTests {
             Resource b = new Resource("a",42);
             a.add(b);
             Set<String> keys = new HashSet<>(Arrays.asList("a"));
-            assert(a.resource.keySet().equals(keys));
-            assert(a.resource.get("a")==1379);
+            assert(a.getResource().keySet().equals(keys));
+            assert(a.getResource().get("a")==1379);
         } catch (TRAException e){
             assert(false);
         }
@@ -55,15 +62,14 @@ class ResourceTests {
             Resource b = new Resource("a",-42);
             a.add(b);
             Set<String> keys = new HashSet<>(Arrays.asList("a"));
-            assert(a.resource.keySet().equals(keys));
-            assert(a.resource.get("a")==1337);
+            assert(a.getResource().keySet().equals(keys));
+            assert(a.getResource().get("a")==1337);
         } catch (TRAException e){
             assert(false);
         }
     }
-
     /* *
-    * This test is needed if we decide to implement addition as a consumption of the added resource.
+    * This test is needed only if we decide to implement addition as a consumption of the added resource.
     * */
     /*@Test
     void TestAddedResourceIsConsumed() {
@@ -71,12 +77,15 @@ class ResourceTests {
             Resource a = new Resource("a",1337);
             Resource b = new Resource("b",42);
             a.add(b);
-            assert(b.resource.isEmpty());
+            assert(b.getResource().isEmpty());
         } catch (TRAException e){
             assert(false);
         }
     }*/
 
+    ////////////////////////////////////////////////////////////////
+    ////////////////////// Equals tests ////////////////////////////
+    ////////////////////////////////////////////////////////////////
     @Test
     void TestEqualityCheck() {
         try{
@@ -118,14 +127,51 @@ class ResourceTests {
             assert(false);
         }
     }
+    @Test
+    void TestEqualityCheckZeroValuesInComparison() {
+        try{
+            Resource a = new Resource("a",1337);
+            Resource b = new Resource("a",1337);
+            Resource c = new Resource("b",0);
+            b.add(c);
+            assert(a.equals(b));
+        } catch (TRAException e){
+            assert(false);
+        }
+    }
+    @Test
+    void TestEqualityCheckZeroValuesInThis() {
+        try{
+            Resource a = new Resource("a",1337);
+            Resource b = new Resource("a",1337);
+            Resource c = new Resource("b",0);
+            a.add(c);
+            assert(a.equals(b));
+        } catch (TRAException e){
+            assert(false);
+        }
+    }
 
-
+    ////////////////////////////////////////////////////////////////
+    /////////////////// Mult Single tests //////////////////////////
+    ////////////////////////////////////////////////////////////////
     @Test
     void TestMultiplySingleElementBy1() {
         try{
             Resource a = new Resource("a",1337);
             Resource b = new Resource("a",1337);
             a.multItem("a", 1);
+            assert(a.equals(b));
+        } catch (TRAException e){
+            assert(false);
+        }
+    }
+    @Test
+    void TestMultiplySingleElementBy3() {
+        try{
+            Resource a = new Resource("a",1337);
+            Resource b = new Resource("a",4011);
+            a.multItem("a", 3);
             assert(a.equals(b));
         } catch (TRAException e){
             assert(false);
@@ -155,13 +201,33 @@ class ResourceTests {
         }
     }
 
-
+    ////////////////////////////////////////////////////////////////
+    ///////////////////// Mult All tests ///////////////////////////
+    ////////////////////////////////////////////////////////////////
     @Test
     void TestMultiplyAllBy1() {
         try{
             Resource a = new Resource("a",1337);
             Resource b = new Resource("a",1337);
-            a.multItem("a", 1);
+            Resource c = new Resource("c", 42);
+            a.add(c);
+            b.add(c);
+            a.multAll(1);
+            assert(a.equals(b));
+        } catch (TRAException e){
+            assert(false);
+        }
+    }
+    @Test
+    void TestMultiplyAllBy3() {
+        try{
+            Resource a = new Resource("a",1337);
+            Resource b = new Resource("a",4011);
+            Resource c = new Resource("c", 42);
+            a.add(c);
+            c.multItem("c", 3);
+            b.add(c);
+            a.multAll(3);
             assert(a.equals(b));
         } catch (TRAException e){
             assert(false);
@@ -172,7 +238,11 @@ class ResourceTests {
         try{
             Resource a = new Resource("a",1337);
             Resource b = new Resource("a",-1337);
-            a.multItem("a", -1);
+            Resource c = new Resource("c", 42);
+            a.add(c);
+            c.multItem("c",-1);
+            b.add(c);
+            a.multAll(-1);
             assert(a.equals(b));
         } catch (TRAException e){
             assert(false);
@@ -183,11 +253,126 @@ class ResourceTests {
         try{
             Resource a = new Resource("a",1337);
             Resource b = new Resource("a",0);
-            a.multItem("a", 0);
+            Resource c = new Resource("b", 42);
+            a.add(c);
+            c.multItem("b", 0);
+            b.add(c);
+            a.multAll(0);
             assert(a.equals(b));
         } catch (TRAException e){
             assert(false);
         }
     }
 
+
+    ////////////////////////////////////////////////////////////////
+    /////////////////////// Zero tests /////////////////////////////
+    ////////////////////////////////////////////////////////////////
+    @Test
+    void TestSingleResourceIsZeroPass() {
+        try{
+            Resource a = new Resource("a",0);
+            assert(a.isZero());
+        } catch (TRAException e){
+            assert(false);
+        }
+    }
+    @Test
+    void TestSingleResourceIsZeroFail() {
+        try{
+            Resource a = new Resource("a",1);
+            assert(!a.isZero());
+        } catch (TRAException e){
+            assert(false);
+        }
+    }
+    @Test
+    void TestMultipleResourcesIsZeroPass() {
+        try{
+            Resource a = new Resource("a",0);
+            Resource b = new Resource("b", 0);
+            a.add(b);
+            assert(a.isZero());
+        } catch (TRAException e){
+            assert(false);
+        }
+    }
+    @Test
+    void TestMultipleResourcesIsZeroFail() {
+        try{
+            Resource a = new Resource("a",1);
+            Resource b = new Resource("b", 2);
+            a.add(b);
+            assert(!a.isZero());
+        } catch (TRAException e){
+            assert(false);
+        }
+    }
+    @Test
+    void TestSomeResourcesIsZeroFail() {
+        try{
+            Resource a = new Resource("a",0);
+            Resource b = new Resource("b", 1);
+            a.add(b);
+            assert(!a.isZero());
+        } catch (TRAException e){
+            assert(false);
+        }
+    }
+    @Test
+    void TestNotLessThanZero() {
+        try{
+            Resource a = new Resource("a",0);
+            Resource b = new Resource("b", -1);
+            a.add(b);
+            assert(!a.isZero());
+        } catch (TRAException e){
+            assert(false);
+        }
+    }
+
+    ////////////////////////////////////////////////////////////////
+    /////////////////////// Zero tests /////////////////////////////
+    ////////////////////////////////////////////////////////////////
+    @Test
+    void TestCannotBreakOffIfNotEnough() {
+        try{
+            Resource a = new Resource("a",0);
+            Resource b = a.breakOff("a", 1); // This should not be legal, so an exception is expected.
+            assert(false);
+        } catch (TRAException e){
+            assert(true);
+        }
+    }
+    @Test
+    void TestBasicBreakOff() {
+        try{
+            Resource a = new Resource("a",10);
+            Resource b = a.breakOff("a", 1);
+            assert(b.getResource().get("a")==1);
+            assert(a.getResource().get("a")==9);
+        } catch (TRAException e){
+            assert(false);
+        }
+    }
+    @Test
+    void TestBreakOffKeyDoesNotExist() {
+        try{
+            Resource a = new Resource("a",10);
+            Resource b = a.breakOff("", 1); // This should not be legal, so an exception is expected.
+            assert(false);
+        } catch (TRAException e){
+            assert(true);
+        }
+    }
+    @Test
+    void TestBreakOffNegativeValue() {
+        try{
+            Resource a = new Resource("a",10);
+            Resource b = a.breakOff("a", -1); // This should not be legal, so an exception is expected.
+            assert(false);
+        } catch (TRAException e){
+            assert(true);
+        }
+    }
 }
