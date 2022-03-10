@@ -31,11 +31,11 @@ public class Resource {
     public void add(Resource b){
     //Resource ret = new Resource();
     //ret.resource.putAll(a.resource);
-    for (String k : b.resource.keySet()){
-        resource.computeIfPresent(k,
-                                    (key, val) -> val + b.resource.get(k));
-        resource.putIfAbsent(k, b.resource.get(k));
-    }
+        for (String k : b.resource.keySet()){
+            resource.computeIfPresent(k,
+                                        (key, val) -> val + b.resource.get(k));
+            resource.putIfAbsent(k, b.resource.get(k));
+        }
     // Maybe we would like to clear the old resources??? To ensure no accidental duplication?
     // Seems like the way to go about it. All resources can be retrieved from the new one anyways.
     //b.resource.clear();
