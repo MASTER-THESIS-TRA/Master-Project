@@ -2,10 +2,7 @@ package Classes;
 
 import Exceptions.ExceptionConstants;
 import Exceptions.TRAException;
-import org.apache.commons.lang3.NotImplementedException;
 
-import java.io.Console;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Resource {
@@ -117,5 +114,15 @@ public class Resource {
             }
         }
         return breakOff;
+    }
+
+    public boolean canAdd(Resource a){
+        Resource tmp = new Resource();
+        tmp.add(a);
+        tmp.add(this);
+        if(tmp.getResource().values().stream().anyMatch(x -> x<0)){
+            return false;
+        }
+        return true;
     }
 }

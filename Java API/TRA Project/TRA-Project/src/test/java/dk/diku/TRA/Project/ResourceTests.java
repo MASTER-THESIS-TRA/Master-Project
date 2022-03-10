@@ -4,8 +4,6 @@ import Classes.Resource;
 import Exceptions.TRAException;
 import org.junit.jupiter.api.Test;
 
-import java.io.Console;
-import java.lang.reflect.Array;
 import java.util.*;
 
 class ResourceTests {
@@ -423,6 +421,54 @@ class ResourceTests {
             assert(b.getResource().get("b")==2);
             assert(a1.getResource().get("a")==0);
             assert(a1.getResource().get("b")==0);
+        } catch (TRAException e){
+            assert(false);
+        }
+    }
+
+    ////////////////////////////////////////////////////////////////
+    //////////////////// Can Subtract tests ////////////////////////
+    ////////////////////////////////////////////////////////////////
+    @Test
+    void TestBasicCanSubtract() {
+        try{
+            Resource a = new Resource("a",1379);
+            Resource b = new Resource("a",-42);
+            assert(a.canAdd(b));
+        } catch (TRAException e){
+            assert(false);
+        }
+    }
+    @Test
+    void TestBasicCannotSubtract() {
+        try{
+            Resource a = new Resource("a",1379);
+            Resource b = new Resource("a",-4200);
+            assert(!a.canAdd(b));
+        } catch (TRAException e){
+            assert(false);
+        }
+    }
+    @Test
+    void TestMultiCannotSubtract() {
+        try{
+            Resource a = new Resource("a",1379);
+            Resource b = new Resource("a",-42);
+            Resource c = new Resource("b", -1337);
+            b.add(c);
+            assert(!a.canAdd(b));
+        } catch (TRAException e){
+            assert(false);
+        }
+    }
+    @Test
+    void TestMultiCanSubtract() {
+        try{
+            Resource a = new Resource("a",1379);
+            Resource b = new Resource("a",-42);
+            Resource c = new Resource("b", 1337);
+            b.add(c);
+            assert(a.canAdd(b));
         } catch (TRAException e){
             assert(false);
         }
