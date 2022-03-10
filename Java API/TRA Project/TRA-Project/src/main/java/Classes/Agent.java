@@ -14,4 +14,8 @@ public class Agent {
         }
         this.name = name;
     }
+
+    @Override
+    public void sign(Event event) {
+    }
 }
