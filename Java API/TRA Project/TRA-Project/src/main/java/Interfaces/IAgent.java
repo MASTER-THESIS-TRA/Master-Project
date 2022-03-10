@@ -1,5 +1,7 @@
 package Interfaces;
 
-public interface IAgent {
+import Classes.Event;
 
+public interface IAgent {
+    void sign(Event event);
 }
