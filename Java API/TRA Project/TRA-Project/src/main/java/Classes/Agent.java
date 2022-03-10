@@ -15,7 +15,7 @@ public class Agent {
         this.name = name;
     }
 
-    public boolean canAfford(Resource r){
-        throw new NotImplementedException();
+    @Override
+    public void sign(Event event) {
     }
 }
