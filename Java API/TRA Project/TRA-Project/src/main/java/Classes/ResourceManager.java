@@ -32,6 +32,17 @@ public class ResourceManager {
         return true;
     }
 
+    public void completeInternalTransfer(Transfer t) throws TRAException {
+        if (!verifyInternalTransfer(t) || !(t.validTransfer())){
+            throw new TRAException(ExceptionConstants.GENERIC_ERROR);
+        }
+        else{
+            for (Agent a : t.transfers.keySet()){
+                ownerships.get(a).add(t.transfers.get(a));
+            }
+        }
+    }
+
 }
 
 
