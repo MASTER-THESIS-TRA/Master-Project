@@ -1,0 +1,14 @@
+Spørgsmål/noter til Juans thesis: 
+ - Def 15+16: Resourcer er typer og antal og agenter har resourcer (ownership). 
+ - Transfers are just ownership states that sum to zero. 
+ - are we particularly interested in the netting problem??
+ - Så resourcer behøver ikke rigtig nogle certifikater/ID/verifikation, for vi læner os bare TUNGT op ad invarianten og siger at vi er ligeglade med alt andet end at der ikke kommer flere resourcer til. 
+
+
+Further reading: 
+  - Cao at al.[4]: specifically the privacy extension of the algorithm. 
+
+Further notes: 
+ - addition/multiplikation med statiske metoder på resourcer? 
+ - netting problem til multi-resource/multi-actor transactions er bare at splitte resoucer op? 
+ - 
