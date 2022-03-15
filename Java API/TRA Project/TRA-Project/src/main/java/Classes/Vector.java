@@ -7,25 +7,33 @@ import java.util.Collections;
 import java.util.Map;
 import java.util.Set;
 
-public class Vector implements IVector {
-    @Override
-    public IVector zero() {
-        return (IVector)Collections.EMPTY_MAP;
+public class Vector<K,V> implements IVector {
+
+    private Map<K,V> vector;
+    private transient int size;
+
+    public Vector(Map<? extends K, ? extends V> M) {
+        this.vector = (Map<K, V>) M;
     }
 
     @Override
-    public IVector add(IVector x, IVector y) {
+    public Vector zero() {
+        return (Vector)Collections.EMPTY_MAP;
+    }
+
+    @Override
+    public Vector add(IVector x, IVector y) {
         return null;
     }
 
     @Override
-    public IVector mult(IVector x, double y) {
+    public Vector mult(IVector x, double y) {
         return null;
     }
 
     @Override
     public int size() {
-        return 0;
+        return size;
     }
 
     @Override
@@ -50,7 +58,7 @@ public class Vector implements IVector {
 
     @Override
     public Object put(Object key, Object value) {
-        Collections.add
+        return null;
     }
 
     @Override
