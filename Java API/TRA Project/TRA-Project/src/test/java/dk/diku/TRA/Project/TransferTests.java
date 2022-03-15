@@ -1,15 +1,7 @@
 package dk.diku.TRA.Project;
 
-import Classes.Agent;
-import Classes.Resource;
-import Classes.Transfer;
-import Exceptions.TRAException;
-import org.junit.jupiter.api.Test;
-
-import java.util.ArrayList;
-
 public class TransferTests {
-
+/*
     ////////////////////////////////////////////////////////////////
     /////////////////////// Valid tests ////////////////////////////
     ////////////////////////////////////////////////////////////////
@@ -48,5 +40,5 @@ public class TransferTests {
         } catch (TRAException e){
             assert(true);
         }
-    }
+    }*/
 }

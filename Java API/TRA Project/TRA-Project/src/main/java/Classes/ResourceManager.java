@@ -7,6 +7,7 @@ import java.util.HashMap;
 
 // Singleton class. Ownership states are for the entire system.
 public class ResourceManager {
+    /*
     public HashMap<Agent,Resource> ownerships;
 
     public ResourceManager(){
@@ -42,7 +43,7 @@ public class ResourceManager {
             }
         }
     }
-
+*/
 }
 
 

@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 import java.util.*;
 
 class ResourceTests {
-
+/*
     ////////////////////////////////////////////////////////////////
     /////////////////////// Init tests /////////////////////////////
     ////////////////////////////////////////////////////////////////
@@ -66,20 +66,6 @@ class ResourceTests {
             assert(false);
         }
     }
-    /* *
-    * This test is needed only if we decide to implement addition as a consumption of the added resource.
-    * */
-    /*@Test
-    void TestAddedResourceIsConsumed() {
-        try{
-            Resource a = new Resource("a",1337);
-            Resource b = new Resource("b",42);
-            a.add(b);
-            assert(b.getResource().isEmpty());
-        } catch (TRAException e){
-            assert(false);
-        }
-    }*/
 
     ////////////////////////////////////////////////////////////////
     ////////////////////// Equals tests ////////////////////////////
@@ -473,4 +459,5 @@ class ResourceTests {
             assert(false);
         }
     }
+    */
 }

@@ -1,16 +1,7 @@
 package dk.diku.TRA.Project;
 
-import Classes.Agent;
-import Classes.Resource;
-import Classes.ResourceManager;
-import Classes.Transfer;
-import Exceptions.TRAException;
-import org.junit.jupiter.api.Test;
-
-import java.util.*;
-
 public class ResourceManagerTests {
-
+/*
     ////////////////////////////////////////////////////////////////
     /////////////////////// Init tests /////////////////////////////
     ////////////////////////////////////////////////////////////////
@@ -229,5 +220,5 @@ public class ResourceManagerTests {
         } catch (TRAException e){
             assert(false);
         }
-    }
+    }*/
 }
