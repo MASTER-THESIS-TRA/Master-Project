@@ -2,18 +2,38 @@ package Classes;
 
 import Interfaces.IVector;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
-public class Vector<K,V> implements IVector {
+/*
+This is a stateless extension
+ */
+public class Vector<K,V> extends AbstractMap<K, V> implements IVector{
 
-    private Map<K,V> vector;
+    private Set<Map.Entry<K, V>> entrySet;
     private transient int size;
 
-    public Vector(Map<? extends K, ? extends V> M) {
-        this.vector = (Map<K, V>) M;
+    public Vector(K key, V val) {
+        super(key, val);
+    }
+
+    @Override
+    public Set<Map.Entry<K, V>> entrySet() {
+        return entrySet;
+    }
+
+    static class Entry<K,V> implements Map.Entry<K,V>{
+        final K key;
+        final V value;
+
+        Entry(K k, V v){
+            this.key = k;
+            this.value = v;
+        }
+
+        public final K getKey() { return key;}
+        public final V getValue() { return value; }
+        public final String toString() { return key + "=" + value; }
+        public final V setValue(V value) { return null; }  // Since vectors are stateless, te value of the entries is not modifiable.
     }
 
     @Override
@@ -28,66 +48,6 @@ public class Vector<K,V> implements IVector {
 
     @Override
     public Vector mult(IVector x, double y) {
-        return null;
-    }
-
-    @Override
-    public int size() {
-        return size;
-    }
-
-    @Override
-    public boolean isEmpty() {
-        return false;
-    }
-
-    @Override
-    public boolean containsKey(Object key) {
-        return false;
-    }
-
-    @Override
-    public boolean containsValue(Object value) {
-        return false;
-    }
-
-    @Override
-    public Object get(Object key) {
-        return null;
-    }
-
-    @Override
-    public Object put(Object key, Object value) {
-        return null;
-    }
-
-    @Override
-    public Object remove(Object key) {
-        return null;
-    }
-
-    @Override
-    public void putAll(Map m) {
-
-    }
-
-    @Override
-    public void clear() {
-
-    }
-
-    @Override
-    public Set keySet() {
-        return null;
-    }
-
-    @Override
-    public Collection values() {
-        return null;
-    }
-
-    @Override
-    public Set<Entry> entrySet() {
         return null;
     }
 }
