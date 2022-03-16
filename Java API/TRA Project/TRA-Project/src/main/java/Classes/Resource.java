@@ -3,26 +3,46 @@ package Classes;
 import Interfaces.IVector;
 import org.apache.commons.lang3.NotImplementedException;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Stream;
 
 public class Resource extends Vector {
+    private String key;
+    private Integer val;
 
     public Resource(){
         super(Collections.EMPTY_MAP);
     }
 
+    public Resource(Map<String,Integer> M) {
+        super(M);
+    }
+
+    public Resource(String key, Integer val) {
+        super(key, val);
+    }
+
     @Override
     public Resource add(IVector x, IVector y) {
-        try{
-            return null;
-        } catch (ClassCastException e)
-        {
-            System.out.println(e.getMessage());
+        if(Stream.of(x, y).allMatch(a -> a.isEmpty())) { throw new IllegalArgumentException("Invalid: Both vectors were null"); }
+        if(x.isEmpty()) { return new Resource(y); }
+        if(y.isEmpty()) { return new Resource(x); }
+        HashMap sum = new HashMap();
+
+        for(Object key : x.keySet()) {
+            if(y.containsKey(key)) {
+                sum.put(key, ((Integer) y.get(key)) + ((Integer) x.get(key)));
+            } else {
+                sum.put(key, x.get(key));
+            }
         }
-        throw new NotImplementedException();
+        for(Object key : y.keySet()) {
+            if(!sum.containsKey(y.get(key))) {
+                sum.put(key, y.get(key));
+            }
+        }
+        // maybe check for the size of the sum map before returning?
+        return new Resource(sum);
     }
 
     @Override
