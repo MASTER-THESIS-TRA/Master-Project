@@ -57,6 +57,7 @@ public class Resource extends Vector {
             return new Resource(ret);
         } catch (ClassCastException e){
             System.out.println(e.getMessage());
+            return null;
         }
     }
 
