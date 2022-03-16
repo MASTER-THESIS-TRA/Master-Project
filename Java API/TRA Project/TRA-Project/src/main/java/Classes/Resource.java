@@ -9,13 +9,9 @@ import java.util.*;
 import java.util.stream.Stream;
 
 public class Resource extends Vector {
-    public Resource(String key, Integer val){
-        super(key,val);
-    }
 
-    public Resource(Map<String, Integer> M){
-        super(M);
-    }
+    public Resource(String key, Integer val){ super(key,val); }
+    public Resource(Map<String, Integer> M) { super(M); }
 
     @Override
     public Resource add(IVector x, IVector y) {
@@ -51,18 +47,18 @@ public class Resource extends Vector {
             return mult((Resource)x,y);
         } catch (ClassCastException e){
             System.out.println(e.getMessage());
-            return null;
+            throw new ClassCastException("Could not cast vector to type Resource");
         }
     }
 
     public static Resource mult(Resource x, Integer y) {
         try{
-            Map<String, Integer> ret = new HashMap<String, Integer>();
+            Map<String, Integer> ret = new HashMap();
             x.entrySet().stream().map(e -> ret.put((String)((Entry)e).getKey(),(Integer)((Entry)e).getValue()*y));
             return new Resource(ret);
         } catch (ClassCastException e){
             System.out.println(e.getMessage());
-            return null;
+            throw new ClassCastException("Could not cast vector to type Resource");
         }
     }
 
