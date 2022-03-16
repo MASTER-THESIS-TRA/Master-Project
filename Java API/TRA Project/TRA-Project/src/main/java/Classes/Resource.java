@@ -3,30 +3,41 @@ package Classes;
 import Interfaces.IVector;
 import org.apache.commons.lang3.NotImplementedException;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class Resource extends Vector {
+    public Resource(String key, Integer val){
+        super(key,val);
+    }
 
-    public Resource(){
-        super(Collections.EMPTY_MAP);
+    public Resource(Map<String, Integer> M){
+        super(M);
     }
 
     @Override
-    public Resource add(IVector x, IVector y) {
+    public IVector add(IVector x, IVector y) {
+        return null;
+    }
+
+    @Override
+    public Resource mult(IVector x, Integer y) {
         try{
+            return mult((Resource)x,y);
+        } catch (ClassCastException e){
+            System.out.println(e.getMessage());
             return null;
-        } catch (ClassCastException e)
-        {
+        }
+    }
+
+    public static Resource mult(Resource x, Integer y) {
+        try{
+            Map<String, Integer> ret = new HashMap<String, Integer>();
+            x.entrySet().stream().map(e -> ret.put((String)((Entry)e).getKey(),(Integer)((Entry)e).getValue()*y));
+            return new Resource(ret);
+        } catch (ClassCastException e){
             System.out.println(e.getMessage());
         }
-        throw new NotImplementedException();
-    }
-
-    @Override
-    public Resource mult(IVector x, double y) {
         return null;
     }
 
