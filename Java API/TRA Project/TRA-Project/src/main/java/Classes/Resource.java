@@ -5,6 +5,8 @@ import org.apache.commons.lang3.NotImplementedException;
 
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.*;
+import java.util.stream.Stream;
 
 public class Resource extends Vector {
     public Resource(String key, Integer val){
@@ -16,8 +18,26 @@ public class Resource extends Vector {
     }
 
     @Override
-    public IVector add(IVector x, IVector y) {
-        return null;
+    public Resource add(IVector x, IVector y) {
+        if(Stream.of(x, y).allMatch(a -> a.isEmpty())) { throw new IllegalArgumentException("Invalid: Both vectors were null"); }
+        if(x.isEmpty()) { return new Resource(y); }
+        if(y.isEmpty()) { return new Resource(x); }
+        HashMap sum = new HashMap();
+
+        for(Object key : x.keySet()) {
+            if(y.containsKey(key)) {
+                sum.put(key, ((Integer) y.get(key)) + ((Integer) x.get(key)));
+            } else {
+                sum.put(key, x.get(key));
+            }
+        }
+        for(Object key : y.keySet()) {
+            if(!sum.containsKey(y.get(key))) {
+                sum.put(key, y.get(key));
+            }
+        }
+        // maybe check for the size of the sum map before returning?
+        return new Resource(sum);
     }
 
     @Override
@@ -38,7 +58,6 @@ public class Resource extends Vector {
         } catch (ClassCastException e){
             System.out.println(e.getMessage());
         }
-        return null;
     }
 
     /*
