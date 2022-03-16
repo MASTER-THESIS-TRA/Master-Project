@@ -1,24 +1,30 @@
 package Classes;
 
 import Interfaces.IVector;
+import org.apache.commons.lang3.NotImplementedException;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 /*
 This is a stateless extension
  */
-public class Vector<K,V> extends AbstractMap<K, V> implements IVector{
+public abstract class Vector<K,V> implements IVector<K,V> {
 
     private Set<Map.Entry<K, V>> entrySet;
     private transient int size;
 
-    public Vector(K key, V val) {
-        super(key, val);
+    public Vector(Map<K, V> M) {
+        entrySet = M.entrySet();
+        size = M.size();
     }
 
-    @Override
-    public Set<Map.Entry<K, V>> entrySet() {
-        return entrySet;
+    public Vector(K key, V val) {
+        Entry<K,V> entry = new Entry<>(key, val);
+        Set<Map.Entry<K,V>> set = new HashSet<>();
+        set.add(entry);
+        entrySet = set;
+        size = 1;
     }
 
     static class Entry<K,V> implements Map.Entry<K,V>{
@@ -36,18 +42,87 @@ public class Vector<K,V> extends AbstractMap<K, V> implements IVector{
         public final V setValue(V value) { return null; }  // Since vectors are stateless, te value of the entries is not modifiable.
     }
 
+    /*
+    We implement zero here, as it will be the same for all instances in this implementation.
+    For Vector spaces where the zero element differs from the empty set, please overwrite this method manually.
+     */
     @Override
     public Vector zero() {
         return (Vector)Collections.EMPTY_MAP;
     }
 
     @Override
-    public Vector add(IVector x, IVector y) {
+    public int size() {
+        return size;
+    }
+
+    @Override
+    public boolean isEmpty() {
+        return entrySet.isEmpty();
+    }
+
+    @Override
+    public boolean containsKey(Object key) {
+        for (Map.Entry<K,V> e : entrySet){
+            if (e.getKey().equals(key)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public boolean containsValue(Object value) {
+        for (Map.Entry<K,V> e : entrySet){
+            if (e.getValue().equals(value)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public V get(Object key) {
+        for (Map.Entry<K,V> e : entrySet){
+            if (e.getKey().equals(key)){
+                return e.getValue();
+            }
+        }
         return null;
     }
 
     @Override
-    public Vector mult(IVector x, double y) {
-        return null;
+    public V put(K key, V value) {
+        throw new UnsupportedOperationException("Vectors are immutable, and cannot be altered");
+    }
+
+    @Override
+    public V remove(Object key) {
+        throw new UnsupportedOperationException("Vectors are immutable, and cannot be altered");
+    }
+
+    @Override
+    public void putAll(Map<? extends K, ? extends V> m) {
+        throw new UnsupportedOperationException("Vectors are immutable, and cannot be altered");
+    }
+
+    @Override
+    public void clear() {
+        throw new UnsupportedOperationException("Vectors are immutable, and cannot be cleared");
+    }
+
+    @Override
+    public Set<K> keySet() {
+        return entrySet.stream().map(e -> e.getKey()).collect(Collectors.toSet());
+    }
+
+    @Override
+    public Collection<V> values() {
+        return entrySet.stream().map(e -> e.getValue()).collect(Collectors.toSet());
+    }
+
+    @Override
+    public Set<Map.Entry<K, V>> entrySet(){
+        return entrySet;
     }
 }

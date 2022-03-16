@@ -1,24 +1,28 @@
 package Classes;
 
 import Interfaces.IVector;
+import org.apache.commons.lang3.NotImplementedException;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Map;
 import java.util.Set;
 
 public class Resource extends Vector {
-    public Resource(Map M) {
-        super(M);
-    }
 
-    @Override
-    public Resource zero() {
-        return null;
+    public Resource(){
+        super(Collections.EMPTY_MAP);
     }
 
     @Override
     public Resource add(IVector x, IVector y) {
-        return null;
+        try{
+            return null;
+        } catch (ClassCastException e)
+        {
+            System.out.println(e.getMessage());
+        }
+        throw new NotImplementedException();
     }
 
     @Override
