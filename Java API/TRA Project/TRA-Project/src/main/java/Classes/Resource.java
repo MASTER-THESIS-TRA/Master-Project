@@ -19,25 +19,30 @@ public class Resource extends Vector {
 
     @Override
     public Resource add(IVector x, IVector y) {
-        if(Stream.of(x, y).allMatch(a -> a.isEmpty())) { throw new IllegalArgumentException("Invalid: Both vectors were null"); }
-        if(x.isEmpty()) { return new Resource(y); }
-        if(y.isEmpty()) { return new Resource(x); }
-        HashMap sum = new HashMap();
+        try{
+            return add((Resource)x,(Resource)y);
+        } catch(ClassCastException e){
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
 
-        for(Object key : x.keySet()) {
-            if(y.containsKey(key)) {
-                sum.put(key, ((Integer) y.get(key)) + ((Integer) x.get(key)));
-            } else {
-                sum.put(key, x.get(key));
+
+    public static Resource add(Resource x, Resource y) {
+        try{
+            HashMap sum = new HashMap();
+            sum.putAll(x);
+            for (Object k : y.keySet()){
+                sum.computeIfPresent(k,
+                        (key, val) -> sum.put(k,(Integer)val + (Integer)y.get(k)));
+                sum.putIfAbsent(k, y.get(k));
             }
+            return new Resource(sum);
+
+        } catch (ClassCastException e){
+            System.out.println(e.getMessage());
+            return null;
         }
-        for(Object key : y.keySet()) {
-            if(!sum.containsKey(y.get(key))) {
-                sum.put(key, y.get(key));
-            }
-        }
-        // maybe check for the size of the sum map before returning?
-        return new Resource(sum);
     }
 
     @Override
@@ -62,6 +67,33 @@ public class Resource extends Vector {
     }
 
     /*
+
+
+
+
+         //////////////////////////// Alexanders initial add. //////////////////////////
+        if(Stream.of(x, y).allMatch(a -> a.isEmpty())) { throw new IllegalArgumentException("Invalid: Both vectors were null"); }
+        if(x.isEmpty()) { return new Resource(y); }
+        if(y.isEmpty()) { return new Resource(x); }
+
+        for(Object key : x.keySet()) {
+            if(y.containsKey(key)) {
+                sum.put(key, ((Integer) y.get(key)) + ((Integer) x.get(key)));
+            } else {
+                sum.put(key, x.get(key));
+            }
+        }
+        for(Object key : y.keySet()) {
+            if(!sum.containsKey(y.get(key))) {
+                sum.put(key, y.get(key));
+            }
+        }
+        // maybe check for the size of the sum map before returning?
+        return new Resource(sum);
+
+
+
+
     private HashMap<String, Float> resource;
     public float amount;  // So far, not used. 
 

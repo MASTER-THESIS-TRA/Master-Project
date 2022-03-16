@@ -33,8 +33,21 @@ public class Transfer extends Vector {
         }
     }
 
-    public static Transfer add(Transfer x, Transfer y){
-        return null;
+    public static Transfer add(Transfer x, Transfer y) {
+        try{
+            HashMap<Agent,Resource> sum = new HashMap<Agent, Resource>();
+            sum.putAll(x);
+            for (Object k : y.keySet()){
+                sum.computeIfPresent((Agent)k,
+                        (key, val) -> sum.put((Agent) k,Resource.add((Resource)val, (Resource)y.get(k))));
+                sum.putIfAbsent((Agent)k, (Resource)y.get(k));
+            }
+            return new Transfer(sum);
+
+        } catch (ClassCastException e){
+            System.out.println(e.getMessage());
+            return null;
+        }
     }
 
     public static Transfer mult(Transfer x, Integer y){
