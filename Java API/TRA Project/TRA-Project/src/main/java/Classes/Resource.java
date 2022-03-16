@@ -1,12 +1,8 @@
 package Classes;
 
 import Interfaces.IVector;
-import org.apache.commons.lang3.NotImplementedException;
 
 import java.util.*;
-import java.util.stream.Collectors;
-import java.util.*;
-import java.util.stream.Stream;
 
 public class Resource extends Vector {
 
