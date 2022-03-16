@@ -12,5 +12,5 @@ import java.util.Map;
 public interface IVector<K,V> extends Map<K,V> {
     IVector zero();
     IVector add(IVector x, IVector y);
-    IVector mult(IVector x, double y);
+    IVector mult(IVector x, Integer y);
 }
