@@ -10,7 +10,7 @@ public class Resource extends Vector {
     public Resource(Map<String, Integer> M) { super(M); }
 
     @Override
-    public Resource add(IVector x, IVector y) {
+    public Resource Add(IVector x, IVector y) {
         try{
             return add((Resource)x,(Resource)y);
         } catch(ClassCastException e){
@@ -19,6 +19,10 @@ public class Resource extends Vector {
         }
     }
 
+    @Override
+    public Vector Zero() {
+        return zero();
+    }
 
     public static Resource add(Resource x, Resource y) {
         try{
@@ -38,13 +42,17 @@ public class Resource extends Vector {
     }
 
     @Override
-    public Resource mult(IVector x, Integer y) {
+    public Resource Mult(IVector x, Integer y) {
         try{
             return mult((Resource)x,y);
         } catch (ClassCastException e){
             System.out.println(e.getMessage());
             throw new ClassCastException("Could not cast vector to type Resource");
         }
+    }
+
+    public static Resource zero(){
+        return new Resource(Collections.emptyMap());
     }
 
     public static Resource mult(Resource x, Integer y) {

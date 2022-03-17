@@ -1,12 +1,22 @@
 package Classes;
 
-import Exceptions.ExceptionConstants;
-import Exceptions.TRAException;
+import java.util.Map;
 
-import java.util.HashMap;
-
-// Singleton class. Ownership states are for the entire system.
-public class ResourceManager {
+public class ResourceManager extends Agent{
+    Transfer ownerships;
+    public ResourceManager(String name){
+        super(name);
+    }
+    public ResourceManager(String name, Map<Agent,Resource> M){
+        super(name);
+        Transfer debt = Transfer.zero();
+        ownerships = new Transfer(M);
+        for (Object r : ownerships.values()){
+            debt = Transfer.add(debt,
+                                new Transfer(this,Resource.mult((Resource) r,-1)));
+        }
+        ownerships = Transfer.add(ownerships,debt);
+    }
     /*
     public HashMap<Agent,Resource> ownerships;
 

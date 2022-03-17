@@ -42,15 +42,6 @@ public abstract class Vector<K,V> implements IVector<K,V> {
         public final V setValue(V value) { return null; }  // Since vectors are stateless, te value of the entries is not modifiable.
     }
 
-    /*
-    We implement zero here, as it will be the same for all instances in this implementation.
-    For Vector spaces where the zero element differs from the empty set, please overwrite this method manually.
-     */
-    @Override
-    public Vector zero() {
-        return (Vector)Collections.EMPTY_MAP;
-    }
-
     @Override
     public int size() {
         return size;

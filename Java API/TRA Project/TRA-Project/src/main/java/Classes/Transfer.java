@@ -2,6 +2,7 @@ package Classes;
 
 import Interfaces.IVector;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -14,7 +15,16 @@ public class Transfer extends Vector {
     }
 
     @Override
-    public IVector add(IVector x, IVector y) {
+    public Vector Zero() {
+        return zero();
+    }
+
+    public static Transfer zero(){
+        return new Transfer(Collections.emptyMap());
+    }
+
+    @Override
+    public IVector Add(IVector x, IVector y) {
         try{
             return add((Transfer)x,(Transfer)y);
         } catch (ClassCastException e){
@@ -24,7 +34,7 @@ public class Transfer extends Vector {
     }
 
     @Override
-    public IVector mult(IVector x, Integer y) {
+    public IVector Mult(IVector x, Integer y) {
         try{
             return mult((Transfer)x,y);
         } catch (ClassCastException e){
