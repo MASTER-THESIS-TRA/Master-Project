@@ -19,6 +19,10 @@ public class Resource extends Vector {
         }
     }
 
+    @Override
+    public Vector Zero() {
+        return zero();
+    }
 
     public static Resource add(Resource x, Resource y) {
         try{
@@ -45,6 +49,10 @@ public class Resource extends Vector {
             System.out.println(e.getMessage());
             throw new ClassCastException("Could not cast vector to type Resource");
         }
+    }
+
+    public static Resource zero(){
+        return new Resource(Collections.emptyMap());
     }
 
     public static Resource mult(Resource x, Integer y) {
