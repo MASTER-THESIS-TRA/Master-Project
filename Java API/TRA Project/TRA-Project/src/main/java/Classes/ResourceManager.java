@@ -1,9 +1,10 @@
 package Classes;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class ResourceManager extends Agent{
-    Transfer ownerships;
+    Transfer ownerships; // Ownership state can be represented as a transfer, where the ResourceManager transfers everyone their resources.
     public ResourceManager(String name){
         super(name);
     }
@@ -17,6 +18,17 @@ public class ResourceManager extends Agent{
         }
         ownerships = Transfer.add(ownerships,debt);
     }
+
+    public void AddAgent(Agent a){
+        ownerships = Transfer.add(ownerships, new Transfer(a,Resource.zero()));
+    }
+    public void AddAgent(Agent a, Resource initialBalance){
+        HashMap<Agent,Resource> balance = new HashMap<>();
+        balance.put(a,initialBalance);
+        balance.put(this,Resource.mult(initialBalance,-1));
+        ownerships = Transfer.add(ownerships, new Transfer(balance));
+    }
+
     /*
     public HashMap<Agent,Resource> ownerships;
 
