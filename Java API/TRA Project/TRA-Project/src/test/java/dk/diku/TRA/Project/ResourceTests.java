@@ -16,14 +16,10 @@ class ResourceTests {
         try {
             HashMap temp = new HashMap<>();
             temp.put("a", 15);
-            temp.put("b", 10);
             Resource a = new Resource(temp);
             Resource b = new Resource("a", 10);
             Resource c = new Resource("a", 25);
             Resource d = Resource.add(a, b);
-            System.out.println(Resource.add(a, b).values());
-            System.out.println("d: " + d.values());
-            System.out.println("c " + c.get("a") + " d: " + d.get("a"));
             assert (c.size() == d.size());
             assert (c.keySet().equals(d.keySet()));
             assert (c.get("a") == (d.get("a")));
@@ -31,13 +27,13 @@ class ResourceTests {
             assert (false);
         }
     }
-    /*
+
     @Test
     void TestResourceAdditionWhenOneIsNull() {
         try{
             Resource a = new Resource("a", 1337);
-            Resource b = new Resource("b", null);
-            Resource c = Resource.add(a, b);
+            Resource b = new Resource(null, null);
+            Resource.add(a, b);
             assert(false);
         } catch (ClassCastException e) {
             assert(true);
@@ -46,7 +42,7 @@ class ResourceTests {
 
 
 
-
+    /*
     ////////////////////////////////////////////////////////////////
     /////////////////////// Init tests /////////////////////////////
     ////////////////////////////////////////////////////////////////
