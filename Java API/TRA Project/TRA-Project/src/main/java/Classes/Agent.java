@@ -11,10 +11,7 @@ public class Agent {
     public String name;
     private final UUID uuid;
 
-    public Agent(String name) throws TRAException {
-        if (name == null){
-            throw new TRAException(ExceptionConstants.GENERIC_ERROR);
-        }
+    public Agent(String name){
         this.name = name;
         this.uuid = UUID.randomUUID();
     }

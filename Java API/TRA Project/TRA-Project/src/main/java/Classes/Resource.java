@@ -10,7 +10,7 @@ public class Resource extends Vector {
     public Resource(Map<String, Integer> M) { super(M); }
 
     @Override
-    public Resource add(IVector x, IVector y) {
+    public Resource Add(IVector x, IVector y) {
         try{
             return add((Resource)x,(Resource)y);
         } catch(ClassCastException e){
@@ -38,7 +38,7 @@ public class Resource extends Vector {
     }
 
     @Override
-    public Resource mult(IVector x, Integer y) {
+    public Resource Mult(IVector x, Integer y) {
         try{
             return mult((Resource)x,y);
         } catch (ClassCastException e){
