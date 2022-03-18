@@ -2,3 +2,23 @@ Ownership states: What are they and how do they work?
  - Juan describes ownership states as being one state for the entire system. This seems like something that could easilly grow out of proportions, no? 
  - If this is truly what we want, maybe a singleton?? 
  
+
+Fra mødet: 
+Lidt mærkelige noter, jeg ved ikke lige hvad jeg ville med dem: 
+ - interface, map interface 
+ - map V -> R
+ - query-command separation
+ - skal vær immutable objects
+ - immutable/stateless objects
+
+
+interface Vector: Det er alt hvad den skal kunne!
+ - Vector zero()
+ - Vector mult(Vector, infiniteprecisionintegers)   //ingen element multiplikation!
+ - Vector add(Vector, Vector)
+
+
+Trasfer er bare et ownership state!!! 
+eller rettere sagt: der findes ikke ownership states, kun transfers. 
+flere resourcemanagers kan danne et net: læg deres samlede transfers sammen, bum! Done! 
+ - 2PC (2-phaese commit) til dette. Se ACS for dette. 

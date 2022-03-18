@@ -4,9 +4,48 @@ import Classes.Resource;
 import Exceptions.TRAException;
 import org.junit.jupiter.api.Test;
 
+import java.text.StringCharacterIterator;
 import java.util.*;
 
 class ResourceTests {
+
+
+
+    @Test
+    void TestResourceAddition() {
+        try {
+            HashMap temp = new HashMap<>();
+            temp.put("a", 15);
+            temp.put("b", 10);
+            Resource a = new Resource(temp);
+            Resource b = new Resource("a", 10);
+            Resource c = new Resource("a", 25);
+            Resource d = Resource.add(a, b);
+            System.out.println(Resource.add(a, b).values());
+            System.out.println("d: " + d.values());
+            System.out.println("c " + c.get("a") + " d: " + d.get("a"));
+            assert (c.size() == d.size());
+            assert (c.keySet().equals(d.keySet()));
+            assert (c.get("a") == (d.get("a")));
+        } catch (ClassCastException e) {
+            assert (false);
+        }
+    }
+    /*
+    @Test
+    void TestResourceAdditionWhenOneIsNull() {
+        try{
+            Resource a = new Resource("a", 1337);
+            Resource b = new Resource("b", null);
+            Resource c = Resource.add(a, b);
+            assert(false);
+        } catch (ClassCastException e) {
+            assert(true);
+        }
+    }
+
+
+
 
     ////////////////////////////////////////////////////////////////
     /////////////////////// Init tests /////////////////////////////
@@ -66,20 +105,6 @@ class ResourceTests {
             assert(false);
         }
     }
-    /* *
-    * This test is needed only if we decide to implement addition as a consumption of the added resource.
-    * */
-    /*@Test
-    void TestAddedResourceIsConsumed() {
-        try{
-            Resource a = new Resource("a",1337);
-            Resource b = new Resource("b",42);
-            a.add(b);
-            assert(b.getResource().isEmpty());
-        } catch (TRAException e){
-            assert(false);
-        }
-    }*/
 
     ////////////////////////////////////////////////////////////////
     ////////////////////// Equals tests ////////////////////////////
@@ -473,4 +498,5 @@ class ResourceTests {
             assert(false);
         }
     }
+    */
 }
