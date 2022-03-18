@@ -24,23 +24,6 @@ public class Resource extends Vector {
         return zero();
     }
 
-    public static Resource add(Resource x, Resource y) {
-        try{
-            HashMap sum = new HashMap();
-            sum.putAll(x);
-            for (Object k : y.keySet()){
-                sum.computeIfPresent(k,
-                        (key, val) -> sum.put(k,(Integer)val + (Integer)y.get(k)));
-                sum.putIfAbsent(k, y.get(k));
-            }
-            return new Resource(sum);
-
-        } catch (ClassCastException e){
-            System.out.println(e.getMessage());
-            return null;
-        }
-    }
-
     @Override
     public Resource Mult(IVector x, Integer y) {
         try{
@@ -48,6 +31,23 @@ public class Resource extends Vector {
         } catch (ClassCastException e){
             System.out.println(e.getMessage());
             throw new ClassCastException("Could not cast vector to type Resource");
+        }
+    }
+
+    public static Resource add(Resource x, Resource y) {
+        try{
+            HashMap sum = new HashMap();
+            sum.putAll(x);
+            for (Object k : y.keySet()){
+                sum.computeIfPresent(k,
+                        (key, val) -> (Integer)val + (Integer)y.get(k));
+                sum.putIfAbsent(k, y.get(k));
+            }
+            return new Resource(sum);
+
+        } catch (ClassCastException e){
+            System.out.println(e.getMessage());
+            return null;
         }
     }
 
