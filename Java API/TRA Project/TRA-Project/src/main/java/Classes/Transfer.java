@@ -78,7 +78,7 @@ public class Transfer extends Vector {
         }
         return sum.equals(Resource.zero());
     }
-
+ // testing
     @Override
     public boolean equals(Object o){
         try {
