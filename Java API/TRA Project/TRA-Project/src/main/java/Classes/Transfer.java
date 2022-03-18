@@ -71,6 +71,14 @@ public class Transfer extends Vector {
         return null;
     }
 
+    public Boolean Valid(){
+        Resource sum = Resource.zero();
+        for (Object o : this.values()){
+            sum = Resource.add(sum, (Resource)o);
+        }
+        return sum.equals(Resource.zero());
+    }
+
     @Override
     public boolean equals(Object o){
         try {
