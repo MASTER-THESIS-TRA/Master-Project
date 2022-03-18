@@ -1,7 +1,6 @@
 package Classes;
 
 import Interfaces.IVector;
-import org.apache.commons.lang3.NotImplementedException;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -11,17 +10,20 @@ This is a stateless extension
  */
 public abstract class Vector<K,V> implements IVector<K,V> {
 
-    private Set<Map.Entry<K, V>> entrySet;
+    private Set<Entry<K, V>> entrySet;
     private transient int size;
 
     public Vector(Map<K, V> M) {
-        entrySet = M.entrySet();
+        entrySet = new HashSet<>();
+        for (Map.Entry<K,V> e : M.entrySet()){
+            entrySet.add(new Entry(e.getKey(),e.getValue()));
+        }
         size = M.size();
     }
 
     public Vector(K key, V val) {
         Entry<K,V> entry = new Entry<>(key, val);
-        Set<Map.Entry<K,V>> set = new HashSet<>();
+        Set<Entry<K,V>> set = new HashSet<>();
         set.add(entry);
         entrySet = set;
         size = 1;
@@ -114,6 +116,10 @@ public abstract class Vector<K,V> implements IVector<K,V> {
 
     @Override
     public Set<Map.Entry<K, V>> entrySet(){
-        return entrySet;
+        Set<Map.Entry<K,V>> ret = new HashSet<>();
+        for (Entry<K,V> e : entrySet){
+            ret.add(new Entry(e.getKey(),e.getValue()));
+        }
+        return ret;
     }
 }
