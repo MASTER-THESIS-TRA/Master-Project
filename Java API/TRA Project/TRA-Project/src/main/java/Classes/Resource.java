@@ -5,7 +5,7 @@ import Interfaces.IVector;
 import java.util.*;
 
 public class Resource extends Vector {
-
+    // Can we somehow define which types a resource has to be here??
     public Resource(String key, Integer val){ super(key,val); }
     public Resource(Map<String, Integer> M) { super(M); }
 
