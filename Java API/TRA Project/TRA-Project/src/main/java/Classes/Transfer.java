@@ -48,10 +48,10 @@ public class Transfer extends Vector<Agent, Resource> {
         try{
             HashMap<Agent,Resource> sum = new HashMap<>();
             sum.putAll(x);
-            for (Object k : y.keySet()){
-                sum.computeIfPresent((Agent)k,
+            for (Agent k : y.keySet()){
+                sum.computeIfPresent(k,
                         (key, val) -> Resource.add(val, y.get(k)));
-                sum.putIfAbsent((Agent)k, y.get(k));
+                sum.putIfAbsent(k, y.get(k));
             }
             return new Transfer(sum);
 
