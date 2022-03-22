@@ -43,11 +43,16 @@ public class ResourceManager extends Agent{
         // Enten smid en exception eller læg transfer til ownership.
         // Kun manageren må have negativ konto.
         // Check credit limit policy.
+
         throw new NotImplementedException();
     }
 
     public Transfer getOwnerships() {
         return ownerships;
+    }
+
+    private boolean checkCreditPolicy(){
+        throw new NotImplementedException();
     }
 }
 
