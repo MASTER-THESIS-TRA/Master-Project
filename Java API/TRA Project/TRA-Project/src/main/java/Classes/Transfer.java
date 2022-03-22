@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Transfer extends Vector<Agent, Resource> {
+    public Transfer () { super(Collections.emptyMap()); }
     public Transfer (Agent a, Resource r){
         super(a,r);
     }
