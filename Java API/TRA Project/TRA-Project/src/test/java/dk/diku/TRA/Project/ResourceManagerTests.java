@@ -4,6 +4,7 @@ import Classes.Agent;
 import Classes.Resource;
 import Classes.ResourceManager;
 import Classes.Transfer;
+import Exceptions.TRAException;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
@@ -37,8 +38,12 @@ public class ResourceManagerTests {
         Agent daniel = new Agent("Daniel");
         Resource initialBalance = new Resource("a", 69);
         ResourceManager rm = new ResourceManager("bank");
-        assert(rm.AddAgent(daniel, initialBalance) == true); // First time should be successful
-        assert(rm.AddAgent(daniel, initialBalance) == false); // No duplicate agents = fail
+        try {
+            assert (rm.AddAgent(daniel, initialBalance) == true); // First time should be successful
+            assert (rm.AddAgent(daniel, initialBalance) == false); // No duplicate agents = fail
+        } catch (TRAException e) {
+            assert(false);
+        }
     }
 /*
     ////////////////////////////////////////////////////////////////

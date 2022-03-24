@@ -1,9 +1,8 @@
 package Classes;
 
+import Exceptions.TRAException;
 import org.apache.commons.lang3.NotImplementedException;
 
-import java.util.Collection;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -16,13 +15,13 @@ public class ResourceManager extends Agent{
 
     public ResourceManager(String name, Map<Agent,Resource> M){
         super(name);
-        Transfer debt = Transfer.zero();
-        ownerships = new Transfer(M);
-        for (Object r : ownerships.values()){
-            debt = Transfer.add(debt,
-                                new Transfer(this, Resource.mult((Resource) r,-1)));
+        Resource debt = Resource.zero();
+
+        for (Resource r : M.values()){
+            debt = Resource.add(debt, Resource.mult(r,-1));
         }
-        ownerships = Transfer.add(ownerships,debt);
+        M.put(this,debt);
+        try { ownerships = new Transfer(M); } catch (TRAException e){ }
     }
 
     public ResourceManager(ResourceManager a, ResourceManager b){
@@ -34,7 +33,7 @@ public class ResourceManager extends Agent{
         ownerships = Transfer.add(ownerships, new Transfer(a,Resource.zero()));
     }
 
-    public boolean AddAgent(Agent a, Resource initialBalance) {
+    public boolean AddAgent(Agent a, Resource initialBalance) throws TRAException {
         if(this.ownerships.keySet().stream().anyMatch(x -> x == a)) {
             return false;
         }
