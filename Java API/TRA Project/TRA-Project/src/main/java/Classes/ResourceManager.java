@@ -1,7 +1,9 @@
 package Classes;
 
+import Exceptions.TRAException;
 import org.apache.commons.lang3.NotImplementedException;
 
+import java.rmi.UnexpectedException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -14,13 +16,13 @@ public class ResourceManager extends Agent{
 
     public ResourceManager(String name, Map<Agent,Resource> M){
         super(name);
-        Transfer debt = Transfer.zero();
-        ownerships = new Transfer(M);
-        for (Object r : ownerships.values()){
-            debt = Transfer.add(debt,
-                                new Transfer(this,Resource.mult((Resource) r,-1)));
+        Resource debt = Resource.zero();
+
+        for (Resource r : M.values()){
+            debt = Resource.add(debt, Resource.mult(r,-1));
         }
-        ownerships = Transfer.add(ownerships,debt);
+        M.put(this,debt);
+        try { ownerships = new Transfer(M); } catch (TRAException e){ }
     }
 
     public ResourceManager(ResourceManager a, ResourceManager b){
@@ -36,7 +38,10 @@ public class ResourceManager extends Agent{
         HashMap<Agent,Resource> balance = new HashMap<>();
         balance.put(a,initialBalance);
         balance.put(this,Resource.mult(initialBalance,-1));
-        ownerships = Transfer.add(ownerships, new Transfer(balance));
+        try{
+            ownerships = Transfer.add(ownerships, new Transfer(balance));
+        }
+        catch (TRAException e) {}
     }
 
     public boolean apply(Transfer t){
