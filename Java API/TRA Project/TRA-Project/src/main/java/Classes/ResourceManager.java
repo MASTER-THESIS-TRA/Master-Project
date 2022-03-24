@@ -3,12 +3,11 @@ package Classes;
 import Exceptions.TRAException;
 import org.apache.commons.lang3.NotImplementedException;
 
-import java.rmi.UnexpectedException;
 import java.util.HashMap;
 import java.util.Map;
 
 public class ResourceManager extends Agent{
-    private Transfer ownerships; // Ownership state can be represented as a transfer, where the ResourceManager transfers everyone their resources.
+    private Transfer ownerships = new Transfer(); // Ownership state can be represented as a transfer, where the ResourceManager transfers everyone their resources.
 
     public ResourceManager(String name){
         super(name);
@@ -35,6 +34,11 @@ public class ResourceManager extends Agent{
     }
 
     public void AddAgent(Agent a, Resource initialBalance){
+        try {
+            checkDublicateAgent(a);
+        } catch(Exception e) {
+            System.out.println(e);
+        }
         HashMap<Agent,Resource> balance = new HashMap<>();
         balance.put(a,initialBalance);
         balance.put(this,Resource.mult(initialBalance,-1));
@@ -58,6 +62,11 @@ public class ResourceManager extends Agent{
 
     private boolean checkCreditPolicy(){
         throw new NotImplementedException();
+    }
+
+    public boolean checkDublicateAgent(Agent agent) throws Exception {
+        if(this.ownerships.keySet().stream().anyMatch(x -> x == agent)) { throw new Exception("Error"); }
+        return false;
     }
 }
 
