@@ -1,0 +1,189 @@
+% !TEX root = ../main.tex
+
+
+\chapter{RSA in Hermes}
+\label{OurRSA}
+The first attempt at an asymmetric cryptosystem in Hermes was RSA. The attractiveness of RSA comes from the fact that it is, in cryptography at least, common knowledge, and that the operations required are fairly simple. Bear in mind, this is from a purely irreversible point of view, as this section shall demonstrate the issues when attempting to make it reversible.
+\section{Analysis}
+%RSA was the first asynchronous algorithm to be implemented in Hermes. Due to the simplistic mathematical nature of the algorithm, as shown in \ref{RSA}, it would be trivial to implement in a non-reversible language. However, 
+
+As only encryption and decryption are of interest in this project, key-generation will not be considered. Recall from Section \ref{RSA} that the mathematical structure of the encryption/decryption step of the RSA algorithm is quite simple, only consisting of modular exponentiation. Although this is just one operation, and it looks unintimidating in an irreversible language, the operation is, by nature, not reversible\cite{RSAProblem}. Thus, some difficulties are to be expected. 
+
+Considering different options for implementing modular exponentiation, there are many different algorithms to choose from. A simple solution would be something along the lines of iterating over the exponent, multiplying with the base $mod ~m$ at every iteration ($m$ being the modulo). The loop invariant is the main issue with this implementation. Since Hermes does not allow for looping over variables, this is simply not possible to do. The only option for implementing this algorithm would be along the lines of looping until the max value of the exponent, only actually multiplying as long as the loop counter is not larger than the exponent.
+
+This method can be improved upon, by utilizing the following feature of modular products. Given the product of two integers; $x\cdot y=z$, the equations
+\[z~mod~m=(x\cdot y)~mod~m\]
+\[z~mod~m=((x~mod~m)\cdot (y~mod~m))~mod~m\]
+are equivalent, allowing for a much more efficient way of computing the product $z~mod~m$. The problem with loops in Hermes does not change, however, as the exponent is still what needs to be looped over.\\
+
+To get around the looping issue, a common trick is to loop over the binary representation of variables, rather than the variable itself. This allows for a way to loop over a constant, but relating it to the variable that is the actual target of the operations in the loop.
+
+There are binary methods for modular exponentiation that seem like good candidates for such a workaround, one being the Left-to-Right binary method\cite{LeftToRight}.
+
+
+%However, implementing these operations reversibly would require a different representation, especially considering that RSA security is based upon one-way trapdoor functions, which by nature is (possibly) not reversible\cite{RSAProblem}.
+
+
+%Fundamental operations were restricted with the use of Hermes, such as a multiplication update \texttt{*=} operator, given us the inability to properly perform multiplications or more importantly; squaring. 
+
+
+
+\subsection{Binary Modular Exponentiation}
+\label{BinModExp}
+The Left-to-Right binary exponentiation makes use of squaring and multiplication to compute the exponent. Beginning with a variable \texttt{r=1}, this variable is squared at each iteration and, if the current bit of the exponent is set, is multiplied by the base. An example of this method can be seen below:
+
+\begin{figure}[H]
+    \text{Initialize the result to 1;} $~ r \leftarrow 1 ~ (=b^0)$ 
+    \begin{align*}
+    \text{Step 1)} ~ r \leftarrow r^2 (=b^0); \text{bit} ~ 1=1, \text{so compute} ~ r \leftarrow r\cdot b ~(=b^1) ~~~~\\
+    \text{Step 2)} ~ r \leftarrow r^2 (=b^2); \text{bit} ~ 2=1, \text{so compute} ~ r \leftarrow r\cdot b ~(=b^3)\ ~~~\\
+    \text{Step 3)} ~ r \leftarrow r^2 (=b^6); \text{bit} ~ 3=0, \text{so we are done with this step} ~~\\
+    \text{Step 4)} ~ r \leftarrow r^2 (=b^12); \text{bit} ~ 4=1, \text{so compute} ~ r \leftarrow r\cdot b ~(=b^13)\
+    \end{align*}
+    \caption{Example of Left-to-right binary method \cite{LeftToRightWiki}}
+\end{figure}
+
+Attempting to implement this algorithm is Hermes yielded some difficulties, the two main issues being:
+\begin{itemize}
+\item The need for squaring meant implementing such a function in Hermes. This is no trivial task, and it shall be elaborated upon in Section \ref{squaring}.
+\item Clearing of variables is what gets most in the way. When taking the modulo in each iteration, clearing temporary variables becomes downright impossible.
+\end{itemize}
+Assume for now, that a squaring does exist. A draft for a binary modular exponent function could look something like that of Figure \ref{binModExp}.
+%The attempt to solve modular exponentiation required to iterate over the amount of bits in the exponent. In each iteration \texttt{res} would be squared and checked whether the current bit in the exponent is set and consequently multiply \texttt{res} with \texttt{base}. 
+\begin{figure}
+\begin{verbatim}
+binModExp(u32 base, u32 pow, u32 mod, u32 res){
+    u32 tmp;
+    res += 1;               
+    for (i=32;0){           
+       if ((1<<i)<=pow){
+            square(res);        
+            tmp += res%mod;     
+            tmp <-> res;
+            tmp = 0;      // !!!!!!!!!
+            if (pow & (1<<i)){  
+                tmp += res*base; // Multiply res with base
+                tmp<->res;       // Store result in res
+                tmp -= res/base; // Zero tmp.
+ 
+                tmp += res%mod;
+                tmp <-> res;
+                tmp = 0;  // !!!!!!!!!
+            }
+        }
+        i--;
+    }
+}
+
+
+\end{verbatim}
+\caption{Binary Modular Exponentiation attempt in Hermes.}
+\label{binModExp}
+\end{figure}
+
+This draft is an out-of-place implementation, and even so, there are two instances of not being able to clear the temporary variable \texttt{tmp} (recall from Section \ref{Hermes}, that assignment of values is not allowed in Hermes). Other syntactical issues are also present, such as the way that the \texttt{if}-statements are structured. Fixing the syntactical issues would, unfortunately, make the code more difficult to read, and so have been left in.
+
+The problem with clearing \texttt{tmp} is related to the descrete logarithm problem (\cite{IntroToMath} p. 64), as the variable needs to be cleared using only knowledge about the \texttt{base}, and \texttt{res*base\%mod}. 
+
+%This would however not be enough to sufficiently implement a fully reversible binary modular exponentiation function, due to the inability to clearing the temporary variable \texttt{temp}, used to store data for \texttt{res}. To adequately zero this temporary variable, it would require finding the inverse to modular division, a problem closely related to the modular discrete logarithm problem. Having only knowledge of $c$ and $m$ in the equation $$c = b^e ~ mod ~ m$$
+%it is not enough to reversible calculate $b^e$ for sufficiently high values.
+
+
+
+\subsection{Squaring}
+\label{squaring}
+Since a squaring was so nonchalantly assumed to exist, it seems appropriate to address the matter of why such an assumption is reasonable.
+
+Since hermes does not allow for duplicating information, without clearing it again, implementing a squaring function is not as straight forward at it might at first seem. A naive implementation might look something akin to that of Figure \ref{HermesSquare}.
+\begin{figure}
+\begin{verbatim}
+     square(u32 x){
+       u32 tmp;
+       tmp += x*x;
+       tmp <-> x;
+       tmp -= sqrt(x);
+     }
+\end{verbatim}
+  \caption{A naive approach to implementing squaring in Hermes.}
+  \label{HermesSquare}
+\end{figure}
+
+Ignoring the syntactical issues with this function, the bigger problem is how it uses a square-root to clear the temporary variable. Since squaring and square-roots are each other's inverse, the function calls itself to finish. This is, unfortunately, not just a matter of recursion, and will not work out.
+
+A smarter approach would be to attempt an implementation of a square-root function. There are ways to implement square-roots, which are not time-dependent, provided it is done modulo a prime. The Tonelli-Shanks algorithm\cite{TonelliShanks} might be a suitable candidate for implementing such a square-root function, but such an implementation is well outside the scope of this project.
+
+Since the timing of the algorithm is not dependent on the input, another possibility might be to extend the actual language with this functionality. This could be done in whichever language is most convenient, provided the requirements about side-channels are adhered to.
+
+
+
+
+
+%Squaring is an important arithmetic operation used in the RSA algorithm, as it provides the ability to perform exponentiation-by-squaring used to calculate $c^d$ used in the encryption/decryption step. However, no such squaring operator currently exist in the Hermes language: 
+%and one would, therefore, have to be manually crafted for this implementation. This would in turn prove to cause various problems due to the syntactic restrictions in Hermes. An example of this would be updating the root variable in the form \texttt{x = x*x}, which is not allowed. Another problem that occurred, was when trying to perform the squaring operation and save the result in a temporary variable. Although, this would impose other problems because there had to be reassurances that such a temporary variable would be cleared before termination of the function. Doing so would require the inverse of squaring, \texttt{temp -= sqrt(x)}, but this operation is unfortunately also not a part of the Hermes language. Moreover, having the possibility to perform a square root operation would ultimately make a squaring obsolete, due to them being each other's inverses, thus gaining the ability to use \texttt{uncall sqrt(x)} instead of an actual squaring operator. 
+
+%<<<<<<< HEAD
+%It would however make sense to implement a square function as a possible operator in Hermes, because of the usefulness of such, especially in conjunction with the implementation of asymmetric encryption algorithms. Instead, it was assumed that such operation existed in Hermes, as shown in \ref{Figur af BinModExp}, due to the possibility of implementing one using the Tonelli-Shanks algorithm, which would provide squaring by solving for $r$ in a congruence of the form $r^2 \equiv n ~ (mod ~ p)$, where $p$ is a prime. This would enable the use of a non-time-dependent squaring function, as the timing of this algorithm is based on the binary representation of the input.
+%=======
+%It would however make sense to implement a square function as a possible operator in Hermes, because of the usefulness of such, especially in conjunction with the implementation of asymmetric encryption algorithms. Instead, it was assumed that such operation existed in Hermes, as shown in \ref{Figur af BinModExp}, due to the possibility of implementing one using the Tonelli-Shanks algorithm\cite{TonelliShanks}, which would potentially provide a constant time squaring by solving for $r$ in a congruence of the form $r^2 \equiv n ~ (mod ~ p)$, where $p$ is a prime. This would enable the use of a time-independent squaring function, although such implementation is deemed to be beyond the scope of this project.
+%>>>>>>> cdf2371deb560a0abd74ef467cd46514f3c9c2fb
+
+%Consequently, due to the inability to write a proper reversible square function in Hermes, it was considered more convenient to craft a \texttt{Python} script, that automatically replaces the \texttt{square} function in the compiled C code, with a C implementation:
+%\begin{figure}[H]
+%    \centering
+%    \begin{minipage}[b]{0.4\textwidth}
+%            \begin{verbatim}
+%                void square_F(uint32_t *x){
+%                   {
+%      *x = (*x) * (*x);
+%           }
+%                }
+%        \end{verbatim}
+%    \end{minipage}
+%    \hfill
+%    \begin{minipage}[b]{0.4\textwidth}
+%            \begin{verbatim}
+%                void square_B(uint32_t *x){
+%                   {
+%      *x = (uint32_t)sqrt((double)(*x));
+%           }
+%                }
+%        \end{verbatim}
+%    \end{minipage}
+%    \caption{Forward and backwards square function implementation in C}
+%  \end{figure}
+
+\section{Attempting the Implementation with \texttt{Square}}
+The attempt to implement RSA was designed around the assumption that a squaring/square-root function already existed in Hermes. And since the code compiles to \texttt{C}-code, a placeholder function could be put in the Hermes code, to be replaced with a squaring and square-root function in the compiled code. A simple python-script was developed, to swap the placeholder-function with \texttt{C}-implementations of squaring and square-root.
+
+However, as pointed out in Section \ref{BinModExp}, the inclusion of a function for squaring does not mean smooth sailing, and implementing RSA did not succeed. 
+
+
+%\section{Implementation}
+
+% Exponentiation - this was initially in the analysis (?)
+%Implementing modular exponentiation used when encryption and decryption a message, proved to be more complicated to implement reversibly. This is due to the irreversible nature of modular exponentiation than also serves as a one-way trapdoor function, mentioned in \ref{RSA}. 
+
+%Listing [Referrer til koden nedenunder] shows the Hermes implementation of the binary modular exponentiation method 
+
+
+%\begin{verbatim}
+%binModExp(u32 base, u32 pow, u32 mod, u32 res){
+%   u32 tmp;
+%   res += 1;               //Initially result is base^0. 
+%   for (i=32;0){           //Iterating over the size of the exponent, here 32 bits. 
+%     if ((1<<i)<=pow){
+%       square(res);        //Square the result. 
+%       tmp += res%mod;     //Result modulo.   NOT ALLOWED!
+%       tmp <-> res; ///Nulstil tmp!
+%       if (pow & (1<<i)){  //Checking if the i'th bit is set. 
+%         res *= base;      //Multiplying by the base.
+%         tmp += res%mod;   //Result modulo. 
+%         tmp <-> res;
+%       }
+%     }
+%     i--;
+%   }
+%}
+%\end{verbatim}
+
+%Our attempt to solve the modular exponentiation problem requires us to iterate over the number of bits in the exponent. In each iteration, we would square the result and check whether the current bit in the exponent is set and consequently  multiply the result by the base.

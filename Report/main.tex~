@@ -1,0 +1,203 @@
+
+\documentclass[a4paper,11pt,oneside]{memoir}
+
+% Style of front page, title page, and stuff page
+\usepackage{dikuReport}
+
+%% Packages
+% Formatting
+\usepackage[utf8]{inputenc}
+\usepackage{latexsym}
+\usepackage[T1]{fontenc}
+\usepackage{relsize}
+\usepackage{fix-cm}
+% Ordering of references
+\usepackage{cite}
+% Useful for graphics
+\usepackage{tikz}
+\usepackage{graphicx}
+\usepackage{color}
+% Useful for mats
+\usepackage{amsbsy}
+\usepackage{amssymb}
+\usepackage{amsmath}
+% Better float of figures
+\usepackage{float}
+% Good for space when using commands for text definitions
+\usepackage{xspace}
+% Codeformatting
+\usepackage{listings}
+% URLs - what else
+\usepackage{url}
+% Alters the margins of the pages such that text are _not_ centered. This makes better room for the glue bindings.
+
+%%%%% Make abbreviations emphasized. Use if you like.
+\newcommand{\ie}{\emph{i.e.}\xspace}
+\newcommand{\eg}{\emph{e.g.}\xspace}
+\newcommand{\etc}{\emph{etc.}\xspace}
+\newcommand{\vs}{\emph{vs.}\xspace}
+\newcommand{\cf}{\emph{cf.}\xspace}
+\newcommand{\viz}{\emph{viz.}\xspace}
+\newcommand{\etal}{\emph{et~al.}\xspace}
+
+% Where graphic files are located
+\graphicspath{{figures/}}
+
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Basic information
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\thesistype{BSc thesis}
+% \thesistype{MSc thesis}
+
+\thesiscomment{} % You can leave this blank
+\title{Title}
+\subtitle{~} % If you want one
+\author{%
+  Student 1 - XXX123\\[4pt]
+  Student 2 - YYY456}
+\supervisor{Michael Kirkedal Thomsen \\ More...}
+\date{July 7, 2012} % Hand-in date
+%\subject{The short description that is suitable for a database.} % This is not needed.
+
+% Make the front page, title page, and other required information.
+\pagestyle{plain}
+\maketitle
+
+% Start at page 3. I do not count the front page in the numbering.
+\cleardoublepage
+\pagenumbering{roman}
+\setcounter{page}{3}
+
+% English Abstract
+\cleardoublepage
+\pagestyle{plain}
+\begin{abstract}
+
+The report template contains a an overall outline of a report at the bachelor-level at DIKU. Your report might contain different chapters and sections than what is outlined below as it can be very project dependent. It does however contain the expected parts.
+
+\end{abstract}
+
+% Danish abstract
+\begin{resume}
+
+Eksamensbekendtgørelsen dikterer at bachelorprojekter skal have resum\'{e}er på to sprog: normalt engelsk og dansk. Det sprog som skrives på skal stå først.
+
+\end{resume}
+
+% Table of contents
+\cleardoublepage
+\chapterstyle{combined}
+\tableofcontents*
+
+% Starting the real text.
+\cleardoublepage
+\pagenumbering{arabic}
+\setcounter{page}{1}
+
+
+% It can be an advantage to seperate some of the following chapters into seperate files.
+% Make a bachground.tex and include with \input{background}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% INTRODUCTION
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter{Introduction} 
+Shortly describe the project; about 1-2 pages
+\begin{itemize}
+  \item Set the environment/story of the project,
+  \item build that into a problem leading up to the ``hypothesis''
+  \item give an overview of how you have investigated this hypothesis and point to important work you have done; it can be an advantage to use references to exact sections
+\end{itemize}
+
+This chapter is intended to give the reader the information about your report and build up and expectation of what to come. You want to make the reader aware of the good things you have made, so he has something to look forward to.
+
+Before starting with a section, a chapter should include a short description of what is to come and possible what assumptions you have made. Again we want to build up the expectation of the reader.
+
+
+\section{Section}
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi placerat turpis elit, non pharetra urna cursus id. Pellentesque nec auctor magna. Ut luctus ac arcu eu mattis. Mauris accumsan risus eu neque luctus, at luctus nibh venenatis. Aliquam lorem nulla, tincidunt ut justo et, sagittis aliquam felis. Quisque at mattis justo, vel ultrices dolor. Quisque id nunc auctor, auctor enim non, fringilla neque. Praesent vel vehicula leo, at sagittis nisi. In auctor dui eu leo feugiat gravida. Fusce non ante laoreet, euismod dui non, convallis dui.
+
+Maecenas egestas sollicitudin purus, sit amet elementum ex venenatis nec. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum ut tincidunt risus, id accumsan tortor. Proin finibus dui arcu, quis posuere dui imperdiet quis. Vivamus ut ligula eu leo porttitor porttitor. Sed molestie sapien lectus, id lobortis metus porttitor eget. Quisque porttitor nunc nec justo tristique ultricies. Aenean blandit vitae leo ac condimentum. Mauris mattis libero id pulvinar fermentum. Ut viverra nibh eleifend nisi posuere posuere. Donec sagittis eget tellus a luctus. Nulla massa sem, ultricies vel dictum eget, ornare eget leo.
+
+\section{Section}
+Nunc egestas euismod libero et lacinia. Aenean sagittis tortor sapien, sed consequat felis hendrerit ac. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ullamcorper enim eu mi tincidunt, nec consectetur nisl volutpat. Cras mollis fringilla neque, a aliquam justo pellentesque vel. Mauris elementum et neque id interdum. Etiam et dolor neque. Cras lorem ligula, elementum at feugiat eu, interdum sit amet nibh. Ut elementum justo eu porta dapibus. Pellentesque efficitur quam facilisis, varius nulla at, convallis mi. Pellentesque ipsum dolor, sagittis eget enim id, ultrices tincidunt massa. Sed id turpis fermentum, vehicula turpis at, dapibus nulla. Curabitur id condimentum risus. Nulla in mauris ac purus placerat volutpat.
+
+\subsection{Subsection}
+Praesent sit amet purus ut eros tincidunt gravida auctor ut risus. Aenean metus diam, placerat in lacus sed, egestas pulvinar mi. In hac habitasse platea dictumst. Mauris nec orci lacus. Curabitur non diam sem. Nulla venenatis dictum lorem ut hendrerit. Aliquam egestas ipsum mauris, ultricies mollis neque hendrerit vel. Fusce nisl nulla, condimentum ut diam ac, facilisis ultricies purus. Vestibulum sagittis, ex ac pulvinar cursus, tellus metus euismod mi, sed faucibus nisl metus eu sem. Nam vestibulum a augue ac maximus. Vivamus at ligula sit amet urna vulputate fermentum. Ut in volutpat elit.
+
+\subsubsection{Subsubsection}
+Donec scelerisque, arcu vitae pharetra porttitor, ligula mi pretium urna, vitae fermentum mi augue ut turpis. Curabitur ut sodales massa. Proin mattis risus quis nibh consequat, eu ultricies mauris pulvinar. Duis at sagittis quam. Pellentesque eu eleifend justo. 
+
+\paragraph{Paragraph} Ut a velit fermentum, rutrum tortor rhoncus, lacinia velit. Duis eget vehicula turpis, id congue est. Proin sagittis metus fermentum purus fringilla semper. Praesent tincidunt lorem eget dui eleifend, sed semper odio mattis.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Background
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter{Background}
+Everything that is needed to understand you project that you have not made your self. Remember that the report should be written to a student on your level. Thus, material from the first couple of years can be general knowledge. Though if you some part extensively (e.g. further develop) it can be a good idea to recap. For example, if your project is to develop a better version of Dijkstra's algorithm~\cite{dijkstra1959method}, it can be a good recap it. However, if you are developing a domain specific languages, there is no need to recap lexer/parser generators~\cite{parserGenerator}, as these are used as tools.
+
+Remember also to include all needed references.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Your work
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter{Your work}
+This can be more than one chapter depended on the work. This also includes programs developed and testing of these.
+
+If there are some especially good things, you can use your chapter introduction to point to these.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Results
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter{Results}
+Present the possible results.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Discussion
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter{Discussion}
+Discuss the possible results.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Discussion
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter{Conclusion}
+Conclude in your work. Perspectivate on your introduction, hypothesis. 
+
+This is your final change to remind the reader of all the cool things you have made, so refer to these when needed.
+
+\section{Future work}
+Put your perspective in relation to future possible directions and consequences.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% BIBLIOGRAPHY
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\cleardoublepage
+\renewcommand{\sc}[1]{\textsc{#1}}
+\bibliographystyle{acm}
+\bibliography{bibliography}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% RESEARCH PAPERS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\appendix
+
+% Each paper is defined as a new section of an appendix chapter. This means that they automatically are added to TOC and it is possible to refer to them.
+
+% Updates section names to remove . (e.g. a section is named A1 instead of A.1)
+\renewcommand{\thesection}{\thechapter\arabic{section}}
+
+
+
+\end{document}

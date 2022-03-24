@@ -85,12 +85,32 @@
 \pagestyle{plain}
 \begin{abstract}
 
+%%%% Efter den er skrevet, sørg lige for at trille den igennem grammarly. 
+%The aim of this thesis is to explore the relationship between asymmetric cryptography algorithms and how to implement these in the reversible programming language Hermes currently being developed by DIKU. This language is specifically designed for the implementation of encryption algorithms while eliminating side-channels, and currently only symmetric algorithms have been implemented. 
 
+
+%The algorithms to be implemented will consist of RSA and Elliptic Curve, both of which encompasses one-way trapdoor functions, which by nature is not reversible.
+Public-key cryptosystems exist in many shapes and sizes, but common for all of these is the fundamentally irreversible nature of them. Although the encryption of such a public-key cryptosystem might be perfectly safe, there is still a risk of information leaking through side-channels. This project investigates the possibility of implementing such asymmetric encryptions in the reversible language Hermes. Hermes is specifically designed to eliminate side-channels, and so a Hermes implementation means a safer public-key cryptosystem.
+
+Two asymmetric cryptosystems are investigated, namely RSA and ECC, to attempt an implementation of such irreversible processes in a reversible language. Problems with the programming language are discussed, and an extension of the language is proposed.
+
+ECC is successfully implemented, documented and tested, and the potential for further development is discussed. 
+
+ % The programming language Hermes, specifically designed for cryptography, is a reversible DSL designed to eliminate side-channels. 
+ % In this thesis, Hermes is used to implement an Elliptic Curve Cryptosystem for encryption/decryption, and the process of attempting an implementation of RSA is also included.
+%The aim is to evaluate the usefulness of Hermes for developing public-key cryptosystems, as well as locating problems in the language that make that task problematic.
+%An argument for extending the language is made, and options for improving the ECC implementation are discussed. 
 \end{abstract}
 
 % Danish résume
 
 \begin{resume}
+
+Asymmetriske kryptosystemer kommer i mange former og farver, men fælles for dem alle er deres fundamentalt irreversible natur. Selvom krypteringen, i sådanne asymmetriske kryptosystemer, kan være fuldstændig sikker, er der stadig en risiko for at information lækker igennem sidekanaler. Dette projekt undersøger muligheden for at implementere en sådan asymmetrisk kryptering i det reversible programmeringssprog Hermes. Hermes er specielt designet til at eliminere sidekanaler, så en Hermesimplementation betyder et mere sikker asymmetrisk kryptosystem.
+
+To asymmetriske kryptosystemer vil blive undersøgt, nemlig RSA og ECC, i et forsøg på at implementere disse irreversible processer i et reversibelt sprog. Problemer med programmeringssproget bliver diskuteret, og en udvidelse af sproget bliver skitseret.
+
+En fungerende implementation af ECC bliver præsenteret, og potentialet for videreudvikling bliver diskuteret.
 
 \end{resume}
 
@@ -112,48 +132,48 @@
 %%% Introduction
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%\input{Introduction/main}
+\input{Introduction/main}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% Background
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%\input{Background/main}
+\input{Background/main}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% Your work
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%\input{"Your Work"/main}
+\input{"Your Work"/main}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% Results
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%\input{Results/main}
+\input{Results/main}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% Discussion
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%\input{Discussion/main}
+\input{Discussion/main}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% Conclusion
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%\input{Conclusion/main}
+\input{Conclusion/main}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% BIBLIOGRAPHY
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%\input{Bibliography/main}
+\input{Bibliography/main}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% APPENDIX
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%\input{Appendix/main}
+\input{Appendix/main}
 
 
 \end{document}
