@@ -5,25 +5,3 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \chapter{Discussion}
-Implementing asymmetric cryptography in Hermes is possible, with some types of asymmetric cryptography being better suited than others. What seems to have been the difference between RSA and ECC, is the trap-door function in RSA being irreversible, while the geometric nature of elliptic curves lends itself better to be implemented reversibly.
-
-One of the recurring difficulties, when attempting to implement both RSA and ECC in Hermes, is the restrictions on loops. Some problems can be solved by looping over binary representations. One such problem is point-multiplication in ECC, but this requires additional work to be done on point-doubling.
-
-Other problems that are limited by the looping of Hermes might be possible to resolve using Hermes2 and the public types that it implements. This area has not been explored in any particular detail and is an obvious place to begin improving on the functionality implemented above.
-
-In Developing the ECC implementation, modulo primes had to be implemented. As mentioned in \cite{PSI19}, this might also be a relevant extension to Hermes. Although it has not been investigated as an extension of the language, the implementation finds a way to implement modulo primes using the \texttt{\%} operator in \texttt{C}, as this is the target language for the Hermes compiler. 
-
-Some features of asymmetric encryption are now possible to exemplify, with the solution for ECC. An example of a signature by reversing the encryption/decryption, as mentioned in \cite{EaRC}, is one of the interesting outcomes of having a working implementation of ECC. Although uncalling the encryption/decryption does allow for some sort of digital signature, this is probably not the most efficient way to implement digital signatures using ECC.
-
-Implementing ECC in Hermes has not been without its challenges, and RSA proved itself impossible to implement in original Hermes. Hermes2 is likely to be better suited for implementing RSA, as some restrictions may be lifted with the use of public/private types. Furthermore, the usefulness of the ECC implementation may be improved by rewriting/adapting it to Hermes2.
-
-Avoiding duplicating information has put a big strain on the ECC implementation, and, in the case of \texttt{double}, has not been entirely possible. The issues that this results in, have been mentioned at length in Section \ref{ellipticAnalysis}. The implementation, as it stands, is not useful for anything other than demonstrating that asymmetric cryptography is possible in Hermes. 
-
-As for the suggested extension of Hermes to include a squaring function, this would not only get the attempted method in this project closer to a realization but would allow for several different approaches. Exponentiation-by-squaring is just one of such methods, that might be worth investigating, should a squaring ever be implemented in Hermes. 
-
-
-%% Hvor vel egnet har Hermes været til at implementere asymmetrisk kryptering.
-
-%% Problemer/manglende funktionalitet i hermes?
-
-%% Is it worthwhile?

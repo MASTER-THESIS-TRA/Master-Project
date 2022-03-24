@@ -34,16 +34,15 @@ public class ResourceManager extends Agent{
         ownerships = Transfer.add(ownerships, new Transfer(a,Resource.zero()));
     }
 
-    public void AddAgent(Agent a, Resource initialBalance){
-        try {
-            checkDublicateAgent(a);
-        } catch(Exception e) {
-            System.out.println(e);
+    public boolean AddAgent(Agent a, Resource initialBalance) {
+        if(this.ownerships.keySet().stream().anyMatch(x -> x == a)) {
+            return false;
         }
         HashMap<Agent,Resource> balance = new HashMap<>();
         balance.put(a,initialBalance);
         balance.put(this,Resource.mult(initialBalance,-1));
         ownerships = Transfer.add(ownerships, new Transfer(balance));
+        return true;
     }
 
     public boolean apply(Transfer t){
@@ -60,11 +59,6 @@ public class ResourceManager extends Agent{
 
     private boolean checkCreditPolicy(){
         throw new NotImplementedException();
-    }
-
-    public boolean checkDublicateAgent(Agent agent) throws Exception {
-        if(this.ownerships.keySet().stream().anyMatch(x -> x == agent)) { throw new Exception("Error"); }
-        return false;
     }
 }
 

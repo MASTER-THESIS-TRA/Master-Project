@@ -5,27 +5,3 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Results}
 \label{Results}
-%With a functioning implementation of ECC in Hermes, what has been achieved? This section is going to present the implications of a reversible asymmetric encryption scheme, as well as take a look at some advantages of reversible elliptic curves specifically. Finally, a presentation of some of the observations made during the work on RSA in Hermes is also going to be included.
-% Skriv en ny intro til resultater.
-The most remarkable result of this project is the working implementation of ECC. With this implementation, some interesting properties of reversible asymmetric encryption can be demonstrated. That ECC should be the cryptosystem to be successfully implemented is both slightly surprising (due to the added complexity) and very welcome, as it is the cryptosystem that is more promising for the future.
-
-That being said, the work on RSA still yielded some interesting results regarding the future development of Hermes.
-\section{Asymmetric Cryptography in Reverse}
-% digital signature, Check!! 
-As mentioned in Section \ref{reverseCrypt}, symmetric encryption has the pleasant property of only needing one function implemented, when using a reversible language. Since that is not the case for asymmetric encryption, surely there must be other gains. 
-
-The inverses of the encryption/decryption still have value, as uncalling them in reverse order results in a digital signature scheme of sorts. The digital signature itself needs to contain a bit more information than a message and the encrypted message, as some information about the point $R$ is also needed to uncall the encryption. An example of this can be seen in the source code, or the appendix Figure \ref{fig:ECCSign}, and the signature can be run by uncommenting the line \texttt{//call runSign();} in the \texttt{main()}.
-
-The passing of a message between users is not as clear in this Hermes implementation, as everything happens in the same function, but a comment should clarify what is coming from the sender, i.e. what the receiver does not know already, in an actual communication instance. 
-
-\section{Side Channels in Elliptic Curve Cryptography}
-% Side channels i elliptiske kurver og hvordan Hermes fjerner disse
-As mentioned by Olson\cite{ECCSideChannels}, there is a tendency for ECC to produce side-channels due to the difference in adding points when they are distinct or the same point. Olson presents several ways to deal with this issue, but using Hermes to implement ECC, the language takes care of the issue automatically, as it was designed to do.
-
-The drawback being performance-wise. Since Hermes needs to evaluate all conditional expressions, the implementation of point-addition will essentially have to compute the result for both distinct and equal points in every call. 
-
-\section{RSA in Reverse}
-% Hvad har vi faktisk fundet ud af om RSA. 
-The main thing to take away from the work on RSA, is that mathematical trap-door functions are difficult to reverse. One thing that would make Hermes more useful in this endeavor would be to include a square root operation in the language.
-
-As mentioned in Section \ref{squaring}, this would be a sensible extension of the language, as a square root can be implemented with a time complexity that is expressed by the binary representation of the input, by using the Tonelli-Shanks algorithm (or RESSOL algorithm). 

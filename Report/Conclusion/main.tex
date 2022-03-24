@@ -7,20 +7,7 @@
 \chapter{Conclusion}
 %Conclude in your work. Perspectives on your introduction, hypothesis. 
 %This is your final chance to remind the reader of all the cool things you have made, so refer to these when needed.
-The aim of this project has been investigating the possibilities of implementing asymmetric cryptography in the reversible programming language Hermes. In this endeavor, RSA and elliptic curves have been investigated and attempted implemented.
 
-The initial attempt at implementing RSA in Hermes failed, as the trap-door function of RSA got in the way. The attempt yielded some insights into Hermes as a language and presented some functionality that Hermes is lacking (more on this in Future Work, Section \ref{Future}).
-
-ECC proved altogether more cooperative, and a working implementation is included in the \texttt{src.zip} folder. The implementation works as a demonstration of asymmetric encryption in Hermes, but the flaws and shortcomings presented in Section \ref{Problems} make it unsafe for use in any real implementation of public-key cryptography.
-
-Several options for improving the solutions are discussed throughout the report, and a summary of these suggestions is contained in "Future Work". If these improvements were successfully implemented, ECC would be a good candidate for a reversible asymmetric cryptography scheme. The current implementation is mainly limited by its performance and key size, both of which can be solved with one improvement to the solution.
-
-Point-addition on elliptic curves has been implemented in-place (Section \ref{PointAdd}), which is the main reason for the successful implementation of ECC in Hermes. 
-
-The property of gaining digital signature by inverting the asymmetric encryption is also demonstrated. This is one of the redeeming properties of asymmetric cryptography in Hermes, which is not achieved with any of the previously implemented symmetric encryption algorithms. A directly inverted encryption is not the most elegant signature implementation, but it is nonetheless an interesting observation about a reversible implementation of asymmetric cryptography schemes. 
-
-Extending the solutions to Hermes2 would have been an interesting thing to do, and might have resolved issues with both RSA and ECC, but there was simply not enough time to do so.
-%The research in this thesis aimed to implement RSA and elliptic curve cryptography reversibly in the programming language Hermes. This has yielded exceptional results. Granting that an implementation of RSA was not possible in this project, due to the in-completion of a reversible modular exponentiation and squaring function. It would however prove to be possible to implement a working reversible Elliptic Curve encryption. Admittedly, the current implementation only effectively supports \texttt{8-bit} keys, it was not the goal of these to run efficiently. 
 
 
 
@@ -28,8 +15,3 @@ Extending the solutions to Hermes2 would have been an interesting thing to do, a
 
 \section{Future Work}
 \label{Future}
-The absence of a squaring function in Hermes could be hindering in future work on RSA. Therefore it could be beneficial to include one such operation in Hermes, as it is not a function that is easily implemented in the language. A suggested approach to doing so would be to investigate the Tonelli-Shanks algorithm for finding square roots modulo a prime $p$. The inverse of the algorithm would then serve as a squaring operation for the language and could allow for further work on methods such as Exponentiation-by-Squaring, Left-to-Right binary method, and other methods that need squaring/square-roots to implement.
-
-Investigating point-halving would be beneficial for the ECC solution, as this might allow for doubling a point without duplicating any information. Could this be done, it would be possible to get the implementation to perform on a nearly useful level. This would further allow for keys of more secure sizes, making reversible ECC a proper candidate for use in cryptography.
-
-A less significant improvement to ECC, that might still be worth investigating is the addition of public/private types. With the inclusion of these types, it might be possible to optimize the solution further, due to the less strict restrictions on Hermes2. 

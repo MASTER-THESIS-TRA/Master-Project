@@ -1,8 +1,0 @@
-\section{Asynchronous cryptography}
-Talk about some basic asynchronous cryptography principles.
-
-\subsection{RSA}
-Specifically a designated, in-depth sub-section about RSA, as this is the first algorithm that will be attempted implemented.
-
-\subsection{Elliptic curve cryptography}
-Even if not implemented, it can still be worth a mention, if nothing else, then for the sake of considering alternatives to RSA that may be subject of future work as well. %%Probably not what is meant by future work.
