@@ -1,0 +1,20 @@
+% !TEX root = ../main.tex
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% BIBLIOGRAPHY
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\cleardoublepage
+\renewcommand{\sc}[1]{\textsc{#1}}
+\bibliographystyle{acm}
+\bibliography{bibliography}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% RESEARCH PAPERS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\appendix
+
+% Each paper is defined as a new section of an appendix chapter. This means that they automatically are added to TOC and it is possible to refer to them.
+
+% Updates section names to remove . (e.g. a section is named A1 instead of A.1)
+\renewcommand{\thesection}{\thechapter\arabic{section}}

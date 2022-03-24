@@ -1,0 +1,12 @@
+\section{Finite fields}
+Finite fields, synonymously Galois fields after french mathematician Évariste Galois\footnote{25 October 1811 – 31 May 1832 (shot dead in a duel).}, are sets with a finite number of elements. Apart from having a finite number of elements, such a set must be closed under addition, subtraction, multiplication and division. 
+\subsection{Field theory} %%Overvej en anden headline til denne section, e.g. "composition of finite fields" eller noget. 
+A Galois field cannot have any number of elements. For the set to be able to satisfy the abovementioned requirements (closed under certain operations), the number of elements in the set must be either prime or a power of a prime. The simplest fields to work with, which are unfortunately not the ones that are applicable to cryptography, are those with $p$ elements, where $p$ is prime. These fields, aptly named Prime Fields, contain the integer numbers $GF(p)={0,1,2,..,p-1}$\footnote{The notation $GF(p)$ is shorthand for the Galois Field with $p$ elements.}.
+
+A finite field can, as previously mentioned, also have a number of elements that is equal to the power of a prime. More generally, Galois Fields must have $p^m$ number of elements, where $p$ must be prime, and $m$ must be a positive integer. By this definition, Prime Fields are simply Galois Fields with $p^1$ number of elements. A Galois Field with $m>1$ is called an Extension Field, a consist of more complicated elements. To be able to keep the set closed under addition and multiplication, the elements of the set must be polynomials rather than integers. The polynomials in an Extension Field are on the form:
+\[c_1x^{m-1}+..+c_{m-1}x+c_{m}\]
+where the constants $c_{i}$, where $0<i\leq m$ are integers, such that $0\leq c_{i}< p$
+
+\subsection{Finite field arithmetics}
+
+

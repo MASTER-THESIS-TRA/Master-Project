@@ -1,0 +1,83 @@
+%!TEX root = ../main.tex 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+%%% INTRODUCTION
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter{Introduction}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% What is an introduction?
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Shortly describe the project; about 1-2 pages
+%\begin{itemize}
+%  \item Set the environment/story of the project,
+%  \item build that into a problem leading up to the ``hypothesis''
+%  \item give an overview of how you have investigated this hypothesis and point to important work you have done; it can be an advantage to use references to exact sections
+%\end{itemize}
+
+%This chapter is intended to give the reader the information about your report and build up and expectation of what to come. You want to make the reader aware of the good things you have made, so he has something to look forward to.
+
+%Before starting with a section, a chapter should include a short description of what is to come and possible what assumptions you have made. Again we want to build up the expectation of the reader.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% My text
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+The programming language Hermes\footnote{Developed mainly by Michael Kirkedal Thomsen and Torben Ægidius Mogensen.} is a language that is designed specifically for cryptography. It is a reversible programming language, which lends itself well to the task of cryptography, as this is reversible by nature. In previous work on Hermes, several encryption algorithms have been implemented, all being symmetric, so its usefulness in cryptography is well established. As will be explained in Section \ref{Hermes}, Hermes is practical for cryptography for more reasons than the reversibility. The language is designed to eliminate side-channels such as timing-based and data side-channels, so Hermes implementations are, if for no other reason than that, safer than implementations in other languages. This security comes at the cost of some functionality. Apart from general restrictions for reversible programming, Hermes has additional constraints to it, because of the side-channel elimination.
+
+Useful as symmetric encryption is, public-key cryptosystems are needed to ensure secure communication. Such asymmetric cryptography has been considered in previous work on Hermes but never attempted implemented. Symmetric encryption is more opportune to implement in a reversible language, as a single encryption function can be implemented, the inverse of which is the decryption. For the asymmetric cryptography scheme, separate functions must be implemented for encryption and decryption. The inverse of these functions have some interesting properties, presented previously in \cite{EaRC}, that will be demonstrated in Chapter \ref{Results}. 
+
+Two different asymmetric cryptography schemes will be presented in section \ref{Async}, and attempted implemented in Chapter \ref{OurRSA} and \ref{OurElliptic}. The two schemes are RSA and elliptic curves, chosen because of simplicity and efficiency respectively.
+
+As asymmetric encryption schemes get their security from mathematical trap-door functions, that are irreversible by nature, some difficulties are to be expected. Thus, this report aims to both attempt an implementation, but also to evaluate how well suited Hermes is for the task. Finite field arithmetics are also investigated in Section \ref{Galois}, as a means to reverse these trap-door functions.
+
+
+The motivations for attempting a reversible implementation of such asymmetric cryptosystems are (covered in more detail in Section \ref{why}):
+\begin{itemize}
+\item All of the advantages that come with using Hermes as a programming language (elimination of side-channels).
+\item Reversible operations have no theoretical lower bound on energy dissipation.
+\item The inverse of such an implementation has further usefulness.
+\end{itemize}
+
+%For use in this project, two asymmetric encryption algorithms have been chosen to be investigated for a possible implementation. One being the RSA algorithm that exploits the RSA problem, and the second being Elliptic Curve cryptography algorithm that effectively encompasses the fascinating properties of an elliptic curve. These schemes will be further presented in section \ref{Async}.
+%Asymmetric cryptography is of a fairly different nature than symmetric, as the decryption is not the inverse of the encryption, but rather found by neat mathematical tricks. 
+
+%The keen-eyed reader might be wondering about how a reversible asymmetric encryption is going to work out. As decryption is not the inverse, a designated decryption algorithm will still be necessary, so what do we need the reverse function for? An inverse of such a function will, for all intents and purposes, perform the same functionality as a digital signature. This will be briefly demonstrated with the implemented algorithm, but is not the main focus of this paper, and so will not be discussed in depth.
+
+%More interestingly is how these mathematically non-reversible functions can be implemented reversibly. Asymmetric cryptography relies heavily on trap-door functions, which are by nature not reversible. In the endeavor of reversing these functions, finite fields will be investigated in section \ref{Galois}. Not much work needs to be done regarding implementing such finite fields, as such implementations already exist in Hermes and will be presented as they become useful.\\
+
+
+
+%So what do  we hope to gain by implementing these algorithms in a reversible manner? 
+
+%The motivation behind reversible programming will be covered in Section \ref{why}, by in short: reversible operations are not limited in the same ways as our commonly used irreversible operations are. That means, that in a fully reversible system, there is no lower bound for the amount of energy that is dissipated when performing an operation. 
+
+%The above-mentioned elimination of side-channels are, of course, the main purpose of Hermes, and so are also the motivation behind using Hermes and not another reversible language, such as Janus\footnote{Janus is the main inspiration for Hermes. See section \ref{Hermes}.} 
+
+
+%%%% Addition block
+%This also makes Hermes an ideal candidate for implementing cryptography algorithms, due to mitigation......... 
+%clearing of variables, leaving no critical information behind of which might be exploited to decrypt the information. 
+%%%%
+
+%Furthermore, although asymmetric cryptography schemes cannot be implemented as a single reversible function, the inverses of the encryption/decryption algorithms will give functions for use in digital signatures. Although this is not the main focus of this project, it is demonstrated in Chapter \ref{Results}.%%%FIx REF!!!!!!!!!!!!!!!!!
+
+
+%%%% Addition Block
+%Being able to efficiently implement these algorithms while also achieving the above-mentioned advantages would potentially provide for more secure ways of cryptography. We shall therefore explore the possible ways of doing so and check if it is actually achievable...
+%%%%
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Set expectations about our work. What can i really write at the moment?
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Nævn problemerne med squaring/sqrt i reverse - evt hint til en løsning (plz michael). 
+%%%
+
+%%% Hvad fanden er formålet med det hele? Kom ind på fordelene ved at implementere disse ting reversibelt, så hvorfor vi overhovedet er interesserede i at få løst problemet.
+
+%So if cryptography is already being performed in Hermes, and it is working as intended, what is there left to investigate? Well, as mentioned briefly above, all implementations of encryption algorithms have been symmetric. This is because symmetric encryption algorithms are more opportune to implement in a reversible language, than asymmetric algorithms, which will be the focus of this report. 
+
+%While symmetric cryptography is often based on logical operations and bit-permutations where the decryption is done by finding the inverse of the encryption, asymmetric cryptography is of a fairly different nature. This kind of cryptosystem often exploits mathematical properties and problems, referred to as "trap-door" functions. This means that a reversible implementation cannot simply do with one implementation, which can run one way or the other, to perform encryption and decryption respectively. 

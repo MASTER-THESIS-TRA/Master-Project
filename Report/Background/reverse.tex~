@@ -1,0 +1,10 @@
+\section{Reversible programming}
+
+\subsection{Why reversibility?}
+This might be the first section of the report, so a basic introduction of the pros of reversible programming.
+
+\subsection{Hermes}
+An introduction to Hermes, and what is special about it, specifically with relation to cryptography.
+
+\subsection{Cryptography in a reversible manner}
+Nothing new here. Present some previous worrk on Hermes, and explain why cryptography has a particularly neat nature when it comes to reversibility. Asynchronous cryptography to come later. 

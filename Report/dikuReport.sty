@@ -1,0 +1,193 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+%
+% Created by Michael Kirkedal Thomsen, shapper@diku.dk
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%!TEX root = main.tex
+
+\RequirePackage{eso-pic,graphicx,ifthen,array,multirow,calc,listings}
+
+% Supervisor
+\newcommand\supervisor[1]{\renewcommand\@supervisor{#1}}
+\newcommand\@supervisor{\@latex@error{No \noexpand\supervisor given}\@ehc}
+
+% Optional subject
+%\newcommand\subject[1]{\renewcommand\@subject{#1}}
+%\newcommand\@subject{\@latex@error{No \noexpand\subject given}\@ehc}
+
+\newcommand\subject[1]{
+\ifx\@subject\undefined
+  \newcommand\@subject{#1}
+\else
+  \renewcommand\@subject{#1}
+\fi}
+
+
+% Thesis type
+\newcommand\thesistype[1]{\renewcommand\@thesistype{#1}}
+\newcommand\@thesistype{\@latex@error{No \noexpand\thesistype given}\@ehc}
+% Thesis comment
+\newcommand\thesiscomment[1]{\renewcommand\@thesiscomment{#1}}
+\newcommand\@thesiscomment{\@latex@error{No \noexpand\thesiscomment given}\@ehc}
+
+
+% Optional subtitle
+\newcommand\subtitle[1]{
+\ifx\@subtitle\undefined
+	\newcommand\@subtitle{#1}
+\else
+	\renewcommand\@subtitle{#1}
+\fi}
+
+% Optional keywords
+\providecommand{\keywords}[1]{\par\addvspace\baselineskip
+\noindent{\textbf{Keywords:}}\enspace\ignorespaces#1}%
+
+% ACM CCS Optional keywords
+\providecommand{\ACMclass}[1]{\par\addvspace\baselineskip
+\noindent{\textbf{Categories and Subject Descriptors:}}\enspace\ignorespaces#1}%
+
+% Optional Danish abstract
+\renewcommand{\abstractname}{\larger Abstract}
+
+\newenvironment{resume}{\renewcommand{\abstractname}{\larger Dansk Resum\'e}\begin{abstract}}{\end{abstract}}
+
+
+% MAKE TITLE PAGE
+\renewcommand{\maketitle}{
+\thispagestyle{empty}%
+%
+% INSERT BACKGROUND
+%\AddToShipoutPicture*{\put(0,0){\includegraphics*[width=\paperwidth]{background}}}%
+\AddToShipoutPicture*{\put(0,0){\includegraphics*[viewport=0 0 700 600]{inc/natbio-farve}}}
+\AddToShipoutPicture*{\put(0,602){\includegraphics*[viewport=0 600 700 1600]{inc/natbio-farve}}}
+\AddToShipoutPicture*{\put(0,0){\includegraphics*{inc/nat-en}}}
+%
+% INSERT TITLE
+\ifx\@subtitle\undefined%
+  \AddToShipoutPicture*{\put(50,600){%
+    \begin{minipage}[t]{.83\paperwidth}%
+      {\textbf\LARGE PhD thesis}\vspace{12px}
+      
+      {\Large\@author}\vspace{36px}
+
+      {\Huge\@title}\vspace{8px}
+    \end{minipage}%
+  }}%
+\else%
+  \AddToShipoutPicture*{\put(50,600){%
+    \begin{minipage}[t]{.83\paperwidth}%
+      {\textbf{\LARGE \@thesistype}}\vspace{12px}
+      
+      {\LARGE\@author}\vspace{36px}
+
+      {\Huge\@title}\vspace{8px}
+      
+      {\LARGE\@subtitle}\vspace{8px}
+    \end{minipage}%
+  }}%
+\fi%
+%
+% INSERT REPORT NUMBER AND IS NUMBER
+  \AddToShipoutPicture*{\put(50,100){\parbox{.83\paperwidth}{\large Academic advisor: \begin{tabular}[x]{@{}l@{}}\@supervisor\end{tabular}}}}%
+  \AddToShipoutPicture*{\put(50,80){\parbox{.83\paperwidth}{\large Submitted: \@date}}}%
+%
+% END PAGE
+~
+\pagestyle{empty}%
+\cleardoublepage
+\begin{titlingpage}
+\begin{center}
+%~\\
+\Huge\textbf\@title \\
+\large~\\
+\huge\@subtitle \\%
+%\vspace{0.5cm}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.0\textwidth]{figures/hermes}
+	\caption{\tiny{“Hermes”, from Disney's Hercules: The Animated Series - ABC, Disney, Syndication\textsuperscript{\textcopyright}, licensed under CC BY 2.0, Cropped and edited from original} \cite{Hercules}}
+\end{figure}
+%\vspace{0.5cm}
+\LARGE\textbf\@author \\%
+\vspace{0.2cm}
+\Large DIKU, Department of Computer Science, \\
+\Large University of Copenhagen, Denmark \\%
+\vspace{0.4cm}
+\@date \\
+\vspace{0.4cm}
+\textbf{\@thesistype}\\%
+~\\
+\emph{\@thesiscomment}%
+\end{center}
+\clearpage
+\normalsize
+%\pagestyle{plain}%
+%\thispagestyle{plain}%
+\noindent\begin{tabular}{p{.26\textwidth}p{.68\textwidth}}%
+%Affiliation & The PhD School of Science, Faculty of Science, University of Copenhagen, Denmark \\%
+%& \\%
+Author: \vfill& \begin{tabular}[x]{@{}l@{}}\@author\end{tabular} \\%
+& \\%
+Affiliation: & DIKU, Department of Computer Science, \\&University of Copenhagen, Denmark \\%
+& \\%
+Title: & \@title~/~\@subtitle \\%
+& \\%
+Academic advisor: & \begin{tabular}[x]{@{}l@{}}\@supervisor\end{tabular} \\%
+& \\%
+Submitted: & \@date \\%
+\end{tabular}%
+~\\
+~\\
+~\\
+~\\
+\ifx\@subject\undefined
+  ~
+\else
+  \begin{center}\textbf{Short abstract}\end{center} %
+  \centering\parbox{.83\textwidth}{\@subject}
+  
+\fi
+
+\end{titlingpage}
+}
+
+
+% NO RESETTING OF FOOTNOTES AT CHAPER CHANGE
+\makeatletter\@removefromreset{footnote}{chapter}\makeatother
+
+% Set the style of chapter heads
+
+
+\definecolor{TemplateColor}{rgb}{.564,.101,.117}  % KU Red
+%\definecolor{TemplateColor}{rgb}{.2941,.4549,.2359} % KU green
+
+\newcommand{\pnumb}[1]{
+    \begin{tikzpicture}
+      \draw[fill,color=gray] (0,0) rectangle (5mm,5mm);
+      \draw[color=white] (2.5mm,2.5mm) node { #1};
+    \end{tikzpicture}
+}
+\newcommand{\printchapternumm}{}
+\makechapterstyle{combined}{
+  \setlength{\midchapskip}{-60pt}
+  \setlength{\afterchapskip}{2.5cm}
+  \renewcommand*{\printchaptername}{}
+  \renewcommand*{\chapnumfont}{\normalfont\bfseries\fontsize{45}{0}\selectfont}
+  \renewcommand*{\printchapternum}{\flushright\chapnumfont\textcolor{TemplateColor}{\thechapter}}
+  \renewcommand*{\chaptitlefont}{\normalfont\Huge\bfseries}
+  \renewcommand*{\printchaptertitle}[1]{%
+    \raggedright\chaptitlefont\parbox[t]{\textwidth-2cm}{\raggedright##1}}
+}
+
+% Only clearpage (not cleardoublepage) at new chapter.
+\renewcommand{\clearforchapter}{\clearpage}
+
+% Show subsections numbering and table of content
+\setcounter{tocdepth}{2}
+% Show subsubsections numbering, but table of content
+\setcounter{secnumdepth}{3}
+
+% Computer for Listings
+\renewcommand\thelstnumber{\thesection.\arabic{lstlisting}}
