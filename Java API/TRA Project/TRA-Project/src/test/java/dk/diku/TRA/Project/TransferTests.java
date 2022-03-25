@@ -70,18 +70,27 @@ public class TransferTests {
         assert(Transfer.zero().equals(Transfer.add(Transfer.mult(t1,-1),t1)));
     }
 
+
+
+
+
+
+
+
+
+
+
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
     ////////////////////////////////////////////////////////////////
     //////////////////////// Mult tests ////////////////////////////
     ////////////////////////////////////////////////////////////////
     @Test
     void TestMultBasic(){
-        Resource a = new Resource("a", 42);
-        Agent alice = new Agent("Alice");
         Integer b = 1337;
-        Transfer t1 = new Transfer(alice,a);
         Transfer t2 = Transfer.mult(t1,b);
-        Resource cmp = new Resource("a", 42*b);
-        Transfer t3 = new Transfer(alice,cmp);
         assert(t3.equals(t2));
         assert(t2.equals(t3));
     }
