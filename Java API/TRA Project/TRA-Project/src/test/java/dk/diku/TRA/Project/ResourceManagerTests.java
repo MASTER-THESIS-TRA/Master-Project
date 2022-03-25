@@ -38,12 +38,8 @@ public class ResourceManagerTests {
         Agent daniel = new Agent("Daniel");
         Resource initialBalance = new Resource("a", 69);
         ResourceManager rm = new ResourceManager("bank");
-        try {
-            assert (rm.AddAgent(daniel, initialBalance) == true); // First time should be successful
-            assert (rm.AddAgent(daniel, initialBalance) == false); // No duplicate agents = fail
-        } catch (TRAException e) {
-            assert(false);
-        }
+        assert (rm.AddAgent(daniel, initialBalance) == true); // First time should be successful
+        assert (rm.AddAgent(daniel, initialBalance) == false); // No duplicate agents = fail
     }
 /*
     ////////////////////////////////////////////////////////////////

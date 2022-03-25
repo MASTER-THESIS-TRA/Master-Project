@@ -7,42 +7,47 @@ import Exceptions.TRAException;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.ArrayList;
+
 import java.util.HashMap;
 
 public class TransferTests {
     Transfer t1;
     Transfer t2;
     Transfer t3;
+    boolean setup = false;
     ////////////////////////////////////////////////////////////////
     ///////////////////////// Add tests ////////////////////////////
     ////////////////////////////////////////////////////////////////
-    @BeforeAll
+    @BeforeEach
     void init(){
-        try{
-            Resource a = new Resource("a", 42);
-            Resource b = new Resource("b", 1337);
-            Resource c = new Resource("c", 888);
-            Agent alice = new Agent("Alice");
-            Agent bob = new Agent("Bob");
-            HashMap<Agent, Resource> M1 = new HashMap<>();
-            M1.put(alice, a);
-            M1.put(bob, Resource.mult(a, -1));
-            HashMap<Agent, Resource> M2 = new HashMap<>();
-            M1.put(alice, b);
-            M1.put(bob, Resource.mult(b, -1));
-            HashMap<Agent, Resource> M3 = new HashMap<>();
-            M1.put(alice, c);
-            M1.put(bob, Resource.mult(c, -1));
-            t1 = new Transfer(M1);
-            t2 = new Transfer(M2);
-            t3 = new Transfer(M3);
-        } catch (TRAException e) {
-            assert(false);
+        if (setup){
+            return;
         }
-
+        else{
+            try{
+                setup = true;
+                Resource a = new Resource("a", 42);
+                Resource b = new Resource("b", 1337);
+                Resource c = new Resource("c", 888);
+                Agent alice = new Agent("Alice");
+                Agent bob = new Agent("Bob");
+                HashMap<Agent, Resource> M1 = new HashMap<>();
+                M1.put(alice, a);
+                M1.put(bob, Resource.mult(a, -1));
+                HashMap<Agent, Resource> M2 = new HashMap<>();
+                M1.put(alice, b);
+                M1.put(bob, Resource.mult(b, -1));
+                HashMap<Agent, Resource> M3 = new HashMap<>();
+                M1.put(alice, c);
+                M1.put(bob, Resource.mult(c, -1));
+                t1 = new Transfer(M1);
+                t2 = new Transfer(M2);
+                t3 = new Transfer(M3);
+            } catch (TRAException e) {
+                assert(false);
+            }
+        }
     }
 
     @Test
@@ -76,7 +81,8 @@ public class TransferTests {
     @Test
     void TestMultBasic(){ // 1337*42 = 56154
         Integer b = 1337;
-        assert(Transfer.mult(t1,b).get("Alice").get("a")==56154);
+        ///assert(Transfer.mult(t1,b).values().stream().filter(r -> );
+        // Hmm....
     }
 
     @Test

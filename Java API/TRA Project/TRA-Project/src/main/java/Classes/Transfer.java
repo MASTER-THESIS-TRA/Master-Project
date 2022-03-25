@@ -20,7 +20,7 @@ public class Transfer extends Vector<Agent, Resource> {
         super(M);
         Resource sum = Resource.zero();
         for (Resource r : M.values()){
-            Resource.add(sum,r);
+            sum = Resource.add(sum,r);
         }
         if (!sum.equals(Resource.zero())){
             throw new TRAException(ExceptionConstants.ILLEGAL_TRANSFER);
