@@ -39,7 +39,7 @@ public class Transfer extends Vector<Agent, Resource> {
     }
 
     @Override
-    public IVector Add(IVector x, IVector y) {
+    public Transfer Add(IVector x, IVector y) {
         try{
             return add((Transfer)x,(Transfer)y);
         } catch (ClassCastException e){
@@ -49,7 +49,7 @@ public class Transfer extends Vector<Agent, Resource> {
     }
 
     @Override
-    public IVector Mult(IVector x, Integer y) {
+    public Transfer Mult(IVector x, Integer y) {
         try{
             return mult((Transfer)x,y);
         } catch (ClassCastException e){
