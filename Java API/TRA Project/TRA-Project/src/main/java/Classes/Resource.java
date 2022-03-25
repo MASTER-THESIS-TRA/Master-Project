@@ -4,8 +4,7 @@ import Interfaces.IVector;
 
 import java.util.*;
 
-public class Resource extends Vector {
-
+public class Resource extends Vector<String, Integer> {
     public Resource(String key, Integer val){ super(key,val); }
     public Resource(Map<String, Integer> M) { super(M); }
 
@@ -24,23 +23,6 @@ public class Resource extends Vector {
         return zero();
     }
 
-    public static Resource add(Resource x, Resource y) {
-        try{
-            HashMap sum = new HashMap();
-            sum.putAll(x);
-            for (Object k : y.keySet()){
-                sum.computeIfPresent(k,
-                        (key, val) -> sum.put(k,(Integer)val + (Integer)y.get(k)));
-                sum.putIfAbsent(k, y.get(k));
-            }
-            return new Resource(sum);
-
-        } catch (ClassCastException e){
-            System.out.println(e.getMessage());
-            return null;
-        }
-    }
-
     @Override
     public Resource Mult(IVector x, Integer y) {
         try{
@@ -51,6 +33,23 @@ public class Resource extends Vector {
         }
     }
 
+    public static Resource add(Resource x, Resource y) {
+        try{
+            HashMap<String, Integer> sum = new HashMap();
+            sum.putAll(x);
+            for (String k : y.keySet()){
+                sum.computeIfPresent(k,
+                        (key, val) -> val + y.get(k));
+                sum.putIfAbsent(k, y.get(k));
+            }
+            return new Resource(sum);
+
+        } catch (ClassCastException e){
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+
     public static Resource zero(){
         return new Resource(Collections.emptyMap());
     }
@@ -58,7 +57,9 @@ public class Resource extends Vector {
     public static Resource mult(Resource x, Integer y) {
         try{
             Map<String, Integer> ret = new HashMap();
-            x.entrySet().stream().map(e -> ret.put((String)((Entry)e).getKey(),(Integer)((Entry)e).getValue()*y));
+            for (Map.Entry<String, Integer> e : x.entrySet()){
+                ret.put(e.getKey(),e.getValue()*y);
+            }
             return new Resource(ret);
         } catch (ClassCastException e){
             System.out.println(e.getMessage());
@@ -94,6 +95,8 @@ public class Resource extends Vector {
             return false;
         }
     }
+}
+
 
     /*
          //////////////////////////// Alexanders initial add. //////////////////////////
@@ -116,5 +119,3 @@ public class Resource extends Vector {
         // maybe check for the size of the sum map before returning?
         return new Resource(sum);
     */
-
-}

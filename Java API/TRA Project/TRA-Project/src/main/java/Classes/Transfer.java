@@ -1,26 +1,41 @@
 package Classes;
 
+import Exceptions.ExceptionConstants;
+import Exceptions.TRAException;
 import Interfaces.IVector;
 
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Transfer extends Vector {
+public class Transfer extends Vector<Agent, Resource> {
+    public Transfer () { super(Collections.emptyMap()); }
+    // This constructor is solely for testing purposes only, and should not be used anywhere in the application.
+    // It is not technically a transfer, as the sum of the resources is not zero.
     public Transfer (Agent a, Resource r){
         super(a,r);
     }
-    public Transfer (Map<Agent,Resource> M){
+    // Check if valid before returning.
+    public Transfer (Map<Agent,Resource> M) throws TRAException {
         super(M);
+        Resource sum = Resource.zero();
+        for (Resource r : M.values()){
+            Resource.add(sum,r);
+        }
+        if (!sum.equals(Resource.zero())){
+            throw new TRAException(ExceptionConstants.ILLEGAL_TRANSFER);
+        }
     }
 
     @Override
     public Vector Zero() {
-        return zero();
+            return zero();
     }
 
-    public static Transfer zero(){
-        return new Transfer(Collections.emptyMap());
+    public static Transfer zero() {
+        Transfer ret;
+        try{ret = new Transfer(Collections.emptyMap());}catch(TRAException e){ret = null;/*Do nothing, this can never happen*/}
+        return ret;
     }
 
     @Override
@@ -45,32 +60,46 @@ public class Transfer extends Vector {
 
     public static Transfer add(Transfer x, Transfer y) {
         try{
-            HashMap<Agent,Resource> sum = new HashMap<Agent, Resource>();
+            HashMap<Agent,Resource> sum = new HashMap<>();
             sum.putAll(x);
-            for (Object k : y.keySet()){
-                sum.computeIfPresent((Agent)k,
-                        (key, val) -> Resource.add((Resource)val, (Resource)y.get(k)));
-                sum.putIfAbsent((Agent)k, (Resource)y.get(k));
+            for (Agent k : y.keySet()){
+                sum.computeIfPresent(k,
+                        (key, val) -> Resource.add(val, y.get(k)));
+                sum.putIfAbsent(k, y.get(k));
             }
             return new Transfer(sum);
-
         } catch (ClassCastException e){
             System.out.println(e.getMessage());
-            return null;
-        }
-    }
-
-    public static Transfer mult(Transfer x, Integer y){
-        try{
-            Map<Agent, Resource> ret = new HashMap<Agent, Resource>();
-            x.entrySet().stream().map(e -> ret.put((Agent)((Entry)e).getKey(),Resource.mult((Resource)((Entry)e).getValue(),y)));
-            return new Transfer(ret);
-        } catch (ClassCastException e){
+        } catch (TRAException e){
             System.out.println(e.getMessage());
         }
         return null;
     }
 
+    public static Transfer mult(Transfer x, Integer y){
+        try{
+            Map<Agent, Resource> ret = new HashMap<>();
+            for (Map.Entry<Agent, Resource> e : x.entrySet()){
+                ret.put(e.getKey(),Resource.mult(e.getValue(),y));
+            }
+            return new Transfer(ret);
+        } catch (ClassCastException e){
+            System.out.println(e.getMessage());
+        }catch (TRAException e){
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+
+    public Boolean Valid(){
+        Resource sum = Resource.zero();
+        for (Object o : this.values()){
+            sum = Resource.add(sum, (Resource)o);
+        }
+        return sum.equals(Resource.zero());
+    }
+
+ // testing
     @Override
     public boolean equals(Object o){
         try {
@@ -78,6 +107,7 @@ public class Transfer extends Vector {
             // Creating temporary HashMaps to be able to modify them.
             HashMap<Agent,Resource> tmpA = new HashMap(cmp);
             HashMap<Agent,Resource> tmpB = new HashMap(this);
+
             // Removing any keys that are zero, since any transfer implicitly transfers 0 resources to all agents not mentioned in the transfer.
             tmpA.entrySet().removeIf(entry -> entry.getValue().equals(Resource.zero()));
             tmpB.entrySet().removeIf(entry -> entry.getValue().equals(Resource.zero()));

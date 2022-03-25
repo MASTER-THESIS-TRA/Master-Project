@@ -1,6 +1,50 @@
 package dk.diku.TRA.Project;
 
+import Classes.Agent;
+import Classes.Resource;
+import Classes.ResourceManager;
+import Classes.Transfer;
+import Exceptions.TRAException;
+import org.junit.jupiter.api.Test;
+
+import java.util.HashMap;
+import java.util.Map;
+
 public class ResourceManagerTests {
+
+    /*
+    @Test
+    void TestResourceManagerCreation() {
+        HashMap m = new HashMap();
+        Resource a = new Resource("a", 42);
+        Resource b = new Resource("b", 1337);
+        Agent alice = new Agent("Alice");
+        Agent bob = new Agent("Bob");
+        m.put(alice, a);
+        m.put(bob, b);
+        Transfer t0 = new Transfer(m);
+        ResourceManager rm = new ResourceManager("Bank", m);
+        Agent bank = new Agent("Bank");
+        Transfer t1 = new Transfer(bank, Resource.mult(a, -1));
+        Transfer t2 = new Transfer(bank, Resource.mult(b, -1));
+        Transfer t3 = Transfer.add(t1, t2);
+        Transfer t4 = Transfer.add(t0, t3);
+        assert(t4.equals(rm.getOwnerships()));
+    } */
+
+
+    @Test
+    void TestAddDuplicateAgent() {
+        Agent daniel = new Agent("Daniel");
+        Resource initialBalance = new Resource("a", 69);
+        ResourceManager rm = new ResourceManager("bank");
+        try {
+            assert (rm.AddAgent(daniel, initialBalance) == true); // First time should be successful
+            assert (rm.AddAgent(daniel, initialBalance) == false); // No duplicate agents = fail
+        } catch (TRAException e) {
+            assert(false);
+        }
+    }
 /*
     ////////////////////////////////////////////////////////////////
     /////////////////////// Init tests /////////////////////////////
