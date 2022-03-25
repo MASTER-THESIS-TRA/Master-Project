@@ -1,0 +1,69 @@
+Spørgsmål: 
+ - Vi snakkede både om at en global resource manager skulle fungere ved at man lægger resourceManagere sammen (de er je bare en statefull transfer), 
+   og om at de skulle snakke sammen via 2PC. Er der brug for begge dele, eller bare en af delene? 
+   - Transferen skal deles i t1/t2 og så sendes ud til dem hver især. 
+   - P2P netværk imellem resource managers. En resource manager agerer både aktør i 2PC og manager. 
+ - Du snakkede lidt om at man skulle kunne sælge certifikater (som incitament til ikke at snyde)?
+   - I forhold til recycling kan man jo vise hvor genbrugsplastik præcist kommer fra. 
+   - Hvis man køber genbrugsplastik får man ikke bare plastik, men også et certifikat. 
+   - Og man kan selvfølgelig sælge sine certifikater, men det er ikke optimalt.
+ - Vægt????? Er det noget en domæneekspert skal sige noget om? 
+ - Omdøb CreditPolicy til CreditLimit (eller noget lignende). 
+ - Ved en transfer: 
+   - skal underskrives af alle der giver noget væk. 
+   - invalidering af en transfer: 
+     - Man skal ikke kunne genkøre transfers!! 
+     - En underskrevet transfer må aldrig udføres to gange 
+     - Eller rettere sagt: at udføre en transfer tre gange har samme effekt som at udføre den én enkel gang!
+
+
+Use case: 
+ - Name/Title
+ - ID
+ - Description
+ - Actors
+ - Organizational benefits
+ - Frequency of use
+ - Triggers
+ - Preconditions
+ - Postconditions
+ - Main course
+ - Alternate course
+ - Exceptions
+
+Use case example: 
+ - Title: sale
+ - ID: UC1
+ - Description: A farmer sells 10kg coffee berries to a miller for 10$.
+ - Actors: Farmer, Miller and Resource Manager
+ - Organizational benefits: people can sell and buy items and goods. 
+ - Frequency of use: constantly (every day)
+ - Triggers: both parties agree to the sale (or in-system triggers?)
+ - Preconditions: 
+   - the farmer owns at least 10kg of coffee berries
+   - the miller owns at least 10$
+ - Post-conditions: 
+   - the farmer owns 10kg of coffee berries less and 10$ more than prior to the sale
+   - the miller owns 10kg of coffee berries more and 10$ less than prior to the sale
+ - Main course 1: 
+   - One party submits a transfer, to the resource manager, that covers the transaction: 
+     - Farmer -------> 10kg coffee berries -------> Miller
+     - Miller -------> 10$ --------> Farmer
+   - The other party agrees/accepts the transfer
+   - The resource manager validates that the transfer is valid and that post-conditions are met
+   - The resource manager performs the transfer
+ - Main cource 2:
+   - One party submits a contract, to the resource manager, that specifies the transaction: 
+     - Farmer -------> 10kg coffee berries -------> Miller
+     - Miller -------> 10$ --------> Farmer
+   - The Resource manager confirms signatures from both parties. 
+   - The resource manager validates that the transfer is valid and that post-conditions are met
+   - The resource manager performs the transfer
+ - Alternate course: some external monetary entity for the transfer of the money.
+ - Exceptions: 
+   - Either party cannot afford the transaction. 
+
+Use case example 2: 
+ - Title: roasting
+ - ID: UC2
+ - Description: A miller [does something to] 10kg of coffee berries [so it becomes] [something else]
