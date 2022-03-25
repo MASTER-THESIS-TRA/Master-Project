@@ -4,58 +4,70 @@ import Classes.Agent;
 import Classes.Resource;
 import Classes.Transfer;
 import Exceptions.TRAException;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class TransferTests {
+    Transfer t1;
+    Transfer t2;
+    Transfer t3;
     ////////////////////////////////////////////////////////////////
     ///////////////////////// Add tests ////////////////////////////
     ////////////////////////////////////////////////////////////////
+    @BeforeAll
+    void init(){
+        try{
+            Resource a = new Resource("a", 42);
+            Resource b = new Resource("b", 1337);
+            Resource c = new Resource("c", 888);
+            Agent alice = new Agent("Alice");
+            Agent bob = new Agent("Bob");
+            HashMap<Agent, Resource> M1 = new HashMap<>();
+            M1.put(alice, a);
+            M1.put(bob, Resource.mult(a, -1));
+            HashMap<Agent, Resource> M2 = new HashMap<>();
+            M1.put(alice, b);
+            M1.put(bob, Resource.mult(b, -1));
+            HashMap<Agent, Resource> M3 = new HashMap<>();
+            M1.put(alice, c);
+            M1.put(bob, Resource.mult(c, -1));
+            t1 = new Transfer(M1);
+            t2 = new Transfer(M2);
+            t3 = new Transfer(M3);
+        } catch (TRAException e) {
+            assert(false);
+        }
+
+    }
+
     @Test
-    void TestAddCummutative(){
-        Resource a = new Resource("a", 42);
-        Resource b = new Resource("b", 1337);
-        Agent alice = new Agent("Alice");
-        Agent bob = new Agent("Bob");
-        Transfer t1 = new Transfer(alice,Resource.add(a,Resource.mult(b,-1)));
-        Transfer t2 = new Transfer(bob,Resource.add(b,Resource.mult(a,-1)));
+    void TestAddCummutative(){  // a+b=b+a
         Transfer t3 = Transfer.add(t1,t2);
         Transfer t4 = Transfer.add(t2,t1);
         assert(t3.equals(t4));
         assert(t4.equals(t3));
     }
     @Test
-    void TestAddAsociative(){
-        Resource a = new Resource("a", 42);
-        Resource b = new Resource("b", 1337);
-        Resource c = new Resource("c",888);
-        Agent alice = new Agent("Alice");
-        Agent bob = new Agent("Bob");
-        Transfer t1 = new Transfer(alice,Resource.add(a,Resource.mult(b,-1)));
-        Transfer t2 = new Transfer(bob,Resource.add(b,Resource.mult(a,-1)));
-        Transfer t3 = new Transfer(bob,Resource.add(c,Resource.mult(b,-1)));
-        Transfer t4 = Transfer.add(Transfer.add(t1,t2),t3);
-        Transfer t5 = Transfer.add(Transfer.add(t2,t3),t1);
-        assert(t5.equals(t4));
-        assert(t4.equals(t5));
+    void TestAddAsociative(){ // (a+b)+c=a+(b+c)
+        Transfer t4 = Transfer.add(Transfer.add(t1, t2), t3);
+        Transfer t5 = Transfer.add(Transfer.add(t2, t3), t1);
+        assert (t5.equals(t4));
+        assert (t4.equals(t5));
     }
 
     @Test
-    void TestAddIdentity(){
-        Resource a = new Resource("a", 42);
-        Agent alice = new Agent("Alice");
-        Transfer t = new Transfer(alice, a);
-        assert(t.equals(Transfer.add(t,Transfer.zero())));
+    void TestAddIdentity(){ // a+0=a
+        assert(t1.equals(Transfer.add(t1,Transfer.zero())));
     }
 
     @Test
-    void TestAddInverse(){
-        Resource a = new Resource("a", 42);
-        Agent alice = new Agent("Alice");
-        Transfer t = new Transfer(alice, a);
-        assert(Transfer.zero().equals(Transfer.add(Transfer.mult(t,-1),t)));
+    void TestAddInverse(){ // a+(-a)=0
+        assert(Transfer.zero().equals(Transfer.add(Transfer.mult(t1,-1),t1)));
     }
 
     ////////////////////////////////////////////////////////////////
