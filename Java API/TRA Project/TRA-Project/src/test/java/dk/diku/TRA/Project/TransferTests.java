@@ -81,6 +81,19 @@ public class TransferTests {
     @Test
     void TestMultBasic(){ // 1337*42 = 56154
         Integer b = 1337;
+        Resource x = new Resource("a", 56154);
+
+        Agent alice = new Agent("Alice");
+        Agent bob = new Agent("Bob");
+        HashMap<Agent, Resource> M1 = new HashMap<>();
+        M1.put(alice, x);
+        M1.put(bob, Resource.mult(x, -1));
+        try{
+            Transfer cmp = new Transfer(M1);
+            assert(cmp.equals(Transfer.mult(t1,b)));
+        } catch (TRAException e){
+            assert(false);
+        }
         ///assert(Transfer.mult(t1,b).values().stream().filter(r -> );
         // Hmm....
     }
