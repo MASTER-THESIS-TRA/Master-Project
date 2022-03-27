@@ -29,7 +29,7 @@ public class ResourceManager extends Agent{
 
     // What Fritz??
     public ResourceManager(ResourceManager a, ResourceManager b){
-        super(a.name + " and " + b.name);
+        super(a.getName() + " and " + b.getName());
         throw new NotImplementedException();
         // And then add the ownerships of the two ResourceManagers together.
     }
@@ -52,7 +52,7 @@ public class ResourceManager extends Agent{
     }
 
     public boolean Apply(Transfer t){
-        if (CP.Predicate(t, ownerships)){
+        if (CP.ValidateTransfer(t, ownerships)){
             ownerships = Transfer.add(ownerships, t);
             return true;
         }
