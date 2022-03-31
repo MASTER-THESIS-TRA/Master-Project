@@ -1,10 +1,10 @@
+import {TestApi} from "./api/Api";
+import {Sidebar} from "./components/Sidebar";
 
 function App() {
   return (
     <div>
-      <header>
-        <p>This is our frontpage</p>
-      </header>
+        <Sidebar />
     </div>
   );
 }
