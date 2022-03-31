@@ -1,8 +1,6 @@
 package Classes;
 
-import Interfaces.ILocation;
-
-public class Location implements ILocation{
+public class Location {
 
     public String locationName;
     public Address address;
