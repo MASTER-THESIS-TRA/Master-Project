@@ -15,10 +15,10 @@ public class TransferTests {
     Transfer t1;
     Transfer t2;
     Transfer t3;
+    Agent alice;
+    Agent bob;
     boolean setup = false;
-    ////////////////////////////////////////////////////////////////
-    ///////////////////////// Add tests ////////////////////////////
-    ////////////////////////////////////////////////////////////////
+
     @BeforeEach
     void init(){
         if (setup){
@@ -30,17 +30,17 @@ public class TransferTests {
                 Resource a = new Resource("a", 42);
                 Resource b = new Resource("b", 1337);
                 Resource c = new Resource("c", 888);
-                Agent alice = new Agent("Alice");
-                Agent bob = new Agent("Bob");
+                alice = new Agent("Alice");
+                bob = new Agent("Bob");
                 HashMap<Agent, Resource> M1 = new HashMap<>();
                 M1.put(alice, a);
                 M1.put(bob, Resource.mult(a, -1));
                 HashMap<Agent, Resource> M2 = new HashMap<>();
-                M1.put(alice, b);
-                M1.put(bob, Resource.mult(b, -1));
+                M2.put(alice, b);
+                M2.put(bob, Resource.mult(b, -1));
                 HashMap<Agent, Resource> M3 = new HashMap<>();
-                M1.put(alice, c);
-                M1.put(bob, Resource.mult(c, -1));
+                M3.put(alice, c);
+                M3.put(bob, Resource.mult(c, -1));
                 t1 = new Transfer(M1);
                 t2 = new Transfer(M2);
                 t3 = new Transfer(M3);
@@ -50,6 +50,9 @@ public class TransferTests {
         }
     }
 
+    ////////////////////////////////////////////////////////////////
+    ///////////////////////// Add tests ////////////////////////////
+    ////////////////////////////////////////////////////////////////
     @Test
     void TestAddCummutative(){  // a+b=b+a
         Transfer t4 = Transfer.add(t1,t2);
@@ -82,9 +85,6 @@ public class TransferTests {
     void TestMultBasic(){ // 1337*42 = 56154
         Integer b = 1337;
         Resource x = new Resource("a", 56154);
-
-        Agent alice = new Agent("Alice");
-        Agent bob = new Agent("Bob");
         HashMap<Agent, Resource> M1 = new HashMap<>();
         M1.put(alice, x);
         M1.put(bob, Resource.mult(x, -1));
@@ -94,8 +94,6 @@ public class TransferTests {
         } catch (TRAException e){
             assert(false);
         }
-        ///assert(Transfer.mult(t1,b).values().stream().filter(r -> );
-        // Hmm....
     }
 
     @Test
