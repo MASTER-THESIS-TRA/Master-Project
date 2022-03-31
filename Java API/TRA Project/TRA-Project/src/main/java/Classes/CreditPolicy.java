@@ -75,7 +75,7 @@ public class CreditPolicy extends Vector<Agent, Resource>{
         return null;
     }
 
-    public boolean Predicate(Transfer t, Transfer ownershipState){
+    public boolean ValidateTransfer(Transfer t, Transfer ownershipState){
         Transfer sum = Transfer.add(t,ownershipState);
         for (Agent a : sum.keySet()){
             if (this.get(a).containsKey("*")){continue;}

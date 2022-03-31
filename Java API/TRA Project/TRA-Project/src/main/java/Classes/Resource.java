@@ -67,6 +67,8 @@ public class Resource extends Vector<String, Integer> {
         }
     }
 
+    // Utility functions:
+
     // It does not make sense to check which resource is "biggest", because of compact resources.
     // Equality is nice to be able to verify though.
     @Override
@@ -95,27 +97,12 @@ public class Resource extends Vector<String, Integer> {
             return false;
         }
     }
+
+    public static Resource Sum(ArrayList<Resource> resourceList){
+        Resource sum = Resource.zero();
+        for (Resource t : resourceList){
+            sum = Resource.add(sum, t);
+        }
+        return sum;
+    }
 }
-
-
-    /*
-         //////////////////////////// Alexanders initial add. //////////////////////////
-        if(Stream.of(x, y).allMatch(a -> a.isEmpty())) { throw new IllegalArgumentException("Invalid: Both vectors were null"); }
-        if(x.isEmpty()) { return new Resource(y); }
-        if(y.isEmpty()) { return new Resource(x); }
-
-        for(Object key : x.keySet()) {
-            if(y.containsKey(key)) {
-                sum.put(key, ((Integer) y.get(key)) + ((Integer) x.get(key)));
-            } else {
-                sum.put(key, x.get(key));
-            }
-        }
-        for(Object key : y.keySet()) {
-            if(!sum.containsKey(y.get(key))) {
-                sum.put(key, y.get(key));
-            }
-        }
-        // maybe check for the size of the sum map before returning?
-        return new Resource(sum);
-    */

@@ -5,12 +5,64 @@ import Classes.Resource;
 import Classes.ResourceManager;
 import Classes.Transfer;
 import Exceptions.TRAException;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class ResourceManagerTests {
+
+    Agent Fritz;
+    Agent Alexander;
+    Agent Daniel;
+    Resource knuts;
+    Resource sickles;
+    Resource galleons;
+    ResourceManager bank;
+    boolean setup = false;
+
+    @BeforeEach
+    void init(){
+        if (setup){
+            return;
+        }
+        else{
+            setup = true;
+            knuts = new Resource("Knuts",1);
+            sickles = new Resource("Sickles",1);
+            galleons = new Resource("Galleons", 1);
+            Fritz = new Agent("Fritz");
+            Alexander = new Agent("Alexander");
+            Daniel = new Agent("Daniel");
+            HashMap<Agent, Resource> M = new HashMap<>();
+            M.put(Daniel,Resource.add(Resource.mult(knuts,50),Resource.add(Resource.mult(sickles,25),galleons)));
+            M.put(Alexander,Resource.add(Resource.mult(knuts,75),Resource.add(Resource.mult(sickles,10),Resource.mult(galleons,2))));
+            M.put(Fritz,Resource.add(Resource.mult(knuts,50),Resource.add(Resource.mult(sickles,42),Resource.mult(galleons,1337))));
+            bank = new ResourceManager("Gringotts", M);
+        }
+    }
+
+    @Test
+    void TestAddDuplicateAgent() {
+        assert(!bank.AddAgent(Daniel));
+    }
+
+    @Test
+    void TestGetOwnerships(){
+        Transfer owns = bank.GetOwnerships();
+        assert(owns.keySet().size()==4);
+        assert(owns.keySet().contains(Daniel));
+        assert(owns.keySet().contains(Alexander));
+        assert(owns.keySet().contains(Fritz));
+        assert(owns.keySet().contains(bank));
+    }
+
+    @Test
+    void TestOwnershipStateIsTransfer(){
+        Resource negSum = Resource.add(bank.GetOwnerships().get(Daniel),Resource.add(bank.GetOwnerships().get(Fritz),bank.GetOwnerships().get(Alexander)));
+        assert(bank.GetOwnerships().get(bank).equals(Resource.mult(negSum,-1)));
+    }
 
     /*
     @Test
@@ -33,18 +85,7 @@ public class ResourceManagerTests {
     } */
 
 
-    @Test
-    void TestAddDuplicateAgent() {
-        Agent daniel = new Agent("Daniel");
-        Resource initialBalance = new Resource("a", 69);
-        ResourceManager rm = new ResourceManager("bank");
-        try {
-            assert (rm.AddAgent(daniel, initialBalance) == true); // First time should be successful
-            assert (rm.AddAgent(daniel, initialBalance) == false); // No duplicate agents = fail
-        } catch (TRAException e) {
-            assert(false);
-        }
-    }
+
 /*
     ////////////////////////////////////////////////////////////////
     /////////////////////// Init tests /////////////////////////////

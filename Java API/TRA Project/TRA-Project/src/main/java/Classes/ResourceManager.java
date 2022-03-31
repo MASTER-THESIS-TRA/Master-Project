@@ -29,14 +29,18 @@ public class ResourceManager extends Agent{
 
     // What Fritz??
     public ResourceManager(ResourceManager a, ResourceManager b){
-        super(a.name + " and " + b.name);
+        super(a.getName() + " and " + b.getName());
         throw new NotImplementedException();
         // And then add the ownerships of the two ResourceManagers together.
     }
 
     // Initially an agent has no
-    public void AddAgent(Agent a){
+    public boolean AddAgent(Agent a){
+        if (ownerships.keySet().contains(a)){
+            return false;
+        }
         ownerships = Transfer.add(ownerships, new Transfer(a,Resource.zero()));
+        return true;
     }
 
     public boolean AddAgent(Agent a, Resource initialBalance) {
@@ -52,7 +56,7 @@ public class ResourceManager extends Agent{
     }
 
     public boolean Apply(Transfer t){
-        if (CP.Predicate(t, ownerships)){
+        if (CP.ValidateTransfer(t, ownerships)){
             ownerships = Transfer.add(ownerships, t);
             return true;
         }

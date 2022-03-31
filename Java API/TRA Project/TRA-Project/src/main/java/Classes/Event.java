@@ -1,10 +1,9 @@
 package Classes;
 
-import Interfaces.IEvent;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
-public class Event implements IEvent {
+public class Event {
 
     public String eventName;
     private List<Agent> responsible;

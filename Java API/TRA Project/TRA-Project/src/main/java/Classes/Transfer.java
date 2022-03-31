@@ -4,6 +4,7 @@ import Exceptions.ExceptionConstants;
 import Exceptions.TRAException;
 import Interfaces.IVector;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -20,7 +21,7 @@ public class Transfer extends Vector<Agent, Resource> {
         super(M);
         Resource sum = Resource.zero();
         for (Resource r : M.values()){
-            Resource.add(sum,r);
+            sum = Resource.add(sum,r);
         }
         if (!sum.equals(Resource.zero())){
             throw new TRAException(ExceptionConstants.ILLEGAL_TRANSFER);
@@ -39,7 +40,7 @@ public class Transfer extends Vector<Agent, Resource> {
     }
 
     @Override
-    public IVector Add(IVector x, IVector y) {
+    public Transfer Add(IVector x, IVector y) {
         try{
             return add((Transfer)x,(Transfer)y);
         } catch (ClassCastException e){
@@ -49,7 +50,7 @@ public class Transfer extends Vector<Agent, Resource> {
     }
 
     @Override
-    public IVector Mult(IVector x, Integer y) {
+    public Transfer Mult(IVector x, Integer y) {
         try{
             return mult((Transfer)x,y);
         } catch (ClassCastException e){
@@ -99,7 +100,7 @@ public class Transfer extends Vector<Agent, Resource> {
         return sum.equals(Resource.zero());
     }
 
- // testing
+    // Utility functions
     @Override
     public boolean equals(Object o){
         try {
@@ -126,5 +127,13 @@ public class Transfer extends Vector<Agent, Resource> {
             System.out.println(e.getMessage());
             return false;
         }
+    }
+
+    public static Transfer Sum(ArrayList<Transfer> transferList){
+        Transfer sum = Transfer.zero();
+        for (Transfer t : transferList){
+            sum = Transfer.add(sum, t);
+        }
+        return sum;
     }
 }
