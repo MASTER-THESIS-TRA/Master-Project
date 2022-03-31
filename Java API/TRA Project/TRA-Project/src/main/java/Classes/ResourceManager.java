@@ -35,8 +35,12 @@ public class ResourceManager extends Agent{
     }
 
     // Initially an agent has no
-    public void AddAgent(Agent a){
+    public boolean AddAgent(Agent a){
+        if (ownerships.keySet().contains(a)){
+            return false;
+        }
         ownerships = Transfer.add(ownerships, new Transfer(a,Resource.zero()));
+        return true;
     }
 
     public boolean AddAgent(Agent a, Resource initialBalance) {

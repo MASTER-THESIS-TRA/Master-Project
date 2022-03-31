@@ -4,6 +4,7 @@ import Exceptions.ExceptionConstants;
 import Exceptions.TRAException;
 import Interfaces.IVector;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -99,7 +100,7 @@ public class Transfer extends Vector<Agent, Resource> {
         return sum.equals(Resource.zero());
     }
 
- // testing
+    // Utility functions
     @Override
     public boolean equals(Object o){
         try {
@@ -126,5 +127,13 @@ public class Transfer extends Vector<Agent, Resource> {
             System.out.println(e.getMessage());
             return false;
         }
+    }
+
+    public static Transfer Sum(ArrayList<Transfer> transferList){
+        Transfer sum = Transfer.zero();
+        for (Transfer t : transferList){
+            sum = Transfer.add(sum, t);
+        }
+        return sum;
     }
 }
