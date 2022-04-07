@@ -30,9 +30,7 @@ export const Sidebar = () => {
 
     return (
         <div style={divStyle}>
-            <List
-                component="nav"
-            >
+            <List component="nav">
                 <CustomLinkButton to="/" primary="Overview" icon={<InboxIcon />} />
                 <CustomLinkButton primary="Account" to="account" icon={<InboxIcon />} />
                 <ListItemButton onClick={handleClick}>
@@ -45,6 +43,7 @@ export const Sidebar = () => {
                 <Collapse in={isOpen} timeout="auto" unmountOnExit>
                     <List sx={{ pl: 4 }} component="div" disablePadding>
                         <CustomLinkButton primary="Transfer" to="transfer" icon={<InboxIcon />} />
+                        <CustomLinkButton primary="Transform" to="transform" icon={<InboxIcon />} />
                     </List>
                 </Collapse>
             </List>

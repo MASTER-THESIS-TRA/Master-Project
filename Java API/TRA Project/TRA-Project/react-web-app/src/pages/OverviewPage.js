@@ -1,6 +1,4 @@
-import React from 'react';
-
-export const Overview = () => {
+export const OverviewPage = () => {
     return (
         <div>
             <p>
