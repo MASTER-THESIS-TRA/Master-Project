@@ -39,7 +39,11 @@ public class ResourceManagerTests {
             M.put(Daniel,Resource.add(Resource.mult(knuts,50),Resource.add(Resource.mult(sickles,25),galleons)));
             M.put(Alexander,Resource.add(Resource.mult(knuts,75),Resource.add(Resource.mult(sickles,10),Resource.mult(galleons,2))));
             M.put(Fritz,Resource.add(Resource.mult(knuts,50),Resource.add(Resource.mult(sickles,42),Resource.mult(galleons,1337))));
-            bank = new ResourceManager("Gringotts", M);
+            HashMap<String,Double> W = new HashMap<>();
+            W.put("Knuts",1.0);
+            W.put("Sickles",100.0);
+            W.put("Galleons",10000.0);
+            bank = new ResourceManager("Gringotts", M, W);
         }
     }
 
@@ -62,6 +66,11 @@ public class ResourceManagerTests {
     void TestOwnershipStateIsTransfer(){
         Resource negSum = Resource.add(bank.GetOwnerships().get(Daniel),Resource.add(bank.GetOwnerships().get(Fritz),bank.GetOwnerships().get(Alexander)));
         assert(bank.GetOwnerships().get(bank).equals(Resource.mult(negSum,-1)));
+    }
+
+    @Test
+    void TestTransformation(){
+        assert(false);
     }
 
     /*

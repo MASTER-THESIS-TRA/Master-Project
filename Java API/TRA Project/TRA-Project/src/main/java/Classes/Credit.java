@@ -8,34 +8,34 @@ import java.util.Map;
 
 // A credit policy is simply a mapping from Agents to the amount of resources they can owe.
 // Any agent not present in the mapping is assumed to have no credit.
-public class CreditPolicy extends Vector<Agent, Resource>{
+public class Credit extends Vector<Agent, Resource>{
 
-    public CreditPolicy(){
+    public Credit(){
         super(Collections.emptyMap());
     }
-    public CreditPolicy(Map<Agent,Resource> M){
+    public Credit(Map<Agent,Resource> M){
         super(M);
     }
-    public CreditPolicy(Agent a,Resource r){
+    public Credit(Agent a, Resource r){
         super(a,r);
     }
 
     @Override
-    public CreditPolicy Zero() {
-        return new CreditPolicy(Collections.EMPTY_MAP);
+    public Credit Zero() {
+        return new Credit(Collections.EMPTY_MAP);
     }
 
     @Override
-    public CreditPolicy Add(IVector x, IVector y) {
+    public Credit Add(IVector x, IVector y) {
         try{
-            return add((CreditPolicy) x,(CreditPolicy) y);
+            return add((Credit) x,(Credit) y);
         } catch (ClassCastException e){
             System.out.println(e.getMessage());
             return null;
         }
     }
 
-    public static CreditPolicy add(CreditPolicy x, CreditPolicy y){
+    public static Credit add(Credit x, Credit y){
         try{
             HashMap<Agent,Resource> sum = new HashMap<>();
             sum.putAll(x);
@@ -44,7 +44,7 @@ public class CreditPolicy extends Vector<Agent, Resource>{
                         (key, val) -> Resource.add(val, y.get(k)));
                 sum.putIfAbsent(k, y.get(k));
             }
-            return new CreditPolicy(sum);
+            return new Credit(sum);
 
         } catch (ClassCastException e){
             System.out.println(e.getMessage());
@@ -53,22 +53,22 @@ public class CreditPolicy extends Vector<Agent, Resource>{
     }
 
     @Override
-    public CreditPolicy Mult(IVector x, Integer y) {
+    public Credit Mult(IVector x, Integer y) {
         try{
-            return mult((CreditPolicy) x,y);
+            return mult((Credit) x,y);
         } catch (ClassCastException e){
             System.out.println(e.getMessage());
             return null;
         }
     }
 
-    public static CreditPolicy mult (CreditPolicy x, Integer y){
+    public static Credit mult (Credit x, Integer y){
         try{
             Map<Agent, Resource> ret = new HashMap<>();
             for (Map.Entry<Agent, Resource> e : x.entrySet()){
                 ret.put(e.getKey(),Resource.mult(e.getValue(),y));
             }
-            return new CreditPolicy(ret);
+            return new Credit(ret);
         } catch (ClassCastException e){
             System.out.println(e.getMessage());
         }

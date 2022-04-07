@@ -1,21 +1,18 @@
 package Classes;
 
 import Exceptions.TRAException;
-import io.swagger.v3.oas.models.security.SecurityScheme;
-import org.apache.commons.lang3.NotImplementedException;
-import org.springframework.scheduling.annotation.Async;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class ResourceManager extends Agent{
     private Transfer ownerships; // Ownership state can be represented as a transfer, where the ResourceManager transfers everyone their resources.
-    private CreditPolicy CP;
+    private Credit CP;
     private Weight weights;
 
     public ResourceManager(String name){
         super(name);
-        CP = new CreditPolicy(this,new Resource("*",1));
+        CP = new Credit(this,new Resource("*",1));
     }
 
     public ResourceManager(String name, Map<Agent,Resource> M){
@@ -25,7 +22,7 @@ public class ResourceManager extends Agent{
             debt = Resource.add(debt, Resource.mult(r,-1));
         }
         M.put(this,debt);
-        CP = new CreditPolicy(this,new Resource("*",1));
+        CP = new Credit(this,new Resource("*",1));
         try { ownerships = new Transfer(M); } catch (TRAException e){ }
     }
     public ResourceManager(String name, Map<Agent,Resource> M, Map<String, Double> W){
@@ -35,7 +32,7 @@ public class ResourceManager extends Agent{
             debt = Resource.add(debt, Resource.mult(r,-1));
         }
         M.put(this,debt);
-        CP = new CreditPolicy(this,new Resource("*",1));
+        CP = new Credit(this,new Resource("*",1));
         weights = new Weight(W);
         try { ownerships = new Transfer(M); } catch (TRAException e){ }
     }
@@ -62,7 +59,7 @@ public class ResourceManager extends Agent{
     }
 
     public boolean ApplyTransfer(Transfer t){
-        if (CP.ValidateTransfer(t, ownerships)){
+        if (CP.ValidateTransfer(t, ownerships)){ // Check if everyone involved can afford the transaction (per the credit policy).
             ownerships = Transfer.add(ownerships, t);
             return true;
         }
@@ -70,9 +67,12 @@ public class ResourceManager extends Agent{
     }
 
     public boolean ApplyTransform(Transformation t){
-        if (checkWeightSum(t)){
-            ownerships = Transfer.add(ownerships, transformToTransfer(t));
-            return true;
+        if (checkWeightSum(t)){  // Check if the transaction does not introduce more weight.
+            Transfer t_prime = transformToTransfer(t);
+            if (CP.ValidateTransfer(t_prime, ownerships)){  // Check if everybody involved can afford the transaction.
+                ownerships = Transfer.add(ownerships, transformToTransfer(t));
+                return true;
+            }
         }
         return false;
     }
@@ -110,7 +110,7 @@ public class ResourceManager extends Agent{
     }
 
     private void GiveCredit(Agent a, Resource r){
-        CP = CreditPolicy.add(new CreditPolicy(a,r),CP);
+        CP = Credit.add(new Credit(a,r),CP);
     }
 }
 
