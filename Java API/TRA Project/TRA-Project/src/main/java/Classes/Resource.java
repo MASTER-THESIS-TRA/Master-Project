@@ -13,8 +13,7 @@ public class Resource extends Vector<String, Integer> {
         try{
             return add((Resource)x,(Resource)y);
         } catch(ClassCastException e){
-            System.out.println(e.getMessage());
-            return null;
+            throw new ClassCastException("Could not cast vector to type Resource");
         }
     }
 
