@@ -11,18 +11,26 @@ import {ResourceModal} from "../Modals/ResourceModal";
 
 export class ResourceList extends React.Component {
     state = {
+        resources: [],
         showModal: false,
     }
 
     toggleModal = () => {
-        this.setState({ showModal: !this.state.showModal })
+        this.setState({
+            showModal: !this.state.showModal })
     }
+
+    setResources = (resource) => {
+        this.setState({resources: resource})
+    }
+
+
 
     render() {
         return (
             <div>
-                <CustomButton test={this.toggleModal}></CustomButton>
-                <ResourceModal isOpen={this.state.showModal} isClosed={this.toggleModal} />
+                <button onClick={this.toggleModal}>Show Modal</button>
+                <ResourceModal isOpen={this.state.showModal} isClosed={this.toggleModal}/>
             </div>
         )
     }
