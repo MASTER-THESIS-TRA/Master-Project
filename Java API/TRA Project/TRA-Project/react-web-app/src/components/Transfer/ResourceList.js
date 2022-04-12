@@ -1,38 +1,30 @@
 import Box from "@mui/material/Box";
 import List from "@mui/material/List";
-import {ListItem, ListItemText} from "@mui/material";
-import {useState} from "react";
-
-export const ResourceList = () => {
-    //const[resources, setResources] = useState({resources: []})
-
-    const resources = [
-        {name: "Resource 1", value: 5},
-        {name: "Resource 2", value: 5}
-    ]
+import {ListItem, ListItemText, styled} from "@mui/material";
+import React, {useState} from "react";
+import Grid from "@mui/material/Grid";
+import Typography from "@mui/material/Typography";
+import { FixedSizeList } from 'react-window';
+import {AddButton} from "../AddButton";
+import {ResourceModal} from "../Modals/ResourceModal";
 
 
-    //setResources(list);
+export class ResourceList extends React.Component {
+    state = {
+        showModal: false,
+    }
 
-    return (
-        <div>
-            <p>Hi</p>
-            <Box>
-                <List>
-                    <ResourceListItem resources={resources}/>
-                </List>
-            </Box>
-        </div>
-    )
-}
+    toggleModal = () => {
+        this.setState({ showModal: !this.state.showModal })
+    }
 
-const ResourceListItem = (resources) => {
-    return(
-        resources.map(
-            console.log(resources.name),
-            <ListItem>
-                <ListItemText primary={resources.name} />
-            </ListItem>
+    render() {
+        return (
+            <div>
+                <CustomButton test={this.toggleModal}></CustomButton>
+                <ResourceModal isOpen={this.state.showModal} isClosed={this.toggleModal} />
+            </div>
         )
-    )
+    }
 }
+
