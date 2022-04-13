@@ -1,6 +1,9 @@
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import {Paper} from "@mui/material";
+import {PendingTransactions} from "../components/Overview/PendingTransactions";
+import {RecentTransactions} from "../components/Overview/RecentTransactions";
+import {AccountList} from "../components/Overview/AccountsList";
 
 export const OverviewPage = () => {
     return (
@@ -17,7 +20,7 @@ export const OverviewPage = () => {
                                 height: 240,
                             }}
                         >
-
+                            <AccountList/>
                         </Paper>
                     </Grid>
                     {/* Recent Deposits */}
@@ -30,13 +33,13 @@ export const OverviewPage = () => {
                                 height: 240,
                             }}
                         >
-
+                            <RecentTransactions/>
                         </Paper>
                     </Grid>
                     {/* Recent Orders */}
                     <Grid item xs={12}>
                         <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
-
+                            <PendingTransactions/>
                         </Paper>
                     </Grid>
                 </Grid>
