@@ -1,6 +1,7 @@
 import {AgentBox} from "../components/Transfer/AgentBox";
 import {ResourceList} from "../components/Transfer/ResourceList";
-import {AddButton} from "../components/addButton";
+import {CustomButton} from "../components/customButton";
+import {ExchangeLogo} from "../components/Transfer/ExchangeLogo";
 
 export const TransferPage = () => {
     return(
@@ -8,14 +9,14 @@ export const TransferPage = () => {
            <div>
                <AgentBox agent={"Agent 1"}/>
            </div>
-            <ResourceList/>
-            <AddButton/>
+            <ResourceList listObj1={listObj1}/>
+            <CustomButton resourceList=listObj1/>
             <ExchangeLogo/>
             <div>
                 <AgentBox agent={"Agent 2"}/>
             </div>
-            <ResourceList/>
-            <AddButton/>
+            <ResourceList listObj2={listObj2}/>
+            <CustomButton resourceList = listObj2/>
         </div>
     )
 }
