@@ -1,8 +1,14 @@
-export const AgentBox = (props) => {
+import {ResourceList} from "./ResourceList";
+
+export const AgentBox = () => {
     return (
         <div>
-            <p>{props.agent}</p>
-            <input></input>
+            <div>
+                <p>Actor name</p>
+            </div>
+            <div>
+                <ResourceList />
+            </div>
         </div>
     )
 }

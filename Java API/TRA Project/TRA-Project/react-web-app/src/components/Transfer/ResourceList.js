@@ -1,38 +1,27 @@
-import Box from "@mui/material/Box";
-import List from "@mui/material/List";
-import {ListItem, ListItemText, styled} from "@mui/material";
-import React, {useState} from "react";
-import Grid from "@mui/material/Grid";
-import Typography from "@mui/material/Typography";
-import { FixedSizeList } from 'react-window';
-import {AddButton} from "../AddButton";
 import {ResourceModal} from "../Modals/ResourceModal";
+import React, {useState} from "react";
+import Button from "@mui/material/Button";
 
 
-export class ResourceList extends React.Component {
-    state = {
-        resources: [],
-        showModal: false,
+export const ResourceList = () => {
+    const[showModal, setShowModal] = useState(false);
+
+
+    const toggleModal = () => {
+        setShowModal(!showModal)
     }
 
-    toggleModal = () => {
-        this.setState({
-            showModal: !this.state.showModal })
-    }
-
-    setResources = (resource) => {
+    const setResources = (resource) => {
         this.setState({resources: resource})
     }
-
-
-
-    render() {
-        return (
+    return(
+        <div>
             <div>
-                <button onClick={this.toggleModal}>Show Modal</button>
-                <ResourceModal isOpen={this.state.showModal} isClosed={this.toggleModal}/>
+                <p>Table content</p>
             </div>
-        )
-    }
+            <Button variant="contained" onClick={toggleModal}>Add Resource</Button>
+            <ResourceModal isOpen={showModal} isClosed={toggleModal}/>
+        </div>
+    )
 }
 
