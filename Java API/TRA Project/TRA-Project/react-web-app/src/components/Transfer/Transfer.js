@@ -16,11 +16,12 @@ export class Transfer extends React.Component {
                     {/* Chart */}
                     <Grid item xs={12} md={8} lg={5}>
                         <Paper
+                            elevation={6}
                             sx={{
                                 p: 2,
                                 display: 'flex',
                                 flexDirection: 'column',
-                                height: 240,
+                                height: 450,
                             }}
                         >
                             <AgentBox />
@@ -31,11 +32,12 @@ export class Transfer extends React.Component {
                     </Grid>
                     <Grid item xs={12} md={8} lg={5}>
                         <Paper
+                            elevation={6}
                             sx={{
                                 p: 2,
                                 display: 'flex',
                                 flexDirection: 'column',
-                                height: 240,
+                                height: 450,
                             }}
                         >
                             <AgentBox />

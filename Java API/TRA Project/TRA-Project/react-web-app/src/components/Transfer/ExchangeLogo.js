@@ -2,6 +2,7 @@ import logo from '../../Resources/swap.png'
 import Container from "@mui/material/Container";
 
 const imgStyle = {
+    paddingTop: '80%',
     height: '100%',
     display: 'block',
     margin: 'auto',

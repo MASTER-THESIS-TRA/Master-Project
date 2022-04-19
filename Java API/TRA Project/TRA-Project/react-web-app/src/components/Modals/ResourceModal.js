@@ -3,10 +3,9 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
-import {Paper, TextField} from "@mui/material";
+import {FormControl, Paper, TextField} from "@mui/material";
 import Grid from "@mui/material/Grid";
-import {AgentBox} from "../transfer.tmp/AgentBox";
-import {ExchangeLogo} from "../Transfer/ExchangeLogo";
+import {useCallback, useState} from "react";
 
 const style = {
     position: 'absolute',
@@ -20,7 +19,30 @@ const style = {
     p: 4,
 };
 
+const initialState = {
+    name: null,
+    amount: NaN
+}
+
 export const ResourceModal = (props) => {
+    const[data, setData] = useState(initialState)
+
+    const onSubmit = (event) => {
+        event.preventDefault();
+        props.addResource(data);
+        props.isClosed();
+        setData(initialState);
+    }
+
+    const onNameChange = (e) => {
+        setData((prevState) => ({ ...prevState, name: e.target.value, amount: data.amount}));
+    }
+
+    const onAmountChange = (e) => {
+        setData((prevState) => ({ ...prevState, name: data.name, amount: parseInt(e.target.value)}));
+    }
+
+
     return (
         <div>
             <Modal
@@ -30,40 +52,41 @@ export const ResourceModal = (props) => {
                 aria-describedby="modal-modal-description"
             >
                 <Box
-                    component="form"
                     sx={style}
-                    noValidate
-                    autoComplete="off"
                 >
                     <Typography id="modal-modal-title" variant="h6" component="h2">
                         Add resource
                     </Typography>
-                    <div>
-                        <Grid container spacing={3}>
-                            {/* Chart */}
-                            <Grid item xs={12} md={8} lg={6}>
-                                <TextField
-                                    required
-                                    id="outlined-required"
-                                    label="Resource Name"
-                                    defaultValue=" "
-                                />
+                    <form onSubmit={onSubmit}>
+                        <div>
+                            <Grid container spacing={3}>
+                                {/* Chart */}
+                                <Grid item xs={12} md={8} lg={6}>
+                                    <TextField
+                                        required={true}
+                                        id="outlined-required"
+                                        label="Resource Name"
+                                        onChange={(e) => onNameChange(e)}
+                                    />
+                                </Grid>
+                                <Grid item md={8} lg={6}>
+                                    <TextField
+                                        required={true}
+                                        id="outlined-number-required"
+                                        label="Amount"
+                                        type="number"
+                                        onChange={(e) => onAmountChange(e)}
+                                        InputLabelProps={{
+                                            shrink: true,
+                                        }}
+                                    />
+                                </Grid>
+                                <Grid item xs={12} md={8} lg={12}>
+                                    <Button variant="contained" type="submit">Add Resource</Button>
+                                </Grid>
                             </Grid>
-                            <Grid item md={8} lg={6}>
-                                <TextField
-                                    id="outlined-number-required"
-                                    label="Amount"
-                                    type="number"
-                                    InputLabelProps={{
-                                        shrink: true,
-                                    }}
-                                />
-                            </Grid>
-                            <Grid item xs={12} md={8} lg={12}>
-                                <Button variant="contained" onClick={props.isClosed}>Add Resource</Button>
-                            </Grid>
-                        </Grid>
-                    </div>
+                        </div>
+                    </form>
                 </Box>
             </Modal>
         </div>
