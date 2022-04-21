@@ -7,10 +7,11 @@ import TableCell from "@mui/material/TableCell";
 import TableBody from "@mui/material/TableBody";
 import * as React from "react";
 
+
 export const CustomTable = (props) => {
     return (
-        <TableContainer component={Paper}>
-            <Table sx={{ minWidth: 650 }} aria-label="simple table">
+        <TableContainer style={{width:"auto", height:"auto"}}>
+                <Table aria-label="simple table">
                 <TableHead>
                     <TableRow>
                         <TableCell>{props.cols[0]}</TableCell>
