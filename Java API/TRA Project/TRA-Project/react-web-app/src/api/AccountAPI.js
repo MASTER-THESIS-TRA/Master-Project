@@ -3,17 +3,14 @@ const axios = require('axios');
 
 
 
-export const fetchAccountInfo = ( accountID ) => {
-    const [data, setData] = useState({text: []})
-    useEffect(() => {
-        axios.get("http://localhost:8080/api/test")
-            .then((response) => {
-                    return response.data
-                }
-            )
-            .catch((error) => {
-                console.log(error);
-            })
-    });
+export const fetchAccountInfo = () => {
+    axios.get("http://localhost:8080/api/test")
+        .then((response) => {
+                console.log(response.data)
+            }
+        )
+        .catch((error) => {
+            console.log(error);
+        })
 }
 

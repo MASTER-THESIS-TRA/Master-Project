@@ -13,6 +13,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import TableBody from "@mui/material/TableBody";
 import TableContainer from "@mui/material/TableContainer";
+import {fetchAccountInfo} from "../../api/AccountAPI";
 
 
 
@@ -20,16 +21,12 @@ const columns = [
     { id: 'id', label: 'id'},
     { id: 'name', label: 'name', minWidth: "120px"},
     { id: 'amount', label: 'amount'},
+    { id: 'delete', label: null }
 ];
 
-export const ResourceList = () => {
+export const ResourceList = ({ setFormData } ) => {
     const[showModal, setShowModal] = useState(false);
-    const[resources, setResources] = useState([])
-
-    /*
-    useEffect(() => {
-        setResources(prevArray => [...prevArray, data])
-    }, []); */
+    const[resources, setResources] = useState([]);
 
     const toggleModal = () => {
         setShowModal(!showModal)
@@ -39,7 +36,6 @@ export const ResourceList = () => {
         let filteredArray = resources.filter((resource) => resource.id !== id)
         setResources(filteredArray)
     }
-
     const addResource = (resource) => {
         let maxId;
         if(resource.name && resource.amount != null) {
@@ -47,19 +43,22 @@ export const ResourceList = () => {
                 maxId = 1;
             } else {
                 maxId = Math.max.apply(Math, resources.map(function(elem) { return elem.id; })) +1
-                //maxId = (resources.find(elem => Math.max(elem.id))).id + 1;
             }
         } else {
             alert("Error adding to array");
         }
         resource = {id: maxId, name: resource.name, amount: resource.amount}
         setResources((prevState => [...prevState, resource]))
+        setFormData((prevState => [...prevState, resource]))
     }
 
-    const temp = {
-        name: "hello",
-        amount: 1
-    }
+
+    useEffect(() => {
+        console.log(resources)
+    }, [resources])
+
+
+
 
     return(
         <div>
@@ -93,6 +92,9 @@ export const ResourceList = () => {
                                     <TableCell>
                                         {elem.amount}
                                     </TableCell>
+                                    <IconButton onClick={() => handleDelete(elem.id)} edge="end" aria-label="delete">
+                                        <DeleteIcon />
+                                    </IconButton>
                                 </TableRow>
                             )}
                         </TableBody>

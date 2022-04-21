@@ -4,16 +4,19 @@ import React, {useState} from "react";
 import Grid from "@mui/material/Grid";
 import {AgentBox} from "./AgentBox";
 import {ExchangeLogo} from "./ExchangeLogo";
+import Button from "@mui/material/Button";
+import Box from "@mui/material/Box";
+import {ValidateTransfer} from "../../api/TransferAPI";
 
 
-export class Transfer extends React.Component {
+export const Transfer = () => {
+    const[senderData, setSenderData] = useState([]);
+    const[receiverData, setReceiverData] = useState([]);
 
-
-    render() {
-        return (
-            <div>
+    return (
+        <div>
+            <form>
                 <Grid container spacing={3}>
-                    {/* Chart */}
                     <Grid item xs={12} md={8} lg={5}>
                         <Paper
                             elevation={6}
@@ -24,7 +27,7 @@ export class Transfer extends React.Component {
                                 height: 450,
                             }}
                         >
-                            <AgentBox />
+                            <AgentBox setFormData={setSenderData} />
                         </Paper>
                     </Grid>
                     <Grid item md={8} lg={2}>
@@ -40,11 +43,17 @@ export class Transfer extends React.Component {
                                 height: 450,
                             }}
                         >
-                            <AgentBox />
+                            <AgentBox setFormData={setReceiverData} />
                         </Paper>
                     </Grid>
                 </Grid>
-            </div>
-        )
-    }
+                <Box textAlign='center'>
+                    <div style={{paddingTop: 30}}>
+                        <Button variant="contained" onClick={() => ValidateTransfer(senderData, receiverData)}>Show parent state</Button>
+                    </div>
+                </Box>
+            </form>
+        </div>
+    )
+
 }

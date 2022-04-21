@@ -1,13 +1,13 @@
 import {ResourceList} from "./ResourceList";
 
-export const AgentBox = () => {
+export const AgentBox = ({ setFormData }) => {
     return (
         <div>
             <div>
                 <p>Actor name</p>
             </div>
             <div>
-                <ResourceList />
+                <ResourceList setFormData={setFormData} />
             </div>
         </div>
     )
