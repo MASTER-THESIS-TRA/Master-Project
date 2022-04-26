@@ -1,0 +1,48 @@
+
+E
+java:S3740f"/Provide the parametrized type for this generic.(êæ¾Ò
+J
+java:S3740g"/Provide the parametrized type for this generic.(„í­Ñüÿÿÿÿ
+k
+java:S1206b"PThis class overrides "equals()" and should therefore also override "hashCode()".(İ¢êÍıÿÿÿÿ
+d
+java:S1845"NRename method "zero" to prevent any misunderstanding/clash with method "Zero".(Ì¦˜Ô
+b
+java:S18457"LRename method "add" to prevent any misunderstanding/clash with method "Add".(®°¾
+i
+java:S1845I"NRename method "mult" to prevent any misunderstanding/clash with method "Mult".(Éšâëÿÿÿÿÿ
+S	java:S106("9Replace this use of System.out or System.err by a logger.(©şêÜúÿÿÿÿ
+:
+java:S1168)"$Return an empty map instead of null.(¥¹ï
+S	java:S1062"9Replace this use of System.out or System.err by a logger.(©şêÜúÿÿÿÿ
+:
+java:S11683"$Return an empty map instead of null.(¥¹ï
+Z
+java:S2147C"DCombine this catch with the one at line 65, which has the same body.(´õ«‡
+O
+java:S2864;"4Iterate over the "entrySet" instead of the "keySet".(³üÿöûÿÿÿÿ
+S	java:S106B"9Replace this use of System.out or System.err by a logger.(©şêÜúÿÿÿÿ
+S	java:S106D"9Replace this use of System.out or System.err by a logger.(©şêÜúÿÿÿÿ
+:
+java:S1168F"$Return an empty map instead of null.(¥¹ï
+Z
+java:S2147R"DCombine this catch with the one at line 80, which has the same body.(´õ«‡
+S	java:S106Q"9Replace this use of System.out or System.err by a logger.(©şêÜúÿÿÿÿ
+S	java:S106S"9Replace this use of System.out or System.err by a logger.(©şêÜúÿÿÿÿ
+:
+java:S1168U"$Return an empty map instead of null.(¥¹ï
+h	java:S100X"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ŠğÓ‘øÿÿÿÿ
+Q
+java:S4838Z"6Change "Object" to the type handled by the Collection.(Ğ§ô›ÿÿÿÿÿ
+:
+java:S2097b"Add a type test to this method.(İ¢êÍıÿÿÿÿ
+O
+java:S2864o"4Iterate over the "entrySet" instead of the "keySet".(‹ÕÎÙùÿÿÿÿ
+S	java:S106x"9Replace this use of System.out or System.err by a logger.(©şêÜúÿÿÿÿ
+c	java:S100}"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¥‘š
+\
+java:S1128":Remove this unused import 'Exceptions.ExceptionConstants'.(›åƒÊÿÿÿÿÿ8ùÌØ¤€0
+ˆ
+java:S1319}"rThe type of "transformationList" should be an interface such as "List" rather than the implementation "ArrayList".(¥‘š
+k	java:S117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¹øÆ’ûÿÿÿÿ
+o	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(¿ÀŠ­

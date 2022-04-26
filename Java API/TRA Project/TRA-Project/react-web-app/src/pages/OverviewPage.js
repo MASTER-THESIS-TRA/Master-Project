@@ -18,6 +18,7 @@ export const OverviewPage = () => {
                                 display: 'flex',
                                 flexDirection: 'column',
                                 height: 240,
+                                overflow: 'auto'
                             }}
                         >
                             <AccountList/>
@@ -31,6 +32,7 @@ export const OverviewPage = () => {
                                 display: 'flex',
                                 flexDirection: 'column',
                                 height: 240,
+                                overflow: 'auto',
                             }}
                         >
                             <RecentTransactions/>
@@ -38,7 +40,7 @@ export const OverviewPage = () => {
                     </Grid>
                     {/* Recent Orders */}
                     <Grid item xs={12}>
-                        <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
+                        <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column', maxHeight:500, overflow: 'auto' }}>
                             <PendingTransactions/>
                         </Paper>
                     </Grid>
