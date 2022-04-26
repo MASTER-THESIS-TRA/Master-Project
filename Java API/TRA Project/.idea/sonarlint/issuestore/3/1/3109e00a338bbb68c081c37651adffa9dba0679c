@@ -1,0 +1,29 @@
+
+E
+java:S3740+"/Provide the parametrized type for this generic.(¸šÃˆ
+E
+java:S37407"/Provide the parametrized type for this generic.(àÒ°
+E
+java:S3740K"/Provide the parametrized type for this generic.(¬îÿ³
+E
+java:S3740L"/Provide the parametrized type for this generic.(ã¬”Á
+k
+java:S1206G"PThis class overrides "equals()" and should therefore also override "hashCode()".(İ¢êÍıÿÿÿÿ
+b
+java:S1845*"LRename method "add" to prevent any misunderstanding/clash with method "Add".(ø˜Ó”
+i
+java:S18451"NRename method "zero" to prevent any misunderstanding/clash with method "Zero".(û™üßùÿÿÿÿ
+d
+java:S18455"NRename method "mult" to prevent any misunderstanding/clash with method "Mult".(ÉƒÏù
+S	java:S106%"9Replace this use of System.out or System.err by a logger.(©şêÜúÿÿÿÿ
+S	java:S106="9Replace this use of System.out or System.err by a logger.(©şêÜúÿÿÿÿ
+:
+java:S2097G"Add a type test to this method.(İ¢êÍıÿÿÿÿ
+O
+java:S2864S"4Iterate over the "entrySet" instead of the "keySet".(ğ¦ø‡úÿÿÿÿ
+S	java:S106\"9Replace this use of System.out or System.err by a logger.(©şêÜúÿÿÿÿ
+b	java:S100a"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(÷Üü
+
+java:S1319a"lThe type of "resourceList" should be an interface such as "List" rather than the implementation "ArrayList".(÷Üü
+f	java:S117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(üš¥Û
+o	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(¿ÀŠ­
