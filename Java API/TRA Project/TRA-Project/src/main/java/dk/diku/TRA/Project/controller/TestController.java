@@ -1,16 +1,23 @@
 package dk.diku.TRA.Project.controller;
 
+import Classes.Resource;
+import Models.Transfer.ResourceDto;
+import Models.Transfer.TransferDto;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.*;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import java.util.List;
+import java.util.Objects;
 
+@Slf4j
 @RestController
 @RequestMapping("/api")
 public class TestController {
 
-    @GetMapping(path = "/test")
-    public String test(String test) {
-        return null;
+    @CrossOrigin
+    @PostMapping(path = "/validateTransfer")
+    public List<List<ResourceDto>> ValidateTransfer(@RequestBody List<List<ResourceDto>> data) {
+        System.out.print("Data: " + data);
+        return data;
     }
 }

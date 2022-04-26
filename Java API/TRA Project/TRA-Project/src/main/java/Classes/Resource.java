@@ -1,8 +1,13 @@
 package Classes;
 
+import Exceptions.ExceptionConstants;
+import Exceptions.TRAException;
 import Interfaces.IVector;
+import org.apache.commons.lang3.NotImplementedException;
 
 import java.util.*;
+
+import static java.lang.Integer.parseInt;
 
 public class Resource extends Vector<String, Integer> {
     public Resource(String key, Integer val){ super(key,val); }
@@ -13,8 +18,7 @@ public class Resource extends Vector<String, Integer> {
         try{
             return add((Resource)x,(Resource)y);
         } catch(ClassCastException e){
-            System.out.println(e.getMessage());
-            return null;
+            throw new ClassCastException("Could not cast vector to type Resource");
         }
     }
 
@@ -104,5 +108,49 @@ public class Resource extends Vector<String, Integer> {
             sum = Resource.add(sum, t);
         }
         return sum;
+    }
+
+
+    //////////////////////////////////////////////////////////////////
+    public static Resource ParseStringToResource(String inp){
+        //{resourceType->amount,resourceTye2->amount2,..}
+        if (inp.equals("{}")){
+            return Resource.zero();
+        }
+        try {
+            String noBrackets = removeBrackets(inp);
+            List<String> resourceStrings = Arrays.asList(noBrackets.split(","));
+            Resource ret = Resource.zero();
+            for (String resource : resourceStrings) {
+                String[] res = resource.split("->");
+                String type = res[0];
+                String amount = res[1];
+                ret = add(ret, new Resource(type, parseInt(amount)));
+            }
+            return ret;
+        }catch (Exception e){
+            System.out.println("Unexpected exception. The provided string: \n\""+ inp+"\"\nis likely the wrong format for resource.");
+            return null;
+        }
+    }
+    private static String removeBrackets(String inp)throws TRAException{
+        if (inp.charAt(0)=='{' && inp.charAt(inp.length()-1)=='}'){
+            return inp.substring(1,inp.length()-1);
+        }
+        else{
+            throw new TRAException(ExceptionConstants.GENERIC_ERROR);
+        }
+    }
+
+    public static String ToString(Resource inp){
+        if (inp.equals(Resource.zero())){
+            return "{}";
+        }
+        String ret = "{";
+        for (String type : inp.keySet()){
+            ret = ret + type + "->"+inp.get(type).toString() + ",";
+        }
+
+        return ret.substring(0,ret.length()-1)+"}";
     }
 }

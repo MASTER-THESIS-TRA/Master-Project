@@ -9,6 +9,7 @@ import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import {useState} from "react";
 import {CustomLinkButton} from "./CustomLinkButton";
+import {ListSubheader} from "@mui/material";
 
 
 const divStyle = {
@@ -16,10 +17,12 @@ const divStyle = {
     width: '200px',
     height: '100%',
     background: '#2196f3',
+    zIndex: '10',
 };
 
+
 export const Sidebar = () => {
-    const [isOpen, setIsOpen] = useState(true)
+    const [isOpen, setIsOpen] = useState(false)
 
     const handleClick = () => {
         setIsOpen(!isOpen)
@@ -27,11 +30,8 @@ export const Sidebar = () => {
 
     return (
         <div style={divStyle}>
-            <List
-                component="nav"
-                aria-labelledby="nested-list-subheader"
-            >
-                <CustomLinkButton to="/overview" primary="Overview" icon={<InboxIcon />} />
+            <List component="nav">
+                <CustomLinkButton to="/" primary="Overview" icon={<InboxIcon />} />
                 <CustomLinkButton primary="Account" to="account" icon={<InboxIcon />} />
                 <ListItemButton onClick={handleClick}>
                     <ListItemIcon>
@@ -43,6 +43,7 @@ export const Sidebar = () => {
                 <Collapse in={isOpen} timeout="auto" unmountOnExit>
                     <List sx={{ pl: 4 }} component="div" disablePadding>
                         <CustomLinkButton primary="Transfer" to="transfer" icon={<InboxIcon />} />
+                        <CustomLinkButton primary="Transform" to="transform" icon={<InboxIcon />} />
                     </List>
                 </Collapse>
             </List>

@@ -1,0 +1,19 @@
+
+E
+java:S3740"/Provide the parametrized type for this generic.(¨™Çæ
+E
+java:S3740z"/Provide the parametrized type for this generic.(ÂĞ±é
+O
+java:S5993"9Change the visibility of this constructor to "protected".(Şá
+T
+java:S5993"9Change the visibility of this constructor to "protected".(µÂùûÿÿÿÿ
+F
+java:S2065"0Remove the "transient" modifier from this field.(…³ßË
+P
+java:S1612n":Replace this lambda with method reference 'Entry::getKey'.(ğâ™ 
+R
+java:S1612s"<Replace this lambda with method reference 'Entry::getValue'.(¡ÓÅ¤
+ƒ
+java:S1192Z"mDefine a constant instead of duplicating this literal "Vectors are immutable, and cannot be altered" 3 times.(ºÈä±
+f	java:S117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Şá
+o	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(¿ÀŠ­
