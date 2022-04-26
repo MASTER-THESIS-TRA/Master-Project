@@ -122,4 +122,45 @@ class ResourceTests {
         Resource r2 = Resource.add(Resource.mult(a, b), Resource.mult(a, c));
         assert(r1.equals(r2));
     }
+
+    //////////////////////////////////////////////////////////////////////
+    ////////////////////////// String Functions //////////////////////////
+    //////////////////////////////////////////////////////////////////////
+    @Test
+    void TestToString(){
+        String val = Resource.ToString(Objects.requireNonNull(Resource.add(
+                new Resource("a", 42),
+                new Resource("b", 1337)
+        )));
+        String cmp = "{a->42,b->1337}";
+        String cmp2 = "{b->1337,a->42}";
+        boolean correct = val.equals(cmp)||val.equals(cmp2); // We do not care which way they are ordered, for the sake of equality in resources.
+        assert(correct);
+    }
+
+    @Test
+    void TestParseStringToResource(){
+        String val = "{a->42,b->1337}";
+        Resource comp = Resource.add(
+                new Resource("a", 42),
+                new Resource("b", 1337)
+        );
+        Resource parsed = Resource.ParseStringToResource(val);
+        assert(comp.equals(parsed));
+    }
+
+    @Test
+    void TestZeroToString(){
+        assert(Resource.ToString(Resource.zero()).equals("{}"));
+    }
+
+    @Test
+    void TestParseStringToZero(){
+        assert(Resource.ParseStringToResource("{}").equals(Resource.zero()));
+    }
+
+    @Test
+    void TestIncorrectFormat(){
+        assert(Resource.ParseStringToResource("This is not a proper resource")==null);
+    }
 }

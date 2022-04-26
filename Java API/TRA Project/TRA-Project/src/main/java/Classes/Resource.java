@@ -111,14 +111,16 @@ public class Resource extends Vector<String, Integer> {
     }
 
 
-    //////////////////////////////////////////////////////////////////
-    public static Resource ParseStringToResource(String inp){
-        //{resourceType->amount,resourceTye2->amount2,..}
-        if (inp.equals("{}")){
+    /**
+     * @param resourceString A resource of the format "{type1->amount1,..,typeN->amountN}".
+     * @return The resource, represented by the input string.
+     */
+    public static Resource ParseStringToResource(String resourceString){
+        if (resourceString.equals("{}")){
             return Resource.zero();
         }
         try {
-            String noBrackets = removeBrackets(inp);
+            String noBrackets = removeBrackets(resourceString);
             List<String> resourceStrings = Arrays.asList(noBrackets.split(","));
             Resource ret = Resource.zero();
             for (String resource : resourceStrings) {
@@ -129,26 +131,37 @@ public class Resource extends Vector<String, Integer> {
             }
             return ret;
         }catch (Exception e){
-            System.out.println("Unexpected exception. The provided string: \n\""+ inp+"\"\nis likely the wrong format for resource.");
+            System.out.println("Unexpected exception. The provided string: \n\""+ resourceString+"\"\nis likely the wrong format for resource.");
             return null;
         }
     }
-    private static String removeBrackets(String inp)throws TRAException{
-        if (inp.charAt(0)=='{' && inp.charAt(inp.length()-1)=='}'){
-            return inp.substring(1,inp.length()-1);
+
+    /**
+     *
+     * @param inpStr Assumes a Resource String: "{...}".
+     * @return The input string, without the surrounding brackets.
+     * @throws TRAException If there are no surrounding brackets, it cannot be of the correct format.
+     */
+    private static String removeBrackets(String inpStr)throws TRAException{
+        if (inpStr.charAt(0)=='{' && inpStr.charAt(inpStr.length()-1)=='}'){
+            return inpStr.substring(1,inpStr.length()-1);
         }
         else{
             throw new TRAException(ExceptionConstants.GENERIC_ERROR);
         }
     }
 
-    public static String ToString(Resource inp){
-        if (inp.equals(Resource.zero())){
+    /**
+     * @param res The resource to be written in string format.
+     * @return The resource written in the format "{type1->amount1,..,typeN->amountN}"
+     */
+    public static String ToString(Resource res){
+        if (res.equals(Resource.zero())){
             return "{}";
         }
         String ret = "{";
-        for (String type : inp.keySet()){
-            ret = ret + type + "->"+inp.get(type).toString() + ",";
+        for (String type : res.keySet()){
+            ret = ret + type + "->"+res.get(type).toString() + ",";
         }
 
         return ret.substring(0,ret.length()-1)+"}";

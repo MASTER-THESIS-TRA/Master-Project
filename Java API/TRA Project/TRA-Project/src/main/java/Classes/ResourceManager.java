@@ -1,9 +1,11 @@
 package Classes;
 
+import Exceptions.ExceptionConstants;
 import Exceptions.TRAException;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 public class ResourceManager extends Agent{
     private Transfer ownerships; // Ownership state can be represented as a transfer, where the ResourceManager transfers everyone their resources.
@@ -12,6 +14,7 @@ public class ResourceManager extends Agent{
 
     public ResourceManager(String name){
         super(name);
+        ownerships = Transfer.zero();
         CP = new Credit(this,new Resource("*",1));
     }
 
@@ -111,6 +114,15 @@ public class ResourceManager extends Agent{
 
     private void GiveCredit(Agent a, Resource r){
         CP = Credit.add(new Credit(a,r),CP);
+    }
+
+    public Agent findAgentById(UUID id) throws TRAException {
+        for (Agent a : ownerships.keySet()){
+            if (a.getUuid().equals(id)){
+                return a;
+            }
+        }
+        throw new TRAException(ExceptionConstants.GENERIC_ERROR + ": Agent not found.");
     }
 }
 
