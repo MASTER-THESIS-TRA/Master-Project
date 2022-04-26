@@ -2,14 +2,18 @@ package dk.diku.TRA.Project;
 
 import Classes.Agent;
 import Classes.Resource;
+import Classes.ResourceManager;
 import Classes.Transfer;
+import Exceptions.ExceptionConstants;
 import Exceptions.TRAException;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 
-import java.util.HashMap;
+import java.util.*;
+
+import static java.lang.Integer.parseInt;
 
 public class TransferTests {
     Transfer t1;
@@ -173,5 +177,42 @@ public class TransferTests {
         } catch (TRAException e){
             assert(true);
         }
+    }
+
+    //////////////////////////////////////////////////////////////////////
+    ////////////////////////// String Functions //////////////////////////
+    //////////////////////////////////////////////////////////////////////
+    @Test
+    void TestToString(){
+        String val = Transfer.ToString(t1);
+        String cmp = "{"+alice.getUuid().toString()+"->{a->42},"+bob.getUuid().toString()+"->{a->-42}}";
+        String cmp2 = "{"+bob.getUuid().toString()+"->{a->-42},"+alice.getUuid().toString()+"->{a->42}}";
+        boolean correct = val.equals(cmp)||val.equals(cmp2);  // We do not care which way they are ordered.
+        assert(correct);
+    }
+
+    @Test
+    void TestParseStringToTransfer(){
+        String val = "{"+bob.getUuid().toString()+"->{b->-1337},"+alice.getUuid().toString()+"->{b->1337}}";
+        ResourceManager manager = new ResourceManager("manager");
+        manager.AddAgent(alice);
+        manager.AddAgent(bob);
+        Transfer parsed = Transfer.ParseStringToTransfer(val,manager);
+        assert(parsed.equals(t2));
+    }
+
+    @Test
+    void TestZeroToString(){
+        assert(Transfer.ToString(Transfer.zero()).equals("{}"));
+    }
+
+    @Test
+    void TestParseStringToZero(){
+        assert(Transfer.ParseStringToTransfer("{}",new ResourceManager("man")).equals(Transfer.zero()));
+    }
+
+    @Test
+    void TestIncorrectFormat(){
+        assert(Transfer.ParseStringToTransfer("This is not a proper resource",new ResourceManager("man"))==null);
     }
 }
