@@ -132,7 +132,10 @@ class ResourceTests {
                 new Resource("a", 42),
                 new Resource("b", 1337)
         )));
-        assert(val.equals("{a->42,b->1337}"));// || val.equals("{b->1337,a->42}")); // We do not care about the order.
+        String cmp = "{a->42,b->1337}";
+        String cmp2 = "{b->1337,a->42}";
+        boolean correct = val.equals(cmp)||val.equals(cmp2); // We do not care which way they are ordered, for the sake of equality in resources.
+        assert(correct);
     }
 
     @Test
