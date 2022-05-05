@@ -2,6 +2,7 @@ import React from "react";
 import {ListItem, ListItemIcon, ListItemText } from "@mui/material";
 import { Link as RouterLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import ListItemButton from "@mui/material/ListItemButton";
 
 
 export const CustomLinkButton = (props) => {
@@ -17,10 +18,12 @@ export const CustomLinkButton = (props) => {
 
     return (
         <li>
-            <ListItem button component={renderLink}>
-                {icon ? <ListItemIcon>{icon}</ListItemIcon> : null}
-                <ListItemText primary={primary} sx={{ color: '#FFFAF0' }}/>
-            </ListItem>
+            <ListItemButton component={renderLink}>
+                <ListItemIcon>
+                    {icon ? <ListItemIcon>{icon}</ListItemIcon> : null}
+                </ListItemIcon>
+                <ListItemText primary={primary} />
+            </ListItemButton>
         </li>
     );
 }

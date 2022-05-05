@@ -1,14 +1,7 @@
 import React, {Component} from 'react';
-import {Sidebar} from "./components/Sidebar";
-
-import {BrowserRouter, Route, Routes} from "react-router-dom";
-
-import {OverviewPage} from "./pages/OverviewPage";
-import {AccountPage} from "./pages/AccountPage";
-import {TransferPage} from "./pages/TransferPage";
-import {TransformPage} from "./pages/TransformPage";
+import {BrowserRouter} from "react-router-dom";
 import SignIn from "./components/login/login";
-import {Frontpage} from "./Frontpage";
+import Dashboard from "./components/Dashboard";
 
 
 export class App extends Component {
@@ -22,7 +15,7 @@ export class App extends Component {
     render() {
         return (
             <BrowserRouter>
-                {this.state.loggedIn ? <Frontpage /> : <SignIn handleLogin={this.handleLogin}/>}
+                {this.state.loggedIn ? <Dashboard /> : <SignIn handleLogin={this.handleLogin}/>}
             </BrowserRouter>
         );
     }
