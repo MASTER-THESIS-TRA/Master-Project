@@ -17,21 +17,27 @@ const apicall = () => {
 }
 
 const cols = [
-    'Type', 'Date', 'Net'
+    { id: 'type', label: 'Type', minWidth: 170 },
+    { id: 'date', label: 'Date', minWidth: 170 },
+    { id: 'net', label: 'Net', minWidth: 170 },
 ];
 
+function createData(type, date, net) {
+    return { type, date, net };
+}
+
 const rows = [
-    ['Transfer', '13/04-2022', '-40 Coffee Bag (500g), +200$'],
-    ['Transform', '03/04-2022', '-20 Roasted Coffee (kg), -40 Paper Bag (pcs), +40 Coffee Bag (500g)'],
-    ['Transfer', '01/04-2022', '-10$, +40 Paper Bag (pcs)'],
-    ['Transfer', '01/04-2022', '-100$, +20 Roasted Coffee (kg)']
+    createData('Transfer', '13/04-2022', '-40 Coffee Bag (500g), +200$'),
+    createData('Transform', '03/04-2022', '-20 Roasted Coffee (kg), -40 Paper Bag (pcs), +40 Coffee Bag (500g)'),
+    createData('Transfer', '01/04-2022', '-10$, +40 Paper Bag (pcs)'),
+    createData('Transfer', '01/04-2022', '-100$, +20 Roasted Coffee (kg)')
 ];
 
 export const PendingTransactions = () => {
     return (
         <div>
             <Title>Pending Transactions</Title>
-            <CustomTable cols={cols} rows={rows} />
+            <CustomTable columns={cols} rows={rows} showPagination={false} maxHeight={440}/>
         </div>
     )
 }
