@@ -4,9 +4,9 @@ const axios = require('axios');
 
 
 export const fetchAccountInfo = () => {
-    axios.get("http://localhost:8080/api/test")
+    axios.get("http://localhost:8080/user/getUserInfo")
         .then((response) => {
-                console.log(response.data)
+                return response.data.json()
             }
         )
         .catch((error) => {

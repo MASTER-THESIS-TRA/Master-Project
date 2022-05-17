@@ -1,20 +1,9 @@
 import * as React from 'react';
 import {CustomTable} from "../CustomTable";
 import Title from "../Title";
+import {useState, useEffect} from "react";
 
 const axios = require('axios');
-const apicall = () => {
-    console.log("start")
-     axios.get('http://localhost:8080/pendingTransactions')
-        .then((response) => {
-            console.log("response:");
-            console.log(response.data);
-        })
-         .catch((error) => {
-             console.log("error:");
-             console.log(error)
-         });
-}
 
 const cols = [
     { id: 'type', label: 'Type', minWidth: 170 },
@@ -34,6 +23,29 @@ const rows = [
 ];
 
 export const PendingTransactions = () => {
+    //const[cols, setCols] = useState();
+    //const[rows, setRows] = useState();
+
+    /*
+    useEffect(() => {
+        fetchPendingTransactions ()
+    }, [])
+
+    const fetchPendingTransactions = () => {
+        axios.get("http://localhost:8080")
+            .then((response) => {
+                    setCols(response.data)
+                //  setRows(response.data)
+                    //console.log(response.data.json())
+                }
+            )
+            .catch((error) => {
+                console.log(error);
+            })
+    }
+
+     */
+
     return (
         <div>
             <Title>Pending Transactions</Title>
