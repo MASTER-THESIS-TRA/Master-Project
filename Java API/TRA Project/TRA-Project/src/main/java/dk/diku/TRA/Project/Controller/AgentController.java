@@ -8,6 +8,7 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 
@@ -31,11 +32,21 @@ public class AgentController {
         return userData.toString();
     }
 
+    /**
+     * @param name The name of the new agent
+     * @param email The email of the new agent
+     * @param password The password for the new agent
+     * @return The uuid of the newly created Agent
+     */
     @CrossOrigin
-    @PostMapping(path = "/createAgent")
-    public Agent CreateAgent() {
-        return new Agent("Agent 007","","","");
+    @PostMapping(path = "/newAgent")
+    public String NewAgent(String name, String email, String password) {
+        return agentService.SaveAgent(name,email,password);
     }
 
-
+    @CrossOrigin
+    @GetMapping(path = "/allAgents")
+    public List<Agent> AllAgents(){
+        return agentService.GetAllAgents();
+    }
 }
