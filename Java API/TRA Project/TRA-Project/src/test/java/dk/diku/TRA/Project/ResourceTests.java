@@ -1,10 +1,8 @@
 package dk.diku.TRA.Project;
 
-import Classes.Resource;
-import Exceptions.TRAException;
+import dk.diku.TRA.Project.Classes.Resource;
 import org.junit.jupiter.api.Test;
 
-import java.text.StringCharacterIterator;
 import java.util.*;
 
 class ResourceTests {

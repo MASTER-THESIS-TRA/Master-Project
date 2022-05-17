@@ -1,12 +1,10 @@
 package dk.diku.TRA.Project;
 
-import Classes.Agent;
-import Classes.Resource;
-import Classes.ResourceManager;
-import Classes.Transfer;
-import Exceptions.ExceptionConstants;
-import Exceptions.TRAException;
-import org.junit.jupiter.api.BeforeAll;
+import dk.diku.TRA.Project.Classes.Agent;
+import dk.diku.TRA.Project.Classes.Resource;
+import dk.diku.TRA.Project.Classes.ResourceManager;
+import dk.diku.TRA.Project.Classes.Transfer;
+import dk.diku.TRA.Project.Exceptions.TRAException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -34,8 +32,8 @@ public class TransferTests {
                 Resource a = new Resource("a", 42);
                 Resource b = new Resource("b", 1337);
                 Resource c = new Resource("c", 888);
-                alice = new Agent("Alice");
-                bob = new Agent("Bob");
+                alice = new Agent("Alice","","","");
+                bob = new Agent("Bob","","","");
                 HashMap<Agent, Resource> M1 = new HashMap<>();
                 M1.put(alice, a);
                 M1.put(bob, Resource.mult(a, -1));
@@ -166,8 +164,8 @@ public class TransferTests {
         Resource b2 = new Resource("b", -1338);
         Resource finalA1 = Resource.add(a1,b2);
         Resource finalA2 = Resource.add(a2,b1);
-        Agent alice = new Agent("Alice");
-        Agent bob = new Agent("Bob");
+        Agent alice = new Agent("","Alice","","");
+        Agent bob = new Agent("","Bob","","");
         HashMap<Agent, Resource> M = new HashMap<>();
         M.put(alice,finalA1);
         M.put(bob,finalA2);

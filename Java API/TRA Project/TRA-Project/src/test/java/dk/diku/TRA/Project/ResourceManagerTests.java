@@ -1,15 +1,13 @@
 package dk.diku.TRA.Project;
 
-import Classes.Agent;
-import Classes.Resource;
-import Classes.ResourceManager;
-import Classes.Transfer;
-import Exceptions.TRAException;
+import dk.diku.TRA.Project.Classes.Agent;
+import dk.diku.TRA.Project.Classes.Resource;
+import dk.diku.TRA.Project.Classes.ResourceManager;
+import dk.diku.TRA.Project.Classes.Transfer;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
-import java.util.Map;
 
 public class ResourceManagerTests {
 
@@ -32,9 +30,9 @@ public class ResourceManagerTests {
             knuts = new Resource("Knuts",1);
             sickles = new Resource("Sickles",1);
             galleons = new Resource("Galleons", 1);
-            Fritz = new Agent("Fritz");
-            Alexander = new Agent("Alexander");
-            Daniel = new Agent("Daniel");
+            Fritz = new Agent("","Fritz","","");
+            Alexander = new Agent("","Alexander","","");
+            Daniel = new Agent("","Daniel","","");
             HashMap<Agent, Resource> M = new HashMap<>();
             M.put(Daniel,Resource.add(Resource.mult(knuts,50),Resource.add(Resource.mult(sickles,25),galleons)));
             M.put(Alexander,Resource.add(Resource.mult(knuts,75),Resource.add(Resource.mult(sickles,10),Resource.mult(galleons,2))));
@@ -66,11 +64,6 @@ public class ResourceManagerTests {
     void TestOwnershipStateIsTransfer(){
         Resource negSum = Resource.add(bank.GetOwnerships().get(Daniel),Resource.add(bank.GetOwnerships().get(Fritz),bank.GetOwnerships().get(Alexander)));
         assert(bank.GetOwnerships().get(bank).equals(Resource.mult(negSum,-1)));
-    }
-
-    @Test
-    void TestTransformation(){
-        assert(false);
     }
 
     /*

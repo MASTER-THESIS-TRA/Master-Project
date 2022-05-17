@@ -1,14 +1,8 @@
 package dk.diku.TRA.Project;
 
-import Classes.Agent;
-import Classes.Resource;
-import Classes.Transfer;
-import Classes.Weight;
-import Exceptions.TRAException;
+import dk.diku.TRA.Project.Classes.Weight;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import java.util.HashMap;
 
 class WeightTest {
     Weight w1;
