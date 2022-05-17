@@ -1,8 +1,8 @@
 package dk.diku.TRA.Project.controller;
 
 
-import Classes.Resource;
-import Services.ResourceService;
+import dk.diku.TRA.Project.Classes.Resource;
+import dk.diku.TRA.Project.Services.ResourceService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 

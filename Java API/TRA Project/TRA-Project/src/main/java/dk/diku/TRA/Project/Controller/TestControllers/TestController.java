@@ -1,13 +1,10 @@
 package dk.diku.TRA.Project.controller.TestControllers;
 
-import Classes.Resource;
-import Models.Transfer.ResourceDto;
-import Models.Transfer.TransferDto;
+import dk.diku.TRA.Project.Transfer.ResourceDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Objects;
 
 @Slf4j
 @RestController

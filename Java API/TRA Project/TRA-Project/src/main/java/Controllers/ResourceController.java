@@ -1,10 +1,9 @@
 package Controllers;
 
 
-import Classes.Resource;
-import Classes.ResourceManager;
-import Classes.Transfer;
-import Services.ResourceService;
+import dk.diku.TRA.Project.Classes.ResourceManager;
+import dk.diku.TRA.Project.Classes.Transfer;
+import dk.diku.TRA.Project.Services.ResourceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

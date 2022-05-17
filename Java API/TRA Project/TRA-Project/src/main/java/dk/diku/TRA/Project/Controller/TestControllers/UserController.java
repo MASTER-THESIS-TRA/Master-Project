@@ -1,12 +1,9 @@
 package dk.diku.TRA.Project.controller.TestControllers;
 
-import Models.Transfer.ResourceDto;
-import Services.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.json.JSONObject;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 

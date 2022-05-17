@@ -1,7 +1,7 @@
 package dk.diku.TRA.Project.controller;
 
 
-import Classes.Agent;
+import dk.diku.TRA.Project.Classes.Agent;
 import lombok.extern.slf4j.Slf4j;
 import org.json.JSONObject;
 import org.springframework.web.bind.annotation.*;
@@ -29,6 +29,6 @@ public class AgentController {
     @CrossOrigin
     @PostMapping(path = "/createAgent")
     public Agent CreateAgent() {
-        return new Agent("Agent 007");
+        return new Agent("Agent 007","","","");
     }
 }

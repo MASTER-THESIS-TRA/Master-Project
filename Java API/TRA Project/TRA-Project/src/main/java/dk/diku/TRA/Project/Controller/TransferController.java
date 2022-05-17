@@ -1,7 +1,7 @@
 package dk.diku.TRA.Project.controller;
 
 
-import Classes.Transfer;
+import dk.diku.TRA.Project.Classes.Transfer;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
