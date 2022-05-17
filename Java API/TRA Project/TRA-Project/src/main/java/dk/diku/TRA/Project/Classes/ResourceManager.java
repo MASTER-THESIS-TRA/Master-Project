@@ -2,11 +2,14 @@ package dk.diku.TRA.Project.Classes;
 
 import dk.diku.TRA.Project.Exceptions.ExceptionConstants;
 import dk.diku.TRA.Project.Exceptions.TRAException;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Primary;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
+@Primary
 public class ResourceManager extends Agent{
     private Transfer ownerships; // Ownership state can be represented as a transfer, where the ResourceManager transfers everyone their resources.
     private Credit CP;

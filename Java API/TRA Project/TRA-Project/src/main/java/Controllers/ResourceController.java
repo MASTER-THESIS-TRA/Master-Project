@@ -19,13 +19,13 @@ public class ResourceController {
 
     @PostMapping
     public ResponseEntity<String> SellResource(ResourceManager resourceManager, Transfer transfer) {
-        resourceService.SellResource(resourceManager, transfer);
+        resourceService.SellResource(transfer);
         return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
 
     @PostMapping
     public ResponseEntity<String> BuyResource(ResourceManager resourceManager, Transfer transfer) {
-        resourceService.BuyResource(resourceManager, transfer);
+        resourceService.BuyResource(transfer);
         return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
 

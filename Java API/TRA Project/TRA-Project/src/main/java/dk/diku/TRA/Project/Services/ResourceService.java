@@ -5,6 +5,7 @@ import dk.diku.TRA.Project.Classes.ResourceManager;
 import dk.diku.TRA.Project.Classes.Transfer;
 import lombok.AllArgsConstructor;
 import org.apache.commons.lang3.NotImplementedException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -14,12 +15,14 @@ import java.util.List;
 @Service
 public class ResourceService {
 
+    @Autowired
+    private ResourceManager resourceManager;
 
-    public boolean SellResource(ResourceManager resourceManager, Transfer transfer) {
+    public boolean SellResource(Transfer transfer) {
         throw new NotImplementedException();
     }
 
-    public boolean BuyResource(ResourceManager resourceManager, Transfer transfer) {
+    public boolean BuyResource(Transfer transfer) {
         throw new NotImplementedException();
     }
 
