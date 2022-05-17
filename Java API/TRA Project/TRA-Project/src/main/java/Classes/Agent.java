@@ -12,9 +12,7 @@ public class Agent {
     private String name;
     private final UUID uuid;
     private Address address;
-    private String picture;
     private String email;
-    private String agentType;
 
     public Agent(String name){
         this.name = name;
@@ -41,28 +39,12 @@ public class Agent {
         this.address = address;
     }
 
-    public String getPicture() {
-        return picture;
-    }
-
-    public void setPicture(String picture) {
-        this.picture = picture;
-    }
-
     public String getEmail() {
         return email;
     }
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getAgentType() {
-        return agentType;
-    }
-
-    public void setAgentType(String agentType) {
-        this.agentType = agentType;
     }
 
     public void sign(Event event) {

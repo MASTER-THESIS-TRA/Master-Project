@@ -68,11 +68,6 @@ public class ResourceManagerTests {
         assert(bank.GetOwnerships().get(bank).equals(Resource.mult(negSum,-1)));
     }
 
-    @Test
-    void TestTransformation(){
-        assert(false);
-    }
-
     /*
     @Test
     void TestResourceManagerCreation() {
