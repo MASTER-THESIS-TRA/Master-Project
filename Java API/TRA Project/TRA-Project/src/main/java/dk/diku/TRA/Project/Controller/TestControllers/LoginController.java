@@ -1,4 +1,4 @@
-package dk.diku.TRA.Project.controller;
+package dk.diku.TRA.Project.controller.TestControllers;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

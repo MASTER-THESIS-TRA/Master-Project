@@ -23,20 +23,10 @@ export const mainListItems = (
 export const secondaryListItems = (
     <React.Fragment>
         <ListSubheader component="div" inset>
-            Account
+            Administrator
         </ListSubheader>
-        <CustomLinkButton primary="Account Info" to="account" icon={<AssignmentIcon />} />
-        <ListItemButton>
-            <ListItemIcon>
-                <AssignmentIcon />
-            </ListItemIcon>
-            <ListItemText primary="Change password?" />
-        </ListItemButton>
-        <ListItemButton>
-            <ListItemIcon>
-                <AssignmentIcon />
-            </ListItemIcon>
-            <ListItemText primary="Log out" />
-        </ListItemButton>
+        <CustomLinkButton primary="Agents" to="agents" icon={<AssignmentIcon />} />
+        <CustomLinkButton primary="Resources" to="resources" icon={<AssignmentIcon />} />
+        <CustomLinkButton primary="Transformations" to="account" icon={<AssignmentIcon />} />
     </React.Fragment>
 );

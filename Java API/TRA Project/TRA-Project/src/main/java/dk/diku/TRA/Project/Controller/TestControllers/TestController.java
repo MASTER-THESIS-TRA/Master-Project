@@ -1,4 +1,4 @@
-package dk.diku.TRA.Project.controller;
+package dk.diku.TRA.Project.controller.TestControllers;
 
 import Classes.Resource;
 import Models.Transfer.ResourceDto;

@@ -1,25 +1,23 @@
 package dk.diku.TRA.Project.controller;
 
-import Models.Transfer.ResourceDto;
-import Services.UserService;
+
+import Classes.Agent;
 import lombok.extern.slf4j.Slf4j;
 import org.json.JSONObject;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 
 @Slf4j
 @RestController
-@RequestMapping("/user")
-public class UserController {
-
-    //private final UserService userService;
+@RequestMapping("/agent")
+public class AgentController {
 
     @CrossOrigin
-    @GetMapping(path = "/getUserInfo")
-    public @ResponseBody String getUserInfo() {
+    @GetMapping(path = "/getAgentInfo")
+    public @ResponseBody
+    String getAgentInfo() {
         JSONObject userData = new JSONObject();
         userData.put("id", UUID.randomUUID());
         userData.put("name", "Alexander Borgert");
@@ -29,8 +27,8 @@ public class UserController {
     }
 
     @CrossOrigin
-    @GetMapping(path = "/test")
-    public String test() {
-        return "Success!";
+    @PostMapping(path = "/createAgent")
+    public Agent CreateAgent() {
+        return new Agent("Agent 007");
     }
 }

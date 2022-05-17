@@ -21,6 +21,8 @@ import {AccountPage} from "../pages/AccountPage";
 import {TransferPage} from "../pages/TransferPage";
 import {TransformPage} from "../pages/TransformPage";
 import {HistoryPage} from "../pages/HistoryPage";
+import {AgentPage} from "../pages/AgentsPage";
+import {ResourcesPage} from "../pages/ResourcesPage";
 
 
 function Copyright(props) {
@@ -163,6 +165,8 @@ function DashboardContent() {
                             <Route path="transfer" element={<TransferPage />} />
                             <Route path="transform" element={<TransformPage />} />
                             <Route path="history" element={<HistoryPage />} />
+                            <Route path="agents" element={<AgentPage />} />
+                            <Route path="resources" element={<ResourcesPage />} />
                         </Routes>
                         <Copyright sx={{ pt: 4 }} />
                     </Container>

@@ -1,4 +1,4 @@
-package dk.diku.TRA.Project.Controller;
+package dk.diku.TRA.Project.controller.TestControllers;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
