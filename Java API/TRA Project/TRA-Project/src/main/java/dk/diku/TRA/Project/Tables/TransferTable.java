@@ -1,2 +1,4 @@
-package dk.diku.TRA.Project.Tables;public class TransferTable {
+package dk.diku.TRA.Project.Tables;
+
+public class TransferTable {
 }

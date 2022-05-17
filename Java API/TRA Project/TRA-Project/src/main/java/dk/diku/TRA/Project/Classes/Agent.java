@@ -6,7 +6,7 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 import java.io.Serializable;
 
-@Table(name = "AGENTS")
+@Table(name = "AGENT")
 @Getter
 @Setter
 @Entity

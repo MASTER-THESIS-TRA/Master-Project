@@ -14,6 +14,6 @@ import javax.transaction.Transactional;
 public interface AgentRepository extends JpaRepository<Agent, String> {
 
     @Modifying
-    @Query(value = "INSERT INTO agents a (:name, :email)")
-    void addAgent(@Param("name") String name, @Param("email") String email);
+    @Query(value = "UPDATE Agent set name = :newName where uuid = :id")
+    void changeName(@Param("newName") String newName, @Param("id") String id);
 }
