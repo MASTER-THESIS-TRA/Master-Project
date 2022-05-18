@@ -44,4 +44,10 @@ public class AgentController {
     public List<Agent> AllAgents(){
         return agentService.GetAllAgents();
     }
+
+    @CrossOrigin
+    @GetMapping(path="/existsAgent")
+    public boolean ExistsAgent(String id){
+        return agentService.existsAgent(id);
+    }
 }
