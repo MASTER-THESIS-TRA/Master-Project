@@ -1,12 +1,10 @@
-package dk.diku.TRA.Project.controller;
+package dk.diku.TRA.Project.Controller;
 
 
 import dk.diku.TRA.Project.Classes.Transfer;
+import dk.diku.TRA.Project.Dtos.TransferDto;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @RestController
@@ -15,7 +13,7 @@ public class TransferController {
 
     @CrossOrigin
     @PostMapping(path = "/createTransfer")
-    public Transfer CreateTransfer() {
-        return null;
+    public TransferDto CreateTransfer(@RequestBody TransferDto transferDto) {
+        return transferDto;
     }
 }
