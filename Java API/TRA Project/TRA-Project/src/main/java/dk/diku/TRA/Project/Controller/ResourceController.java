@@ -2,6 +2,7 @@ package dk.diku.TRA.Project.controller;
 
 
 import dk.diku.TRA.Project.Classes.Resource;
+import dk.diku.TRA.Project.Classes.ResourceType;
 import dk.diku.TRA.Project.Dtos.ResourceTypeDto;
 import dk.diku.TRA.Project.Services.ResourceService;
 import lombok.extern.slf4j.Slf4j;
@@ -21,7 +22,7 @@ public class ResourceController {
 
     @CrossOrigin
     @PostMapping(path = "/createResourceType")
-    public ResourceTypeDto CreateResource(@RequestBody ResourceTypeDto resourceTypeDto) {
+    public String CreateResource(@RequestBody ResourceTypeDto resourceTypeDto) {
         return resourceService.CreateResourceType(resourceTypeDto);
     }
 
@@ -33,7 +34,7 @@ public class ResourceController {
 
     @CrossOrigin
     @GetMapping(path = "/getAllResources")
-    public List<ResourceTypeDto> GetAllResources() {
+    public List<ResourceType> GetAllResources() {
         return resourceService.GetAllResources();
     }
 }
