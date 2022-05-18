@@ -56,7 +56,6 @@ export const AgentPage = () => {
             <Grid item xs={12}>
                 <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column', maxHeight:700, height: 700, overflow: 'hidden' }}>
                     <Grid container spacing={2}>
-                        {/* Chart */}
                         <Grid item xs={12} md={8} lg={6}>
                             <Title>List of Agents</Title>
                         </Grid>

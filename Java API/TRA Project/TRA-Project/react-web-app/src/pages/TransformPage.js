@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import {Transfer} from "../components/Transfer/Transfer";
 import Grid from "@mui/material/Grid";
 import {DialogContent, FormControl, InputLabel, MenuItem, MenuList, Paper, Select, TextField} from "@mui/material";
@@ -8,6 +8,7 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import {CustomTable} from "../components/CustomTable";
 import Divider from "@mui/material/Divider";
+import axios from "axios";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -69,12 +70,50 @@ const rows = [
 ];
 
 export const TransformPage = () => {
+    const[transform, setTransform] = useState('');
+    const[amount, setAmount] = useState();
 
-    const handleOpen = () => { return null; }
+    const handleTransformChange = (event) => { setTransform(event.target.value); };
+    const handleAmountChange = (event) => { setAmount(event.target.value); };
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        if((transform, amount) === undefined) {
+            alert("One or more fields are empty")
+        }
+        createNewTransfer(transform, amount);
+    }
+
+    const createNewTransfer = (transform, amount) => {
+        const data = {
+            sender: localStorage.getItem('user'),
+            transform: transform,
+            amount: amount
+        }
+
+        axios.post("http://localhost:8080/transform/createTransform", data, {
+            headers: {
+                'Accept': 'application/json',
+                'content-type': 'application/json'
+            }})
+            .then((response) => {
+                    console.log("API Response", response.data)
+                }
+            )
+            .catch((error) => {
+                console.log(error);
+            })
+    }
+
 
     return(
         <div>
-            <Grid item xs={12} md={8} lg={5}>
+            <Grid container
+                  spacing={0}
+                  direction="column"
+                  alignItems="center"
+                  justifyContent="center"
+            >
                 <Paper
                     elevation={2}
                     sx={{
@@ -82,56 +121,46 @@ export const TransformPage = () => {
                         display: 'flex',
                         flexDirection: 'column',
                         height: 450,
+                        width: 450,
+                        textAlign: 'center'
                     }}
                 >
-                    <Title>Transfer</Title>
+                    <Title>Transform</Title>
                     <DialogContent dividers sx={{ overflow: 'hidden'}}>
-                        <Grid container spacing={2}>
-                            <Grid item xs={12} md={8} lg={6}>
-                                <TextField
-                                    required
-                                    id="outlined-required"
-                                    label="Email of reciever"
-                                    sx={{ minWidth: 330, paddingBottom: '10px' }}
-                                />
-                                <Box>
-                                    <FormControl sx={{minWidth: 200 }}>
-                                        <InputLabel id="demo-simple-select-autowidth-label">Resource</InputLabel>
-                                        <Select
-                                            labelId="demo-simple-select-autowidth-label"
-                                            id="demo-simple-select-autowidth"
-                                            //value={age}
-                                            //onChange={handleChange}
-                                            autoWidth
-                                            label="Resource"
-                                            MenuProps={MenuProps}
+                        <Box>
+                            <FormControl sx={{minWidth: 200 }}>
+                                <InputLabel id="demo-simple-select-autowidth-label">Transform</InputLabel>
+                                <Select
+                                    labelId="demo-simple-select-autowidth-label"
+                                    id="demo-simple-select-autowidth"
+                                    onChange={handleTransformChange}
+                                    autoWidth
+                                    value={transform}
+                                    label="Resource"
+                                    MenuProps={MenuProps}
+                                >
+                                    {names.map((name) => (
+                                        <MenuItem
+                                            key={name}
+                                            value={name}
                                         >
-                                            {names.map((name) => (
-                                                <MenuItem
-                                                    key={name}
-                                                    value={name}
-                                                >
-                                                    {name}
-                                                </MenuItem>
-                                            ))}
-                                        </Select>
-                                    </FormControl>
-                                    <TextField
-                                        required
-                                        id="outlined-required"
-                                        label="Amount"
-                                        type="number"
-                                        sx={{ width: 130, paddingLeft: "5px" }}
-                                    />
-                                </Box>
-                            </Grid>
-                            <Grid item md={8} lg={6} container justifyContent="flex-end" sx={{paddingBottom: "40px"}}>
-                                <CustomTable rows={rows} columns={columns} showPagination={false} />
-                            </Grid>
-                        </Grid>
+                                            {name}
+                                        </MenuItem>
+                                    ))}
+                                </Select>
+                            </FormControl>
+                            <TextField
+                                required
+                                id="outlined-required"
+                                label="Amount"
+                                type="number"
+                                sx={{ width: 130, paddingLeft: "5px" }}
+                                onChange={e => handleAmountChange(e)}
+                            />
+                        </Box>
                     </DialogContent>
                     <Box textAlign='center' sx={{paddingTop: '10px'}}>
-                        <Button variant='contained' size='medium' onClick={handleOpen}>Submit</Button>
+                        <Button variant='contained' size='medium' onClick={handleSubmit}>Confirm</Button>
                     </Box>
                 </Paper>
             </Grid>

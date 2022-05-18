@@ -27,6 +27,7 @@ import {SignupPage} from "../pages/SignupPage";
 import {Login} from "@mui/icons-material";
 import {ListItem} from "@mui/material";
 import Button from "@mui/material/Button";
+import {DefineTransformPage} from "../pages/DefineTransformPage";
 
 
 function Copyright(props) {
@@ -168,7 +169,7 @@ export const Dashboard = ({handleLogout}) => {
                     <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
                         <Routes>
                             <Route path="/overview" element={<OverviewPage />} />
-                            <Route path="/account" element={<AccountPage />} />
+                            <Route path="/transformations" element={<DefineTransformPage />} />
                             <Route path="/transfer" element={<TransferPage />} />
                             <Route path="/transform" element={<TransformPage />} />
                             <Route path="/history" element={<HistoryPage />} />
