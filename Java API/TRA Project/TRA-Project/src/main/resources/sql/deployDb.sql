@@ -13,3 +13,10 @@ CREATE TABLE if not exists RESOURCE_TYPE (
        NAME char(100) NOT NULL,
        WEIGHT char(100) NOT NULL
 );
+CREATE TABLE IF NOT EXISTS EVENT(
+    EVENT_ID char(36) PRIMARY KEY,
+    EVENT_TYPE char(255) NOT NULL,
+    AGENT_ID char(36) NOT NULL,
+    TIME time NOT NULL,
+    BODY char(5000)
+);

@@ -1,29 +1,34 @@
 package dk.diku.TRA.Project.Classes;
 
-import java.text.SimpleDateFormat;
-import java.util.List;
+import lombok.*;
+import org.hibernate.annotations.GenericGenerator;
 
+import javax.persistence.*;
+import java.time.LocalDateTime;
+
+@Table(name = "EVENT")
+@Getter
+@Setter
+@Entity
+@Builder(setterPrefix = "with")
+@AllArgsConstructor
+@NoArgsConstructor
 public class Event {
 
-    public String eventName;
-    private List<Agent> responsible;
-    private SimpleDateFormat time;
-    private Information body;
+    @Id
+    @GeneratedValue(generator = "uuid2") @GenericGenerator(name = "uuid2", strategy = "uuid2")
+    @Column(name = "EVENT_ID", unique = true, nullable = false, length =36)
+    private String id;
 
-    public Event(String eventName, List<Agent> responsible, Information body) {
-        this.eventName = eventName;
-        this.responsible = responsible;
-        this.time = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");;
-        this.body = body;
-    }
+    @Column(name = "EVENT_TYPE", nullable = false)
+    private String eventType;
 
-    public List<Agent> getResponsible() {
-        return responsible;
-    }
-    public SimpleDateFormat getTime() {
-        return time;
-    }
-    public Information getBody() {
-        return body;
-    }
+    @Column(name = "AGENT_ID", nullable = false, length = 36)
+    private String agentId;
+
+    @Column(name = "TIME", nullable = false)
+    private LocalDateTime time;
+
+    @Column(name = "BODY", length = 5000)
+    private String body;
 }
