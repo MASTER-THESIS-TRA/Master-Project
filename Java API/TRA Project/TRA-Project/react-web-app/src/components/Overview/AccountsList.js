@@ -15,7 +15,6 @@ export const AccountList = () => {
         axios.get("http://localhost:8080/agent/getAgentInfo")
             .then((response) => {
                 setUserData(response.data)
-                console.log(response.data.json())
                 }
             )
             .catch((error) => {

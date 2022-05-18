@@ -2,8 +2,10 @@ package dk.diku.TRA.Project.controller;
 
 
 import dk.diku.TRA.Project.Classes.Resource;
+import dk.diku.TRA.Project.Dtos.ResourceTypeDto;
 import dk.diku.TRA.Project.Services.ResourceService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -13,13 +15,14 @@ import java.util.List;
 @RequestMapping("/resource")
 public class ResourceController {
 
+    @Autowired
     private ResourceService resourceService;
 
 
     @CrossOrigin
-    @PostMapping(path = "/createResource")
-    public Resource CreateResource() {
-        return null;
+    @PostMapping(path = "/createResourceType")
+    public ResourceTypeDto CreateResource(@RequestBody ResourceTypeDto resourceTypeDto) {
+        return resourceService.CreateResourceType(resourceTypeDto);
     }
 
     @CrossOrigin
@@ -30,7 +33,7 @@ public class ResourceController {
 
     @CrossOrigin
     @GetMapping(path = "/getAllResources")
-    public List<Resource> GetAllResources() {
+    public List<ResourceTypeDto> GetAllResources() {
         return resourceService.GetAllResources();
     }
 }

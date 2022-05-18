@@ -1,7 +1,8 @@
-package dk.diku.TRA.Project.controller;
+package dk.diku.TRA.Project.Controller;
 
 
 import dk.diku.TRA.Project.Classes.Agent;
+import dk.diku.TRA.Project.Dtos.AgentDto;
 import dk.diku.TRA.Project.Services.AgentService;
 import lombok.extern.slf4j.Slf4j;
 import org.json.JSONObject;
@@ -32,16 +33,10 @@ public class AgentController {
         return userData.toString();
     }
 
-    /**
-     * @param name The name of the new agent
-     * @param email The email of the new agent
-     * @param password The password for the new agent
-     * @return The uuid of the newly created Agent
-     */
     @CrossOrigin
     @PostMapping(path = "/newAgent")
-    public String NewAgent(String name, String email, String password) {
-        return agentService.SaveAgent(name,email,password);
+    public String NewAgent(@RequestBody AgentDto agentDto) {
+        return agentService.SaveAgent(agentDto.name,agentDto.email,agentDto.password);
     }
 
     @CrossOrigin

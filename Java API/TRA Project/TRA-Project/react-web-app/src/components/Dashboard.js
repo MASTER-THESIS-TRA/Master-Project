@@ -23,6 +23,10 @@ import {TransformPage} from "../pages/TransformPage";
 import {HistoryPage} from "../pages/HistoryPage";
 import {AgentPage} from "../pages/AgentsPage";
 import {ResourcesPage} from "../pages/ResourcesPage";
+import {SignupPage} from "../pages/SignupPage";
+import {Login} from "@mui/icons-material";
+import {ListItem} from "@mui/material";
+import Button from "@mui/material/Button";
 
 
 function Copyright(props) {
@@ -86,7 +90,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 
 const mdTheme = createTheme();
 
-function DashboardContent() {
+export const Dashboard = ({handleLogout}) => {
     const [open, setOpen] = React.useState(true);
     const toggleDrawer = () => {
         setOpen(!open);
@@ -143,6 +147,9 @@ function DashboardContent() {
                         {mainListItems}
                         <Divider sx={{ my: 1 }} />
                         {secondaryListItems}
+                        <ListItem>
+                            <Button onClick={handleLogout}>Log Out</Button>
+                        </ListItem>
                     </List>
                 </Drawer>
                 <Box
@@ -160,13 +167,13 @@ function DashboardContent() {
                     <Toolbar />
                     <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
                         <Routes>
-                            <Route path="/" element={<OverviewPage />} />
-                            <Route path="account" element={<AccountPage />} />
-                            <Route path="transfer" element={<TransferPage />} />
-                            <Route path="transform" element={<TransformPage />} />
-                            <Route path="history" element={<HistoryPage />} />
-                            <Route path="agents" element={<AgentPage />} />
-                            <Route path="resources" element={<ResourcesPage />} />
+                            <Route path="/overview" element={<OverviewPage />} />
+                            <Route path="/account" element={<AccountPage />} />
+                            <Route path="/transfer" element={<TransferPage />} />
+                            <Route path="/transform" element={<TransformPage />} />
+                            <Route path="/history" element={<HistoryPage />} />
+                            <Route path="/agents" element={<AgentPage />} />
+                            <Route path="/resources" element={<ResourcesPage />} />
                         </Routes>
                         <Copyright sx={{ pt: 4 }} />
                     </Container>
@@ -174,8 +181,4 @@ function DashboardContent() {
             </Box>
         </ThemeProvider>
     );
-}
-
-export default function Dashboard() {
-    return <DashboardContent />;
 }

@@ -6,6 +6,10 @@ import * as React from "react";
 import {CustomTable} from "../components/CustomTable";
 import {useEffect, useState} from "react";
 import axios from "axios";
+import Button from "@mui/material/Button";
+import Modal from "@mui/material/Modal";
+import {CreateNewAgent} from "../components/Agent/CreateNewAgent";
+import {CreateNewResourceType} from "../components/Resources/CreateNewResourceType";
 
 
 const columns = [
@@ -59,6 +63,10 @@ const rows = [
 
 export const ResourcesPage = () => {
     const[resources, setResources] = useState({});
+    const[showModal, setShowModal] = useState(false);
+
+    const handleOpen = () => setShowModal(true);
+    const handleClose = () => setShowModal(false);
 
     useEffect(() => {
         //fetchResourceData()
@@ -80,10 +88,26 @@ export const ResourcesPage = () => {
         <div>
             <Grid item xs={12}>
                 <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column', maxHeight:700, height: 700, overflow: 'hidden' }}>
-                    <Title>List of Resources</Title>
+                    <Grid container spacing={2}>
+                        {/* Chart */}
+                        <Grid item xs={12} md={8} lg={6}>
+                            <Title>List of resource types</Title>
+                        </Grid>
+                        <Grid item md={8} lg={6} container justifyContent="flex-end">
+                            <Button variant="outlined" onClick={handleOpen}>Add new resource type</Button>
+                        </Grid>
+                    </Grid>
                     <CustomTable columns={columns} rows={rows} showPagination={true} maxHeight={700}/>
                 </Paper>
             </Grid>
+            <Modal
+                open={showModal}
+                onClose={handleClose}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+            >
+                <CreateNewResourceType open={showModal} onClose={handleClose} />
+            </Modal>
         </div>
     )
 }
