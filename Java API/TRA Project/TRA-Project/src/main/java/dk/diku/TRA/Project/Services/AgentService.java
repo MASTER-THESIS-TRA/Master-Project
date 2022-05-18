@@ -29,4 +29,16 @@ public class AgentService {
     public List<Agent> GetAllAgents(){
         return agentRepository.findAll();
     }
+
+    public boolean existsAgent(String id){
+        return agentRepository.findById(id).isPresent();
+    }
+
+    public String validateLogin(String email, String password){
+        Agent a = agentRepository.findAgentByEmail(email);
+        if (a.getPassword().equals(password)){
+            return a.getUuid();
+        }
+        return null;
+    }
 }
