@@ -1,22 +1,47 @@
 package dk.diku.TRA.Project.Classes;
 
+import dk.diku.TRA.Project.Dtos.CreditDto;
+import dk.diku.TRA.Project.Dtos.OwnershipDto;
+import dk.diku.TRA.Project.Dtos.keys.OwnershipKey;
 import dk.diku.TRA.Project.Exceptions.ExceptionConstants;
 import dk.diku.TRA.Project.Exceptions.TRAException;
+import dk.diku.TRA.Project.repository.AgentRepository;
+import dk.diku.TRA.Project.repository.CreditRepository;
+import dk.diku.TRA.Project.repository.OwnershipRepository;
+import net.bytebuddy.description.modifier.Ownership;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Primary;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
 @Primary
 public class ResourceManager extends Agent{
+    @Autowired
+    OwnershipRepository ownershipRepository;
+    @Autowired
+    CreditRepository creditRepository;
+    @Autowired
+    AgentRepository agentRepository;
+
     private Transfer ownerships; // Ownership state can be represented as a transfer, where the ResourceManager transfers everyone their resources.
     private Credit CP;
     private Weight weights;
 
+    public ResourceManager (String name, String email, String password){
+        this(name);
+        setEmail(email);
+        setPassword(password);
+        //LoadOwnershipsFromDb();
+        //LoadCreditFromDb();
+    }
+
     public ResourceManager(String name){
         super();
+        super.setName(name);
         ownerships = Transfer.zero();
         CP = new Credit(this,new Resource("*",1));
     }
@@ -126,6 +151,34 @@ public class ResourceManager extends Agent{
             }
         }
         throw new TRAException(ExceptionConstants.GENERIC_ERROR + ": Agent not found.");
+    }
+
+    private void LoadCreditFromDb(){
+        List<CreditDto> credits = creditRepository.findAll();
+        if (credits.isEmpty()){return;}
+        for (CreditDto c : credits){
+            GiveCredit(agentRepository.findById(c.getAgentId()).get(),new Resource(c.getResourceType(),c.getAmount()));
+        }
+    }
+
+    private void LoadOwnershipsFromDb(){
+        List<OwnershipDto> ownerships = ownershipRepository.findAll();
+        if (ownerships.isEmpty()){return;}
+        Map<Agent,Resource> M = new HashMap<>();
+        for (OwnershipDto o : ownerships){
+            Agent a = agentRepository.findById(o.getAgentId()).get();
+            if (M.containsKey(a)){
+                M.put(a, Resource.add(M.get(a),new Resource(o.getResourceType(),o.getAmount())));
+                M.put(this, Resource.add(M.get(this),new Resource(o.getResourceType(),-o.getAmount())));
+            }
+            else{
+                M.put(a,new Resource(o.getResourceType(),o.getAmount()));
+                M.put(this,new Resource(o.getResourceType(),-o.getAmount()));
+            }
+        }
+    }
+    public void getById(){
+        ownershipRepository.getById(new OwnershipKey("agentid","Resourcetype"));
     }
 }
 
