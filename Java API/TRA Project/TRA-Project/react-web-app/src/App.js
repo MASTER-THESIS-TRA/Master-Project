@@ -10,12 +10,12 @@ import {SignupPage} from "./pages/SignupPage";
 export const App = () => {
     const[loggedIn, setLoggedIn] = useState(false);
     const[signUp, setSignUp] = useState(false);
-    const [username, setUsername] = useState("");
+    const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [user, setUser] = useState()
 
-    const handleUsernameChange = (event) => {
-        setUsername(event.target.value);
+    const handleEmailChange = (event) => {
+        setEmail(event.target.value);
     };
     const handlePasswordChange = (event) => {
         setPassword(event.target.value);
@@ -27,7 +27,7 @@ export const App = () => {
 
     const handleLogout = () => {
         setUser({});
-        setUsername("");
+        setEmail("");
         setPassword("");
         localStorage.clear();
         window.location.reload()
@@ -36,19 +36,23 @@ export const App = () => {
     const handleSubmit = async e => {
         e.preventDefault();
         const user = {
-            username: username,
+            email: email,
             password: password
         };
-        await axios.post("http://localhost:8080/login/intialLogin", user, {
+        await axios.post("http://localhost:8080/login/validateLogin", user, {
             headers: {
                 'Accept': 'application/json',
                 'content-type': 'application/json'
             }})
             .then((response) => {
-                    console.log(response.data);
-                    setUser(response.data);
-                    setLoggedIn(true);
-                    localStorage.setItem('user', response.data);
+                    if(response.data != "error") {
+                        console.log(response.data);
+                        setUser(response.data);
+                        setLoggedIn(true);
+                        localStorage.setItem('user', response.data);
+                    } else {
+                        alert("wrong email or password");
+                    }
                 }
             )
             .catch((error) => {
@@ -67,7 +71,7 @@ export const App = () => {
 
     if(!loggedIn && !signUp) {
         return(
-            <LoginPage handleSignUpChange={handleSignUpChange} handleUsernameChange={handleUsernameChange} handlePasswordChange={handlePasswordChange} handleSubmit={handleSubmit}/>
+            <LoginPage handleSignUpChange={handleSignUpChange} handleEmailChange={handleEmailChange} handlePasswordChange={handlePasswordChange} handleSubmit={handleSubmit}/>
         )
     } else if(!loggedIn && signUp) {
         return(

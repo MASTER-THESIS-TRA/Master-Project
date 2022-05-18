@@ -1,65 +1,19 @@
 import Grid from "@mui/material/Grid";
-import {Paper, TextField} from "@mui/material";
+import {Paper} from "@mui/material";
 import Title from "../components/Title";
-import {HistoryTable} from "../components/History/HistoryTable";
 import * as React from "react";
 import {CustomTable} from "../components/CustomTable";
 import {useEffect, useState} from "react";
 import axios from "axios";
-import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import Modal from "@mui/material/Modal";
-import Typography from "@mui/material/Typography";
 import {CreateNewAgent} from "../components/Agent/CreateNewAgent";
 
 
 const columns = [
-    { id: 'name', label: 'Name', minWidth: 170 },
-    { id: 'code', label: 'ISO\u00a0Code', minWidth: 100 },
-    {
-        id: 'population',
-        label: 'Population',
-        minWidth: 170,
-        align: 'right',
-        format: (value) => value.toLocaleString('en-US'),
-    },
-    {
-        id: 'size',
-        label: 'Size\u00a0(km\u00b2)',
-        minWidth: 170,
-        align: 'right',
-        format: (value) => value.toLocaleString('en-US'),
-    },
-    {
-        id: 'density',
-        label: 'Density',
-        minWidth: 170,
-        align: 'right',
-        format: (value) => value.toFixed(2),
-    },
-];
-
-function createData(name, code, population, size) {
-    const density = population / size;
-    return { name, code, population, size, density };
-}
-
-const rows = [
-    createData('India', 'IN', 1324171354, 3287263),
-    createData('China', 'CN', 1403500365, 9596961),
-    createData('Italy', 'IT', 60483973, 301340),
-    createData('United States', 'US', 327167434, 9833520),
-    createData('Canada', 'CA', 37602103, 9984670),
-    createData('Australia', 'AU', 25475400, 7692024),
-    createData('Germany', 'DE', 83019200, 357578),
-    createData('Ireland', 'IE', 4857000, 70273),
-    createData('Mexico', 'MX', 126577691, 1972550),
-    createData('Japan', 'JP', 126317000, 377973),
-    createData('France', 'FR', 67022000, 640679),
-    createData('United Kingdom', 'GB', 67545757, 242495),
-    createData('Russia', 'RU', 146793744, 17098246),
-    createData('Nigeria', 'NG', 200962417, 923768),
-    createData('Brazil', 'BR', 210147125, 8515767),
+    { id: 'uuid', label: 'UUID', minWidth: 170 },
+    { id: 'name', label: 'Name', minWidth: 100 },
+    { id: 'email', label: 'Email', minWidth: 100 },
+    { id: 'password', label: 'Password', minWidth: 100 },
 ];
 
 
@@ -76,32 +30,26 @@ const style = {
 };
 
 export const AgentPage = () => {
-    const[agents, setAgents] = useState({});
+    const[row, setRow] = useState([]);
     const[showModal, setShowModal] = useState(false);
 
     const handleOpen = () => setShowModal(true);
     const handleClose = () => setShowModal(false);
-    /*
-    useEffect(() => {
-        //fetchAgents()
+
+    useEffect(async () => {
+        const data = []
+        const res = await axios.get("http://localhost:8080/agent/allAgents")
+        if(res.status != 500) {
+            res.data.map((agent) => {
+                data.push(createData(agent.uuid, agent.name, agent.email, agent.password))
+            })
+            setRow(data);
+        }
     }, [])
 
-    const fetchAgents = () => {
-        axios.get("http://localhost:8080/user/getUserInfo")
-            .then((response) => {
-                    setAgents(response.data)
-                    console.log(response.data.json())
-                }
-            )
-            .catch((error) => {
-                console.log(error);
-            })
+    const createData = (uuid, name, email, password) => {
+        return { uuid, name, email, password };
     }
-
-     */
-
-
-
 
     return(
         <div>
@@ -116,17 +64,10 @@ export const AgentPage = () => {
                             <Button variant="outlined" onClick={handleOpen}>Add new agent</Button>
                         </Grid>
                     </Grid>
-                    <CustomTable columns={columns} rows={rows} showPagination={true} maxHeight={700}/>
+                    <CustomTable columns={columns} rows={row} showPagination={true} maxHeight={700}/>
                 </Paper>
             </Grid>
-            <Modal
-                open={showModal}
-                onClose={handleClose}
-                aria-labelledby="modal-modal-title"
-                aria-describedby="modal-modal-description"
-            >
-                <CreateNewAgent open={showModal} onClose={handleClose} />
-            </Modal>
+            <CreateNewAgent open={showModal} onClose={handleClose} />
         </div>
     )
 }
