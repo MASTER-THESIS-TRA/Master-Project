@@ -6,13 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 public class EventService {
     @Autowired
     EventRepository eventRepository;
 
-    public Event recordEvent(String eventType, String agentUuid, LocalDateTime time, String body){
+    public Event RecordEvent(String eventType, String agentUuid, LocalDateTime time, String body){
         Event e = new Event();
         e.setEventType(eventType);
         e.setAgentId(agentUuid);
@@ -21,10 +22,14 @@ public class EventService {
         return eventRepository.save(e);
     }
 
-    public Event findEvent(String id){
+    public Event FindEvent(String id){
         if(eventRepository.findById(id).isPresent()){
             return eventRepository.findById(id).get();
         }
         return null;
+    }
+
+    public List<Event> FindAll(){
+        return eventRepository.findAll();
     }
 }

@@ -3,7 +3,6 @@ package dk.diku.TRA.Project.Controller;
 
 import dk.diku.TRA.Project.Classes.Agent;
 import dk.diku.TRA.Project.Classes.Resource;
-import dk.diku.TRA.Project.Classes.ResourceManager;
 import dk.diku.TRA.Project.Classes.Transfer;
 import dk.diku.TRA.Project.Dtos.TransferDto;
 import dk.diku.TRA.Project.Exceptions.TRAException;
@@ -39,7 +38,7 @@ public class TransferController {
         }
         String transferResult = transferService.transfer(t);
         if (transferResult.equals("Success")){
-            eventService.recordEvent("Transfer",transferDto.sender, LocalDateTime.now(),t.toString());
+            eventService.RecordEvent("Transfer",transferDto.sender, LocalDateTime.now(),t.toString());
         }
         return transferResult;
     }
