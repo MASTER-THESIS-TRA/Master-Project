@@ -13,8 +13,7 @@ import java.io.Serializable;
 @Builder(setterPrefix = "with")
 @AllArgsConstructor
 @NoArgsConstructor
-public class PersistTransform implements Serializable {
-
+public class TransformDefinitions implements Serializable {
     @Id
     @GeneratedValue(generator = "uuid2") @GenericGenerator(name = "uuid2", strategy = "uuid2")
     @Column(name = "TRANSFORM_ID", unique = true, nullable = false, length = 36)
