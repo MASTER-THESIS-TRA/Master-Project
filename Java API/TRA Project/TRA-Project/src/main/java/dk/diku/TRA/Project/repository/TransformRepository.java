@@ -11,6 +11,6 @@ import javax.transaction.Transactional;
 @Repository
 @Transactional
 public interface TransformRepository extends JpaRepository<TransformDefinitions,String> {
-    @Query(value = "select t from TransformDefinitions t where t.name = :name")
+    @Query(value = "select * from transform where name = :name", nativeQuery = true)
     void getByName(@Param("name") String newName);
 }
