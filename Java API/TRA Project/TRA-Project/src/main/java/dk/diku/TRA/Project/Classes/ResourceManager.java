@@ -201,4 +201,13 @@ public class ResourceManager extends Agent{
     public void AddWeight(Weight w){
         weights = Weight.add(weights,w);
     }
+
+    public Resource GetBalance(Agent a){
+        if (ownerships.keySet().contains(a)){
+            return ownerships.get(a);
+        }
+        else{
+            return Resource.zero();
+        }
+    }
 }

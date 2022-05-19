@@ -14,6 +14,7 @@ import org.apache.commons.lang3.NotImplementedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -72,6 +73,15 @@ public class ResourceService {
         } catch (TRAException e){
             return false;
         }
+    }
+
+    public List<ResourceDto> GetBalanceById(String id){
+        Resource r = resourceManager.GetBalance(agentService.GetAgentById(id));
+        List<ResourceDto> ret = new ArrayList<>();
+        for (String key : r.keySet()){
+            ret.add(new ResourceDto(key,r.get(key)));
+        }
+        return ret;
     }
 
     private Resource defineTransform(TransformDto transformDto){
