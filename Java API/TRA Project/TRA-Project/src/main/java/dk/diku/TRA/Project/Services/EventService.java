@@ -32,4 +32,8 @@ public class EventService {
     public List<Event> FindAll(){
         return eventRepository.findAll();
     }
+
+    public List<Event> FindAllByAgentId(String id){
+        return eventRepository.FindAllByAgentId(id);
+    }
 }

@@ -19,4 +19,9 @@ public class HistoryController {
     public List<Event> GetAllEvents(){
         return eventService.FindAll();
     }
+
+    @GetMapping(path="/getEventsById")
+    public List<Event> GetEventsById(String id){
+        return eventService.FindAllByAgentId(id);
+    }
 }
