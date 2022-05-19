@@ -6,9 +6,11 @@ import TableCell from "@mui/material/TableCell";
 import TableBody from "@mui/material/TableBody";
 import * as React from "react";
 import TablePagination from "@mui/material/TablePagination";
+import Button from "@mui/material/Button";
+import Link from "@mui/material/Link";
 
 
-export const CustomTable = ({columns, rows, showPagination, maxHeight}) => {
+export const LocationTable = ({columns, rows, showPagination, maxHeight}) => {
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
@@ -17,7 +19,7 @@ export const CustomTable = ({columns, rows, showPagination, maxHeight}) => {
     };
 
     const handleChangeRowsPerPage = (event) => {
-        setRowsPerPage(+event.target.value);
+        setRowsPerPage(event.target.value);
         setPage(0);
     };
 
@@ -47,6 +49,13 @@ export const CustomTable = ({columns, rows, showPagination, maxHeight}) => {
                                     <TableRow hover role="checkbox" tabIndex={-1} key={key}>
                                         {columns.map((column) => {
                                             const value = row[column.id];
+                                            if(column.id === "location") {
+                                                return(
+                                                    <TableCell key={column.id} align={column.align}>
+                                                        <Button href={`https://google.com/maps/place/${row.xCoord},${row.yCoord}`} target="_blank" rel="noopener noreferrer">See location</Button>
+                                                    </TableCell>
+                                                )
+                                            }
                                             return (
                                                 <TableCell key={column.id} align={column.align}>
                                                     {column.format && typeof value === 'number'

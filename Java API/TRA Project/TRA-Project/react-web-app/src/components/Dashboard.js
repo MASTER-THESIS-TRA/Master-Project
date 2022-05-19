@@ -17,17 +17,17 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import { mainListItems, secondaryListItems } from './SidebarContent';
 import {Route, Routes} from "react-router-dom";
 import {OverviewPage} from "../pages/OverviewPage";
-import {AccountPage} from "../pages/AccountPage";
 import {TransferPage} from "../pages/TransferPage";
 import {TransformPage} from "../pages/admin/TransformPage";
 import {HistoryPage} from "../pages/HistoryPage";
 import {AgentPage} from "../pages/admin/AgentsPage";
-import {ResourcesPage} from "../pages/ResourcesPage";
+import {ResourcesPage} from "../pages/admin/ResourcesPage";
 import {Login} from "@mui/icons-material";
 import {ListItem} from "@mui/material";
 import Button from "@mui/material/Button";
 import {DefineTransformPage} from "../pages/admin/DefineTransformPage";
-import {TransportPage} from "../pages/admin/TransportPage";
+import {AddressPage} from "../pages/admin/AddressPage";
+import {TransportPage} from "../pages/TransportPage";
 
 
 function Copyright(props) {
@@ -168,7 +168,7 @@ export const Dashboard = ({handleLogout}) => {
                     <Toolbar />
                     <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
                         <Routes>
-                            <Route path="/overview" element={<OverviewPage />} />
+                            <Route path="/" element={<OverviewPage />} />
                             <Route path="/transformations" element={<DefineTransformPage />} />
                             <Route path="/transfer" element={<TransferPage />} />
                             <Route path="/transform" element={<TransformPage />} />
@@ -176,6 +176,7 @@ export const Dashboard = ({handleLogout}) => {
                             <Route path="/history" element={<HistoryPage />} />
                             <Route path="/agents" element={<AgentPage />} />
                             <Route path="/resources" element={<ResourcesPage />} />
+                            <Route path="/addresses" element={<AddressPage />} />
                         </Routes>
                         <Copyright sx={{ pt: 4 }} />
                     </Container>

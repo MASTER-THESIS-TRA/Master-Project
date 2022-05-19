@@ -21,7 +21,7 @@ const MenuProps = {
     },
 };
 
-export const TransferPage = () => {
+export const TransportPage = () => {
     const[receiver, setReceiver] = useState('');
     const[resourceName, setResourceName] = useState('');
     const[amount, setAmount] = useState();
@@ -85,20 +85,63 @@ export const TransferPage = () => {
                         p: 2,
                         display: 'flex',
                         flexDirection: 'column',
-                        height: 450,
+                        height: 400,
                         width: 450,
                         textAlign: 'center'
                     }}
                 >
-                    <Title>Transfer</Title>
+                    <Title>Transport</Title>
                     <DialogContent dividers sx={{ overflow: 'hidden'}}>
                         <TextField
                             required
                             id="outlined-required"
-                            label="Email of reciever"
-                            sx={{ minWidth: 330, paddingBottom: '10px' }}
-                            onChange={e => handleReceiverChange(e)}
+                            label="Name"
+                            sx={{ width: "90%", paddingBottom: "10px"}}
+                            onChange={e => handleAmountChange(e)}
                         />
+                        <FormControl sx={{width: "90%", paddingBottom: "10px" }}>
+                            <InputLabel id="demo-simple-select-autowidth-label">From</InputLabel>
+                            <Select
+                                labelId="demo-simple-select-autowidth-label"
+                                id="demo-simple-select-autowidth"
+                                onChange={handleResourceNameChange}
+                                autoWidth
+                                value={resourceName}
+                                label="Resource"
+                                MenuProps={MenuProps}
+                            >
+                                {options.map((name) => (
+                                    <MenuItem
+                                        key={name}
+                                        value={name}
+                                    >
+                                        {name}
+                                    </MenuItem>
+                                ))}
+                            </Select>
+                        </FormControl>
+
+                        <FormControl sx={{width: "90%", paddingBottom: "10px" }}>
+                            <InputLabel id="demo-simple-select-autowidth-label">To</InputLabel>
+                            <Select
+                                labelId="demo-simple-select-autowidth-label"
+                                id="demo-simple-select-autowidth"
+                                onChange={handleResourceNameChange}
+                                autoWidth
+                                value={resourceName}
+                                label="Resource"
+                                MenuProps={MenuProps}
+                            >
+                                {options.map((name) => (
+                                    <MenuItem
+                                        key={name}
+                                        value={name}
+                                    >
+                                        {name}
+                                    </MenuItem>
+                                ))}
+                            </Select>
+                        </FormControl>
                         <Box>
                             <FormControl sx={{minWidth: 200 }}>
                                 <InputLabel id="demo-simple-select-autowidth-label">Resource</InputLabel>
@@ -132,7 +175,7 @@ export const TransferPage = () => {
                         </Box>
                     </DialogContent>
                     <Box textAlign='center' sx={{paddingTop: '10px'}}>
-                        <Button variant='contained' size='medium' onClick={handleSubmit}>Send</Button>
+                        <Button variant='contained' size='medium' onClick={handleSubmit}>Submit</Button>
                     </Box>
                 </Paper>
             </Grid>

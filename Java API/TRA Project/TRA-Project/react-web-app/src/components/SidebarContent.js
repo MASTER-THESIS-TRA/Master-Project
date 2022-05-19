@@ -12,10 +12,11 @@ import NoteAddIcon from '@mui/icons-material/NoteAdd';
 import CompareArrowsIcon from '@mui/icons-material/CompareArrows';
 import ConnectingAirportsIcon from '@mui/icons-material/ConnectingAirports';
 import {CustomLinkButton} from "./CustomLinkButton";
+import AddLocationAltIcon from '@mui/icons-material/AddLocationAlt';
 
 export const mainListItems = (
     <React.Fragment>
-        <CustomLinkButton primary="Overview" to="/overview" icon={<DashboardIcon />} />
+        <CustomLinkButton primary="Overview" to="/" icon={<DashboardIcon />} />
         <CustomLinkButton primary="Transfer" to="transfer" icon={<CompareArrowsIcon />} />
         <CustomLinkButton primary="Transform" to="transform" icon={<TransformIcon />} />
         <CustomLinkButton primary="Transport" to="transport" icon={<ConnectingAirportsIcon /> } />
@@ -29,6 +30,7 @@ export const secondaryListItems = (
             Administrator
         </ListSubheader>
         <CustomLinkButton primary="Agents" to="agents" icon={<PersonAddAltIcon />} />
+        <CustomLinkButton primary="Addresses" to="addresses" icon={<AddLocationAltIcon />} />
         <CustomLinkButton primary="Resources" to="resources" icon={<AssignmentIcon />} />
         <CustomLinkButton primary="Transformations" to="transformations" icon={<NoteAddIcon />} />
     </React.Fragment>

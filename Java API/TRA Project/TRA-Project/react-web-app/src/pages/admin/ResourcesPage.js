@@ -1,21 +1,21 @@
 import Grid from "@mui/material/Grid";
 import {Paper} from "@mui/material";
-import Title from "../components/Title";
-import {HistoryTable} from "../components/History/HistoryTable";
+import Title from "../../components/Title";
+import {HistoryTable} from "../../components/History/HistoryTable";
 import * as React from "react";
-import {CustomTable} from "../components/CustomTable";
+import {CustomTable} from "../../components/CustomTable";
 import {useEffect, useState} from "react";
 import axios from "axios";
 import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
-import {CreateNewAgent} from "../components/Agent/CreateNewAgent";
-import {CreateNewResourceType} from "../components/Resources/CreateNewResourceType";
+import {CreateNewAgent} from "../../components/Agent/CreateNewAgent";
+import {CreateNewResourceType} from "../../components/Resources/CreateNewResourceType";
 
 
 const columns = [
     { id: 'id', label: 'Resource Id', minWidth: 170 },
-    { id: 'name', label: 'Name', minWidth: 100 },
-    { id: 'weight', label: 'Weight', minWidth: 100 },
+    { id: 'name', label: 'Name', minWidth: 250 },
+    { id: 'weight', label: 'Weight (g)', minWidth: 100 },
 ]
 
 export const ResourcesPage = () => {

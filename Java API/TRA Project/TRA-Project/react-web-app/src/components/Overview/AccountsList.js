@@ -12,11 +12,10 @@ export const AccountList = () => {
     }, [])
 
     const fetchAccountInfo = () => {
-        let id = "2586b8b5-cf3d-40b8-af12-b00b5224f79b"
+        let id = localStorage.getItem('user');
         axios.get(`http://localhost:8080/overview/getAgent/${id}`)
             .then((response) => {
                 setUserData(response.data)
-                console.log("user", response.data)
                 }
             )
             .catch((error) => {
@@ -33,13 +32,7 @@ export const AccountList = () => {
                 Account ID: {localStorage.getItem('user')}
             </Typography>
             <Typography color="text.secondary" sx={{ flex: 1 }}>
-                Balance: {userData.balance}
-            </Typography>
-            <Typography color="text.secondary" sx={{ flex: 1 }}>
-                Pending Transactions: {userData.pendingTransactions}
-            </Typography>
-            <Typography color="text.secondary" sx={{ flex: 1 }}>
-                Other:
+                Email: {userData.email}
             </Typography>
         </div>
 

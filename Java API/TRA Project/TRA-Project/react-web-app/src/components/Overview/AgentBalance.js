@@ -20,8 +20,9 @@ export const AgentBalance = () => {
 
 
     useEffect(async () => {
+        const id = localStorage.getItem('user');
         const data = [];
-        const res = await axios.get("http://localhost:8080/admin/getAllResources")
+        const res = await axios.get(`http://localhost:8080/overview/getBalance/${id}`)
         if(res.status != 500) {
             res.data.map((resourceType) => {
                 data.push(createData(resourceType.id, resourceType.name, resourceType.weight))
