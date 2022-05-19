@@ -35,6 +35,7 @@ public class ResourceManager extends Agent{
         this(name);
         setEmail(email);
         setPassword(password);
+        // Need some fixing for these two. Probably configuration issue. Repos seem to be null.
         //LoadOwnershipsFromDb();
         //LoadCreditFromDb();
     }

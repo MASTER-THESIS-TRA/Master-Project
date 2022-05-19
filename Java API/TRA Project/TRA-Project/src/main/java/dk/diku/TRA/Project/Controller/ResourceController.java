@@ -1,4 +1,4 @@
-package dk.diku.TRA.Project.controller;
+package dk.diku.TRA.Project.Controller;
 
 
 import dk.diku.TRA.Project.Classes.Resource;
