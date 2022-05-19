@@ -1,6 +1,5 @@
 import Grid from "@mui/material/Grid";
 import {Paper} from "@mui/material";
-import {HistoryTable} from "../components/History/HistoryTable";
 import Title from "../components/Title";
 import * as React from "react";
 import {CustomTable} from "../components/CustomTable";
