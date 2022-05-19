@@ -10,7 +10,7 @@ end;
 begin;
     insert into event (EVENT_ID, EVENT_TYPE, AGENT_ID, TIME, BODY)
     values
-    ('2222-1111','Transfer','1111-1111', time(now()),'Test Transfer event'),
-    ('2222-2222','Transform','1111-2222', time(now()),'Test Transform event');
+    ('2222-1111','Transfer','1111-1111', localtime,'Test Transfer event'),
+    ('2222-2222','Transform','1111-2222', localtime,'Test Transform event');
 commit;
 end;

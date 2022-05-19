@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class AgentService {
@@ -17,7 +18,7 @@ public class AgentService {
     Utils utils = new Utils();
 
     public Agent GetAgentById(String id){
-        return agentRepository.findById(id).get();
+        return agentRepository.findById(id).orElse(null);
     }
 
     public Agent GetAgentByEmail(String email){

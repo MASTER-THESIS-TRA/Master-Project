@@ -15,6 +15,4 @@ import java.util.List;
 @RestController
 @RequestMapping("/resource")
 public class ResourceController {
-
-
 }
