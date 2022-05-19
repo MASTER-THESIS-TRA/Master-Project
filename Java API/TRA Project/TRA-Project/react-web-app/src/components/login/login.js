@@ -31,7 +31,7 @@ function Copyright(props) {
 
 const theme = createTheme();
 
-export const LoginPage = ({handleSignUpChange, handlePasswordChange, handleUsernameChange, handleSubmit}) => {
+export const LoginPage = ({handleSignUpChange, handlePasswordChange, handleEmailChange, handleSubmit}) => {
 
     return (
         <ThemeProvider theme={theme}>
@@ -61,7 +61,7 @@ export const LoginPage = ({handleSignUpChange, handlePasswordChange, handleUsern
                             name="email"
                             autoComplete="email"
                             autoFocus
-                            onChange={e => handleUsernameChange(e)}
+                            onChange={e => handleEmailChange(e)}
                         />
                         <TextField
                             margin="normal"

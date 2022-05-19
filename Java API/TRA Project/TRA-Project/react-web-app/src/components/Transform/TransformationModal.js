@@ -10,40 +10,40 @@ import TextField from "@mui/material/TextField";
 import {useState} from "react";
 import axios from "axios";
 
-export const CreateNewAgent = (props) => {
-    const { onClose, value: valueProp, open, ...other } = props;
+export const TransformationModal = (props) => {
+    const { addResource, onClose, value: valueProp, open, ...other } = props;
     const [value, setValue] = React.useState(valueProp);
-    const[aName, setName] = useState();
-    const[aEmail, setEmail] = useState();
-    const[aPassword, setPassword] = useState();
+    const[resourceType, setResourceType] = useState();
+    const[amount, setAmount] = useState();
 
     const handleCancel = () => {
-        onClose(value);
+        onClose();
     };
+
+    function createData(resourceType, amount) {
+        return { resourceType, amount };
+    }
 
     const handleOk = (event) => {
-        createNewAgentData(aName, aEmail, aPassword, event);
+        addResource(resourceType, amount)
         onClose(value);
-        window.location.reload();
     };
 
-    const handleNameChange = (event) => {
-        setName(event.target.value);
+    const handleResourceTypeChange = (event) => {
+        setResourceType(event.target.value);
     };
 
-    const handleEmailChange = (event) => {
-        setEmail(event.target.value);
+    const handleAmountChange = (event) => {
+        setAmount(event.target.value);
     };
 
-    const handlePasswordChange = (event) => {
-        setPassword(event.target.value);
-    };
     React.useEffect(() => {
         if (!open) {
             setValue(valueProp);
         }
     }, [valueProp, open]);
 
+    /*
     const createNewAgentData = (name, email, password, event) => {
         event.preventDefault();
 
@@ -67,6 +67,8 @@ export const CreateNewAgent = (props) => {
             })
     }
 
+     */
+
     return (
         <Dialog
             sx={{ '& .MuiDialog-paper': { width: '80%', maxHeight: 435 } }}
@@ -74,7 +76,7 @@ export const CreateNewAgent = (props) => {
             open={open}
             {...other}
         >
-            <DialogTitle>Add new agent</DialogTitle>
+            <DialogTitle>Add new {props.title}</DialogTitle>
             <DialogContent dividers>
                 <Box
                     component="form"
@@ -88,26 +90,20 @@ export const CreateNewAgent = (props) => {
                         <TextField
                             required
                             id="outlined-required"
-                            label="Name"
-                            onChange={e => handleNameChange(e)}
+                            label="Resource Type"
+                            onChange={e => handleResourceTypeChange(e)}
                         />
                         <TextField
                             required
                             id="outlined-required"
-                            label="Email"
-                            onChange={e => handleEmailChange(e)}
-                        />
-                        <TextField
-                            required
-                            id="outlined-required"
-                            label="Password"
-                            onChange={e => handlePasswordChange(e)}
+                            label="Amount"
+                            onChange={e => handleAmountChange(e)}
                         />
                     </div>
                 </Box>
             </DialogContent>
             <DialogActions>
-                <Button autoFocus onClick={props.onClose}>
+                <Button autoFocus onClick={handleCancel}>
                     Cancel
                 </Button>
                 <Button onClick={e => handleOk(e)}>Add</Button>
@@ -116,7 +112,7 @@ export const CreateNewAgent = (props) => {
     );
 }
 
-CreateNewAgent.propTypes = {
+TransformationModal.propTypes = {
     onClose: PropTypes.func.isRequired,
     open: PropTypes.bool.isRequired
 };

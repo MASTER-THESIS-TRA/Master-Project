@@ -15,16 +15,11 @@ public class LoginController {
     @Autowired
     AgentService agentService;
 
-    @CrossOrigin
-    @PostMapping(path = "/intialLogin")
-    public UserDto Login(@RequestBody UserDto userDto) {
-        return userDto;
-    }
-
 
     @CrossOrigin
-    @GetMapping(path="/validateLogin")
-    public String ValidateLogin(String email, String password){
-        return agentService.validateLogin(email,password);
+    @PostMapping(path="/validateLogin")
+    public String ValidateLogin(@RequestBody UserDto userDto){
+        System.out.print("Email: " + userDto.email + " Password: " + userDto.password);
+        return agentService.validateLogin(userDto.email, userDto.password);
     }
 }

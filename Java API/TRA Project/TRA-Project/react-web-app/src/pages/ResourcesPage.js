@@ -13,75 +13,32 @@ import {CreateNewResourceType} from "../components/Resources/CreateNewResourceTy
 
 
 const columns = [
-    { id: 'name', label: 'Name', minWidth: 170 },
-    { id: 'code', label: 'ISO\u00a0Code', minWidth: 100 },
-    {
-        id: 'population',
-        label: 'Population',
-        minWidth: 170,
-        align: 'right',
-        format: (value) => value.toLocaleString('en-US'),
-    },
-    {
-        id: 'size',
-        label: 'Size\u00a0(km\u00b2)',
-        minWidth: 170,
-        align: 'right',
-        format: (value) => value.toLocaleString('en-US'),
-    },
-    {
-        id: 'density',
-        label: 'Density',
-        minWidth: 170,
-        align: 'right',
-        format: (value) => value.toFixed(2),
-    },
-];
-
-function createData(name, code, population, size) {
-    const density = population / size;
-    return { name, code, population, size, density };
-}
-
-const rows = [
-    createData('India', 'IN', 1324171354, 3287263),
-    createData('China', 'CN', 1403500365, 9596961),
-    createData('Italy', 'IT', 60483973, 301340),
-    createData('United States', 'US', 327167434, 9833520),
-    createData('Canada', 'CA', 37602103, 9984670),
-    createData('Australia', 'AU', 25475400, 7692024),
-    createData('Germany', 'DE', 83019200, 357578),
-    createData('Ireland', 'IE', 4857000, 70273),
-    createData('Mexico', 'MX', 126577691, 1972550),
-    createData('Japan', 'JP', 126317000, 377973),
-    createData('France', 'FR', 67022000, 640679),
-    createData('United Kingdom', 'GB', 67545757, 242495),
-    createData('Russia', 'RU', 146793744, 17098246),
-    createData('Nigeria', 'NG', 200962417, 923768),
-    createData('Brazil', 'BR', 210147125, 8515767),
-];
+    { id: 'id', label: 'Id', minWidth: 170 },
+    { id: 'name', label: 'Name', minWidth: 100 },
+    { id: 'weight', label: 'Weight', minWidth: 100 },
+]
 
 export const ResourcesPage = () => {
+    const[rows, setRows] = useState([])
     const[resources, setResources] = useState({});
     const[showModal, setShowModal] = useState(false);
 
     const handleOpen = () => setShowModal(true);
     const handleClose = () => setShowModal(false);
 
-    useEffect(() => {
-        //fetchResourceData()
+    useEffect(async () => {
+        const data = [];
+        const res = await axios.get("http://localhost:8080/agent/allAgents")
+        if(res.status != 500) {
+            res.data.map((resourceType) => {
+                data.push(createData(resourceType.id, resourceType.name, resourceType.weight))
+            })
+            setRows(data);
+        }
     }, [])
 
-    const fetchResourceData = () => {
-        axios.get("http://localhost:8080/user/getUserInfo")
-            .then((response) => {
-                    setResources(response.data)
-                    console.log(response.data.json())
-                }
-            )
-            .catch((error) => {
-                console.log(error);
-            })
+    function createData(id, name, weight) {
+        return { id, name, weight };
     }
 
     return(
@@ -100,14 +57,7 @@ export const ResourcesPage = () => {
                     <CustomTable columns={columns} rows={rows} showPagination={true} maxHeight={700}/>
                 </Paper>
             </Grid>
-            <Modal
-                open={showModal}
-                onClose={handleClose}
-                aria-labelledby="modal-modal-title"
-                aria-describedby="modal-modal-description"
-            >
-                <CreateNewResourceType open={showModal} onClose={handleClose} />
-            </Modal>
+            <CreateNewResourceType open={showModal} onClose={handleClose} />
         </div>
     )
 }

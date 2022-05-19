@@ -5,14 +5,19 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import PeopleIcon from '@mui/icons-material/People';
 import BarChartIcon from '@mui/icons-material/BarChart';
 import AssignmentIcon from '@mui/icons-material/Assignment';
+import TransformIcon from '@mui/icons-material/Transform';
+import HistoryToggleOffIcon from '@mui/icons-material/HistoryToggleOff';
+import PersonAddAltIcon from '@mui/icons-material/PersonAddAlt';
+import NoteAddIcon from '@mui/icons-material/NoteAdd';
+import CompareArrowsIcon from '@mui/icons-material/CompareArrows';
 import {CustomLinkButton} from "./CustomLinkButton";
 
 export const mainListItems = (
     <React.Fragment>
         <CustomLinkButton primary="Overview" to="/overview" icon={<DashboardIcon />} />
-        <CustomLinkButton primary="Transfer" to="transfer" icon={<ShoppingCartIcon />} />
-        <CustomLinkButton primary="Transform" to="transform" icon={<PeopleIcon />} />
-        <CustomLinkButton primary="History" to="history" icon={<BarChartIcon />} />
+        <CustomLinkButton primary="Transfer" to="transfer" icon={<CompareArrowsIcon />} />
+        <CustomLinkButton primary="Transform" to="transform" icon={<TransformIcon />} />
+        <CustomLinkButton primary="History" to="history" icon={<HistoryToggleOffIcon />} />
     </React.Fragment>
 );
 
@@ -21,8 +26,8 @@ export const secondaryListItems = (
         <ListSubheader component="div" inset>
             Administrator
         </ListSubheader>
-        <CustomLinkButton primary="Agents" to="agents" icon={<AssignmentIcon />} />
+        <CustomLinkButton primary="Agents" to="agents" icon={<PersonAddAltIcon />} />
         <CustomLinkButton primary="Resources" to="resources" icon={<AssignmentIcon />} />
-        <CustomLinkButton primary="Transformations" to="account" icon={<AssignmentIcon />} />
+        <CustomLinkButton primary="Transformations" to="transformations" icon={<NoteAddIcon />} />
     </React.Fragment>
 );

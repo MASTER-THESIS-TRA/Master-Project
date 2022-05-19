@@ -41,9 +41,10 @@ public class AgentService {
 
     public String validateLogin(String email, String password){
         Agent a = agentRepository.findAgentByEmail(email);
-        if (a.getPassword().equals(password)){
+        System.out.print("\n Agent: " + a + "\n");
+        if (a != null && a.getPassword().equals(password)){
             return a.getUuid();
         }
-        return null;
+        return "error";
     }
 }
