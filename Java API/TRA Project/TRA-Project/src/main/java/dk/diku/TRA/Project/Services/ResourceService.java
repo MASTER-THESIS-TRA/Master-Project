@@ -1,16 +1,14 @@
 package dk.diku.TRA.Project.Services;
 
-import ch.qos.logback.core.helpers.Transform;
 import dk.diku.TRA.Project.Classes.*;
 import dk.diku.TRA.Project.Dtos.PersistStateless.GiveResourceDto;
-import dk.diku.TRA.Project.Dtos.PersistStateless.PersistTransform;
+import dk.diku.TRA.Project.Dtos.PersistStateless.TransformDefinitions;
 import dk.diku.TRA.Project.Dtos.ResourceDto;
 import dk.diku.TRA.Project.Dtos.ResourceTypeDto;
 import dk.diku.TRA.Project.Dtos.TransformDto;
 import dk.diku.TRA.Project.Exceptions.TRAException;
 import dk.diku.TRA.Project.repository.ResourceTypeRepository;
 import dk.diku.TRA.Project.repository.TransformRepository;
-import org.apache.commons.lang3.NotImplementedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -55,7 +53,7 @@ public class ResourceService {
         if (!resourceManager.ValidateTransform(r)){
             return false;
         }
-        PersistTransform pt = new PersistTransform();
+        TransformDefinitions pt = new TransformDefinitions();
         pt.setName(transformDto.getName());
         pt.setTransform(r.toString());
         transformRepository.save(pt);

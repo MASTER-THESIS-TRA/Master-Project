@@ -12,6 +12,6 @@ import java.util.List;
 @Repository
 @Transactional
 public interface EventRepository extends JpaRepository<Event, String> {
-    @Query(value="SELECT e from Event e where e.agentId = :agentId")
+    @Query(value="SELECT * from event where agent_id = :agentId", nativeQuery = true)
     public List<Event> FindAllByAgentId(@Param("agentId") String agentId);
 }

@@ -2,6 +2,7 @@ package dk.diku.TRA.Project.Services;
 
 
 import dk.diku.TRA.Project.Classes.Agent;
+import dk.diku.TRA.Project.Classes.ResourceManager;
 import dk.diku.TRA.Project.Classes.Utils;
 import dk.diku.TRA.Project.repository.AgentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,9 @@ public class AgentService {
 
     @Autowired
     AgentRepository agentRepository;
+    @Autowired
+    ResourceManager resourceManager;
+
     Utils utils = new Utils();
 
     public Agent GetAgentById(String id){
@@ -33,7 +37,9 @@ public class AgentService {
         agent.setName(name);
         agent.setEmail(email);
         agent.setPassword(password);
-        return agentRepository.save(agent).getUuid();
+        Agent a = agentRepository.save(agent);
+        resourceManager.AddAgent(a);
+        return a.getUuid();
     }
 
     public List<Agent> GetAllAgents(){
