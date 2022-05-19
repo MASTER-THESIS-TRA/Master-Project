@@ -7,6 +7,8 @@ import {useEffect, useState} from "react";
 import axios from "axios";
 import Button from "@mui/material/Button";
 import {CreateNewAgent} from "../components/Agent/CreateNewAgent";
+import {AddResourcesToAgent} from "../components/Agent/AddResourcesToAgent";
+import Box from "@mui/material/Box";
 
 
 const columns = [
@@ -31,14 +33,18 @@ const style = {
 
 export const AgentPage = () => {
     const[row, setRow] = useState([]);
-    const[showModal, setShowModal] = useState(false);
+    const[showNewAgentModal, setShowNewAgentModal] = useState(false);
+    const[showResourceModal, setShowResourceModal] = useState(false);
 
-    const handleOpen = () => setShowModal(true);
-    const handleClose = () => setShowModal(false);
+    const handleAgentOpen = () => setShowNewAgentModal(true);
+    const handleAgentClose = () => setShowNewAgentModal(false);
+
+    const handleResourceOpen = () => setShowResourceModal(true);
+    const handleResourceClose = () => setShowResourceModal(false);
 
     useEffect(async () => {
         const data = []
-        const res = await axios.get("http://localhost:8080/agent/allAgents")
+        const res = await axios.get("http://localhost:8080/admin/allAgents")
         if(res.status != 500) {
             res.data.map((agent) => {
                 data.push(createData(agent.uuid, agent.name, agent.email, agent.password))
@@ -60,13 +66,19 @@ export const AgentPage = () => {
                             <Title>List of Agents</Title>
                         </Grid>
                         <Grid item md={8} lg={6} container justifyContent="flex-end">
-                            <Button variant="outlined" onClick={handleOpen}>Add new agent</Button>
+                            <Box sx={{paddingRight: "5px"}}>
+                                <Button variant="outlined" onClick={handleAgentOpen}>Add new agent</Button>
+                            </Box>
+                            <Box>
+                                <Button variant="outlined" color="success" onClick={handleResourceOpen}>Add resources to agent</Button>
+                            </Box>
                         </Grid>
                     </Grid>
                     <CustomTable columns={columns} rows={row} showPagination={true} maxHeight={700}/>
                 </Paper>
             </Grid>
-            <CreateNewAgent open={showModal} onClose={handleClose} />
+            <CreateNewAgent open={showNewAgentModal} onClose={handleAgentClose} />
+            <AddResourcesToAgent onClose={handleResourceClose} open={showResourceModal} />
         </div>
     )
 }

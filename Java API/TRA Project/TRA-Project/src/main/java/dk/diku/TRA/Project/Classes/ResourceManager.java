@@ -49,6 +49,7 @@ public class ResourceManager extends Agent{
         super.setName(name);
         ownerships = Transfer.zero();
         CP = new Credit(this,new Resource("*",1));
+        weights = Weight.zero();
     }
 
     public ResourceManager(String name, Map<Agent,Resource> M){

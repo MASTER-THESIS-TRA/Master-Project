@@ -7,7 +7,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 import Dialog from '@mui/material/Dialog';
 import TextField from "@mui/material/TextField";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import axios from "axios";
 import {FormControl, InputLabel, MenuItem, Select} from "@mui/material";
 
@@ -41,6 +41,7 @@ export const TransformationModal = (props) => {
     const [value, setValue] = React.useState(valueProp);
     const[resourceType, setResourceType] = useState('');
     const[amount, setAmount] = useState();
+    const[options, setOptions] = useState([]);
 
     const handleCancel = () => {
         onClose();
@@ -69,31 +70,14 @@ export const TransformationModal = (props) => {
         }
     }, [valueProp, open]);
 
-    /*
-    const createNewAgentData = (name, email, password, event) => {
-        event.preventDefault();
-
-        const data = {
-            name: name,
-            email: email,
-            password: password
-        }
-        console.log(JSON.stringify(data))
-        axios.post("http://localhost:8080/agent/newAgent", data, {
-            headers: {
-                'Accept': 'application/json',
-                'content-type': 'application/json'
-            }})
-            .then((response) => {
-                    console.log("API Response", response)
-                }
-            )
-            .catch((error) => {
-                console.log(error);
+    useEffect(async () => {
+        const res = await axios.get("http://localhost:8080/admin/getAllResources")
+        if(res.status != 500) {
+            res.data.map((resourceType) => {
+                setOptions(prevState => [...prevState, resourceType.name])
             })
-    }
-
-     */
+        }
+    }, [])
 
     return (
         <Dialog
@@ -117,7 +101,7 @@ export const TransformationModal = (props) => {
                             MenuProps={MenuProps}
 
                         >
-                            {names.map((name) => (
+                            {options.map((name) => (
                                 <MenuItem
                                     key={name}
                                     value={name}

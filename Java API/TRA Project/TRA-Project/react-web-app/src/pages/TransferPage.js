@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {Transfer} from "../components/Transfer/Transfer";
 import Grid from "@mui/material/Grid";
 import {DialogContent, FormControl, InputLabel, MenuItem, MenuList, Paper, Select, TextField} from "@mui/material";
@@ -73,10 +73,20 @@ export const TransferPage = () => {
     const[receiver, setReceiver] = useState('');
     const[resourceName, setResourceName] = useState('');
     const[amount, setAmount] = useState();
+    const[options, setOptions] = useState([])
 
     const handleReceiverChange = (event) => { setReceiver(event.target.value); };
     const handleResourceNameChange = (event) => { setResourceName(event.target.value); };
     const handleAmountChange = (event) => { setAmount(event.target.value); };
+
+    useEffect(async () => {
+        const res = await axios.get("http://localhost:8080/admin/getAllResources")
+        if(res.status != 500) {
+            res.data.map((resourceType) => {
+                setOptions(prevState => [...prevState, resourceType.name])
+            })
+        }
+    }, [])
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -149,7 +159,7 @@ export const TransferPage = () => {
                                     label="Resource"
                                     MenuProps={MenuProps}
                                 >
-                                    {names.map((name) => (
+                                    {options.map((name) => (
                                         <MenuItem
                                             key={name}
                                             value={name}

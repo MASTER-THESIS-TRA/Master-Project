@@ -9,7 +9,7 @@ export const HistoryPage = () => {
         <div>
             <Grid item xs={12}>
                 <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column', maxHeight:700, height: 700, overflow: 'hidden' }}>
-                    <Title>History</Title>
+                    <Title>History of events</Title>
                     <HistoryTable />
                 </Paper>
             </Grid>

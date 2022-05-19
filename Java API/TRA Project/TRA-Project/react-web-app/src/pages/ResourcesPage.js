@@ -13,7 +13,7 @@ import {CreateNewResourceType} from "../components/Resources/CreateNewResourceTy
 
 
 const columns = [
-    { id: 'id', label: 'Id', minWidth: 170 },
+    { id: 'id', label: 'Resource Id', minWidth: 170 },
     { id: 'name', label: 'Name', minWidth: 100 },
     { id: 'weight', label: 'Weight', minWidth: 100 },
 ]
@@ -28,7 +28,7 @@ export const ResourcesPage = () => {
 
     useEffect(async () => {
         const data = [];
-        const res = await axios.get("http://localhost:8080/agent/allAgents")
+        const res = await axios.get("http://localhost:8080/admin/getAllResources")
         if(res.status != 500) {
             res.data.map((resourceType) => {
                 data.push(createData(resourceType.id, resourceType.name, resourceType.weight))
