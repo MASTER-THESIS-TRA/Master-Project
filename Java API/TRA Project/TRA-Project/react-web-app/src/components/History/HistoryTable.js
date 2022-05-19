@@ -51,6 +51,7 @@ const rows = [
 ];
 
 export const HistoryTable = () => {
+
     return (
         <div>
             <CustomTable columns={columns} rows={rows} showPagination={true} maxHeight={700}/>

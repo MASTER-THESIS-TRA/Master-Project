@@ -53,7 +53,7 @@ export const CreateNewAgent = (props) => {
             password: password
         }
         console.log(JSON.stringify(data))
-        axios.post("http://localhost:8080/agent/newAgent", data, {
+        axios.post("http://localhost:8080/admin/newAgent", data, {
             headers: {
                 'Accept': 'application/json',
                 'content-type': 'application/json'

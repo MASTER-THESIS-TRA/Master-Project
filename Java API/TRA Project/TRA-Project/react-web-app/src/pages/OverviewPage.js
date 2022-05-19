@@ -4,6 +4,7 @@ import {Paper} from "@mui/material";
 import {PendingTransactions} from "../components/Overview/PendingTransactions";
 import {RecentTransactions} from "../components/Overview/RecentTransactions";
 import {AccountList} from "../components/Overview/AccountsList";
+import {AgentBalance} from "../components/Overview/AgentBalance";
 
 export const OverviewPage = () => {
     return (
@@ -41,7 +42,7 @@ export const OverviewPage = () => {
                     {/* PendingTransactions */}
                     <Grid item xs={12}>
                         <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column', maxHeight:500, height: 400, overflow: 'auto' }}>
-                            <PendingTransactions/>
+                            <AgentBalance />
                         </Paper>
                     </Grid>
                 </Grid>

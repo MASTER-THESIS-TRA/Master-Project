@@ -12,9 +12,11 @@ export const AccountList = () => {
     }, [])
 
     const fetchAccountInfo = () => {
-        axios.get("http://localhost:8080/agent/getAgentInfo")
+        let id = "2586b8b5-cf3d-40b8-af12-b00b5224f79b"
+        axios.get(`http://localhost:8080/overview/getAgent/${id}`)
             .then((response) => {
                 setUserData(response.data)
+                console.log("user", response.data)
                 }
             )
             .catch((error) => {
@@ -28,7 +30,7 @@ export const AccountList = () => {
                 Hello {userData.name}!
             </Typography>
             <Typography color="text.secondary" sx={{ flex: 1 }}>
-                Account ID: {userData.id}
+                Account ID: {localStorage.getItem('user')}
             </Typography>
             <Typography color="text.secondary" sx={{ flex: 1 }}>
                 Balance: {userData.balance}

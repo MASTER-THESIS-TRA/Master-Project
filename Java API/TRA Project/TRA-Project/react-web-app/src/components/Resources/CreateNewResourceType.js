@@ -47,12 +47,13 @@ export const CreateNewResourceType = (props) => {
             name: name,
             weight: weight,
         }
-        axios.post("http://localhost:8080/resource/createResourceType", data, {
+        axios.post("http://localhost:8080/admin/createResourceType", data, {
             headers: {
                 'Accept': 'application/json',
                 'content-type': 'application/json'
             }})
             .then((response) => {
+                    window.location.reload();
                     console.log("API Response", response)
                 }
             )
