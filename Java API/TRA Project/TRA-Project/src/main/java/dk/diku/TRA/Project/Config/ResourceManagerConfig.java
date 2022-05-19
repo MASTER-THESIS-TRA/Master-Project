@@ -8,17 +8,19 @@ import dk.diku.TRA.Project.repository.OwnershipRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.DependsOn;
 
 @Configuration
 public class ResourceManagerConfig {
     @Autowired
     AgentRepository agentRepository;
-    /*@Autowired
+    @Autowired
     CreditRepository creditRepository;
     @Autowired
-    OwnershipRepository ownershipRepository;*/
+    OwnershipRepository ownershipRepository;
 
     @Bean
+    @DependsOn({"creditRepository","ownershipRepository","agentRepository"})
     public ResourceManager resourceManager() {
         ResourceManager rm = new ResourceManager("Bank","bank@bank.dk","bankMCbankerson");
         return rm;//(ResourceManager) agentRepository.save((Agent)rm);
