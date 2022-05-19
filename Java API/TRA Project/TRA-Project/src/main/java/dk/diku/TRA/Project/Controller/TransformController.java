@@ -12,9 +12,4 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/transform")
 public class TransformController {
 
-    @CrossOrigin
-    @PostMapping(path = "createTransform")
-    public Transformation CreateTransformation() {
-        return null;
-    }
 }

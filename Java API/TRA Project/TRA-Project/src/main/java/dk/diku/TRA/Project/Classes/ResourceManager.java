@@ -36,8 +36,8 @@ public class ResourceManager extends Agent{
         setEmail(email);
         setPassword(password);
         // Need some fixing for these two. Probably configuration issue. Repos seem to be null.
-        //LoadOwnershipsFromDb();
-        //LoadCreditFromDb();
+        LoadOwnershipsFromDb();
+        LoadCreditFromDb();
     }
 
     public ResourceManager(String name){
@@ -155,6 +155,9 @@ public class ResourceManager extends Agent{
     }
 
     private void LoadCreditFromDb(){
+        if (creditRepository == null) {
+            return;
+        }
         List<CreditDto> credits = creditRepository.findAll();
         if (credits.isEmpty()){return;}
         for (CreditDto c : credits){
@@ -163,6 +166,9 @@ public class ResourceManager extends Agent{
     }
 
     private void LoadOwnershipsFromDb(){
+        if (ownershipRepository == null) {
+            return;
+        }
         List<OwnershipDto> ownerships = ownershipRepository.findAll();
         if (ownerships.isEmpty()){return;}
         Map<Agent,Resource> M = new HashMap<>();
@@ -182,18 +188,3 @@ public class ResourceManager extends Agent{
         ownershipRepository.getById(new OwnershipKey("agentid","Resourcetype"));
     }
 }
-
-
-
-
-    /*// What Fritz??
-    public ResourceManager(ResourceManager a, ResourceManager b){
-        super(a.getName() + " and " + b.getName());
-        throw new NotImplementedException();
-        // And then add the ownerships of the two ResourceManagers together.
-    }
-
-    @Async
-    public boolean TwoPhaseCommit(Transfer t){
-        throw new NotImplementedException();
-    }*/

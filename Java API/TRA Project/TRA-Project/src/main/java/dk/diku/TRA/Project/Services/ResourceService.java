@@ -12,17 +12,8 @@ import java.util.List;
 
 @Service
 public class ResourceService {
-
     @Autowired
     private ResourceTypeRepository resourceTypeRepository;
-
-    public boolean SellResource(Transfer transfer) {
-        throw new NotImplementedException();
-    }
-
-    public boolean BuyResource(Transfer transfer) {
-        throw new NotImplementedException();
-    }
 
     public String CreateResourceType(ResourceTypeDto resourceTypeDto) {
         ResourceType e = new ResourceType();
@@ -33,5 +24,13 @@ public class ResourceService {
 
     public List<ResourceType> GetAllResources() {
         return resourceTypeRepository.findAll();
+    }
+
+    public String DeleteTypeByName(String name){
+        if (resourceTypeRepository.countByName(name)>0){
+            resourceTypeRepository.deleteByName(name);
+            return "Success";
+        }
+        return "Type does not exist. Try checking spelling.";
     }
 }

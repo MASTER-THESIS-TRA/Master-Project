@@ -20,6 +20,10 @@ public class AgentService {
         return agentRepository.findById(id).get();
     }
 
+    public Agent GetAgentByEmail(String email){
+        return agentRepository.findAgentByEmail(email);
+    }
+
     public String SaveAgent (String name, String email, String password){
         if (!utils.VerifyEmail(email)){
             return "error";

@@ -17,37 +17,5 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/agent")
 public class AgentController {
-
-    @Autowired
-    AgentService agentService;
-
-    @CrossOrigin
-    @GetMapping(path = "/getAgentInfo")
-    public @ResponseBody
-    String getAgentInfo() {
-        JSONObject userData = new JSONObject();
-        userData.put("id", UUID.randomUUID());
-        userData.put("name", "Alexander Borgert");
-        userData.put("balance", new Random().nextInt(1333337));
-        userData.put("pendingTransactions", 4);
-        return userData.toString();
-    }
-
-    @CrossOrigin
-    @PostMapping(path = "/newAgent")
-    public String NewAgent(@RequestBody AgentDto agentDto) {
-        return agentService.SaveAgent(agentDto.name,agentDto.email,agentDto.password);
-    }
-
-    @CrossOrigin
-    @GetMapping(path = "/allAgents")
-    public List<Agent> AllAgents(){
-        return agentService.GetAllAgents();
-    }
-
-    @CrossOrigin
-    @GetMapping(path="/existsAgent")
-    public boolean ExistsAgent(String id){
-        return agentService.existsAgent(id);
-    }
+    //Delete class??
 }
