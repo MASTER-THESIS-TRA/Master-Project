@@ -21,12 +21,17 @@ function createData(resourceType, amount) {
 export const TransformBox = (props) => {
     const[showModal, setShowModal] = useState(false);
     const[rows, setRows] = useState([]);
-    //const[data, setData] = useState({data: {resourceType: '', amount: ''}})
 
     const handleOpen = () => setShowModal(true);
     const handleClose = () => setShowModal(false);
 
     const addResource = (resourceType, amount) => {
+        if(props.type) {
+            props.handleInputChange(createData(resourceType, amount));
+        }
+        if(!props.type) {
+            props.handleOutputChange(createData(resourceType, amount))
+        }
         setRows(prevState => [...prevState, createData(resourceType, amount)])
     }
 
