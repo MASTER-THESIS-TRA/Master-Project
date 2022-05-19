@@ -19,15 +19,15 @@ import {Route, Routes} from "react-router-dom";
 import {OverviewPage} from "../pages/OverviewPage";
 import {AccountPage} from "../pages/AccountPage";
 import {TransferPage} from "../pages/TransferPage";
-import {TransformPage} from "../pages/TransformPage";
+import {TransformPage} from "../pages/admin/TransformPage";
 import {HistoryPage} from "../pages/HistoryPage";
-import {AgentPage} from "../pages/AgentsPage";
+import {AgentPage} from "../pages/admin/AgentsPage";
 import {ResourcesPage} from "../pages/ResourcesPage";
-import {SignupPage} from "../pages/SignupPage";
 import {Login} from "@mui/icons-material";
 import {ListItem} from "@mui/material";
 import Button from "@mui/material/Button";
-import {DefineTransformPage} from "../pages/DefineTransformPage";
+import {DefineTransformPage} from "../pages/admin/DefineTransformPage";
+import {TransportPage} from "../pages/admin/TransportPage";
 
 
 function Copyright(props) {
@@ -172,6 +172,7 @@ export const Dashboard = ({handleLogout}) => {
                             <Route path="/transformations" element={<DefineTransformPage />} />
                             <Route path="/transfer" element={<TransferPage />} />
                             <Route path="/transform" element={<TransformPage />} />
+                            <Route path="/transport" element={<TransportPage />} />
                             <Route path="/history" element={<HistoryPage />} />
                             <Route path="/agents" element={<AgentPage />} />
                             <Route path="/resources" element={<ResourcesPage />} />

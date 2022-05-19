@@ -3,13 +3,11 @@ import {BrowserRouter, Navigate, Route, Routes} from "react-router-dom";
 import SignIn, {LoginPage} from "./components/login/login";
 import {Dashboard} from "./components/Dashboard";
 import axios from "axios";
-import {SignupPage} from "./pages/SignupPage";
 
 
 
 export const App = () => {
     const[loggedIn, setLoggedIn] = useState(false);
-    const[signUp, setSignUp] = useState(false);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [user, setUser] = useState()
@@ -19,10 +17,6 @@ export const App = () => {
     };
     const handlePasswordChange = (event) => {
         setPassword(event.target.value);
-    };
-
-    const handleSignUpChange = () => {
-        setSignUp(!signUp);
     };
 
     const handleLogout = () => {
@@ -51,8 +45,7 @@ export const App = () => {
                         setLoggedIn(true);
                         localStorage.setItem('user', response.data);
                     } else {
-                        localStorage.setItem('user', "2586b8b5-cf3d-40b8-af12-b00b5224f79b")
-                        //alert("wrong email or password");
+                        alert("wrong email or password");
                     }
                 }
             )
@@ -70,13 +63,10 @@ export const App = () => {
         }
     }, []);
 
-    if(!loggedIn && !signUp) {
-        return(
-            <LoginPage handleSignUpChange={handleSignUpChange} handleEmailChange={handleEmailChange} handlePasswordChange={handlePasswordChange} handleSubmit={handleSubmit}/>
-        )
-    } else if(!loggedIn && signUp) {
-        return(
-            <SignupPage  handleSignUpChange={handleSignUpChange}/>
+    if(!loggedIn) {
+        return (
+            <LoginPage handleEmailChange={handleEmailChange}
+                       handlePasswordChange={handlePasswordChange} handleSubmit={handleSubmit}/>
         )
     }
 

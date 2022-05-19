@@ -24,7 +24,7 @@ export const CreateNewAgent = (props) => {
     const handleOk = (event) => {
         createNewAgentData(aName, aEmail, aPassword, event);
         onClose(value);
-        window.location.reload();
+        //window.location.reload();
     };
 
     const handleNameChange = (event) => {
@@ -52,7 +52,7 @@ export const CreateNewAgent = (props) => {
             email: email,
             password: password
         }
-        console.log(JSON.stringify(data))
+        console.log(data)
         axios.post("http://localhost:8080/admin/newAgent", data, {
             headers: {
                 'Accept': 'application/json',

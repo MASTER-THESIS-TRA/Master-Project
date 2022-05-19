@@ -31,7 +31,7 @@ function Copyright(props) {
 
 const theme = createTheme();
 
-export const LoginPage = ({handleSignUpChange, handlePasswordChange, handleEmailChange, handleSubmit}) => {
+export const LoginPage = ({handlePasswordChange, handleEmailChange, handleSubmit}) => {
 
     return (
         <ThemeProvider theme={theme}>
@@ -82,11 +82,6 @@ export const LoginPage = ({handleSignUpChange, handlePasswordChange, handleEmail
                         >
                             Sign In
                         </Button>
-                        <Grid container>
-                            <Grid item>
-                                <Button onClick={handleSignUpChange}>Sign up</Button>
-                            </Grid>
-                        </Grid>
                     </Box>
                 </Box>
                 <Copyright sx={{ mt: 8, mb: 4 }} />

@@ -1,13 +1,13 @@
 import Grid from "@mui/material/Grid";
 import {Paper} from "@mui/material";
-import Title from "../components/Title";
+import Title from "../../components/Title";
 import * as React from "react";
-import {CustomTable} from "../components/CustomTable";
+import {CustomTable} from "../../components/CustomTable";
 import {useEffect, useState} from "react";
 import axios from "axios";
 import Button from "@mui/material/Button";
-import {CreateNewAgent} from "../components/Agent/CreateNewAgent";
-import {AddResourcesToAgent} from "../components/Agent/AddResourcesToAgent";
+import {CreateNewAgent} from "../../components/Agent/CreateNewAgent";
+import {AddResourcesToAgent} from "../../components/Agent/AddResourcesToAgent";
 import Box from "@mui/material/Box";
 
 

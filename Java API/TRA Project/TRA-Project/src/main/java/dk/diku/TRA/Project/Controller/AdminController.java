@@ -26,18 +26,6 @@ public class AdminController {
     private ResourceService resourceService;
 
     @CrossOrigin
-    @GetMapping(path = "/getAgentInfo")
-    public @ResponseBody
-    String getAgentInfo() {
-        JSONObject userData = new JSONObject();
-        userData.put("id", UUID.randomUUID());
-        userData.put("name", "Alexander Borgert");
-        userData.put("balance", new Random().nextInt(1333337));
-        userData.put("pendingTransactions", 4);
-        return userData.toString();
-    }
-
-    @CrossOrigin
     @PostMapping(path = "/newAgent")
     public String NewAgent(@RequestBody AgentDto agentDto) {
         return agentService.SaveAgent(agentDto.name,agentDto.email,agentDto.password);
@@ -84,7 +72,7 @@ public class AdminController {
 
     @CrossOrigin
     @PostMapping(path = "/giveResource")
-    public String GiveResource(GiveResourceDto giveResourceDto){
+    public String GiveResource(@RequestBody GiveResourceDto giveResourceDto){
         if(resourceService.GiveResource(giveResourceDto)){
             return "Success";
         }

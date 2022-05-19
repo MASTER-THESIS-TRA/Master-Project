@@ -1,12 +1,12 @@
 import React, {useState} from "react";
-import {Transfer} from "../components/Transfer/Transfer";
+import {Transfer} from "../../components/Transfer/Transfer";
 import Grid from "@mui/material/Grid";
 import {DialogContent, FormControl, InputLabel, MenuItem, MenuList, Paper, Select, TextField} from "@mui/material";
-import {AgentBox} from "../components/Transfer/AgentBox";
-import Title from "../components/Title";
+import {AgentBox} from "../../components/Transfer/AgentBox";
+import Title from "../../components/Title";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import {CustomTable} from "../components/CustomTable";
+import {CustomTable} from "../../components/CustomTable";
 import Divider from "@mui/material/Divider";
 import axios from "axios";
 

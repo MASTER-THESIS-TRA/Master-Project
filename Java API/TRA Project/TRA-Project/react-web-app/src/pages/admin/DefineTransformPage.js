@@ -1,14 +1,14 @@
 import Grid from "@mui/material/Grid";
 import {Paper} from "@mui/material";
-import {AgentBox} from "../components/Transfer/AgentBox";
-import {ExchangeLogo} from "../components/Transfer/ExchangeLogo";
+import {AgentBox} from "../../components/Transfer/AgentBox";
+import {ExchangeLogo} from "../../components/Transfer/ExchangeLogo";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import {ValidateTransfer} from "../api/TransferAPI";
+import {ValidateTransfer} from "../../api/TransferAPI";
 import React, {useState} from "react";
-import Title from "../components/Title";
-import {TransformBox} from "../components/Transform/TransformBox";
-import {ConfirmTransformationModal} from "../components/Transform/ConfirmTransformationModal";
+import Title from "../../components/Title";
+import {TransformBox} from "../../components/Transform/TransformBox";
+import {ConfirmTransformationModal} from "../../components/Transform/ConfirmTransformationModal";
 
 
 export const DefineTransformPage = () => {
