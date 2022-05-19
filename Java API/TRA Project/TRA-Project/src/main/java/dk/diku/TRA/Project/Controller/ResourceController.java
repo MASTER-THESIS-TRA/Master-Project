@@ -16,25 +16,5 @@ import java.util.List;
 @RequestMapping("/resource")
 public class ResourceController {
 
-    @Autowired
-    private ResourceService resourceService;
 
-
-    @CrossOrigin
-    @PostMapping(path = "/createResourceType")
-    public String CreateResource(@RequestBody ResourceTypeDto resourceTypeDto) {
-        return resourceService.CreateResourceType(resourceTypeDto);
-    }
-
-    @CrossOrigin
-    @DeleteMapping(path = "/deleteResourceByName")
-    public void DeleteResourceByName(String resourceName) {
-
-    }
-
-    @CrossOrigin
-    @GetMapping(path = "/getAllResources")
-    public List<ResourceType> GetAllResources() {
-        return resourceService.GetAllResources();
-    }
 }
