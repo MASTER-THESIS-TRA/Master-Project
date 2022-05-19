@@ -4,7 +4,9 @@ import dk.diku.TRA.Project.Classes.Agent;
 import dk.diku.TRA.Project.Classes.ResourceType;
 import dk.diku.TRA.Project.Classes.Transformation;
 import dk.diku.TRA.Project.Dtos.AgentDto;
+import dk.diku.TRA.Project.Dtos.PersistStateless.GiveResourceDto;
 import dk.diku.TRA.Project.Dtos.ResourceTypeDto;
+import dk.diku.TRA.Project.Dtos.TransformDto;
 import dk.diku.TRA.Project.Services.AgentService;
 import dk.diku.TRA.Project.Services.ResourceService;
 import org.json.JSONObject;
@@ -55,11 +57,12 @@ public class AdminController {
 
     @CrossOrigin
     @PostMapping(path = "createTransform")
-    public Transformation CreateTransformation() {
-        return null;
+    public String CreateTransformation(TransformDto transformDto) {
+        if (resourceService.CreateTransform(transformDto)){
+            return "Transformation with name: \"" + transformDto.getName() + "\" created.";
+        }
+        return "Error creating transformation! Transformations cannot created more than they consume.";
     }
-
-
 
     @CrossOrigin
     @PostMapping(path = "/createResourceType")
@@ -77,5 +80,14 @@ public class AdminController {
     @GetMapping(path = "/getAllResources")
     public List<ResourceType> GetAllResources() {
         return resourceService.GetAllResources();
+    }
+
+    @CrossOrigin
+    @PostMapping(path = "/giveResource")
+    public String GiveResource(GiveResourceDto giveResourceDto){
+        if(resourceService.GiveResource(giveResourceDto)){
+            return "Success";
+        }
+        return "error";
     }
 }

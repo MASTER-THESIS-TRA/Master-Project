@@ -26,6 +26,10 @@ public class ResourceManager extends Agent{
     CreditRepository creditRepository;
     @Autowired
     AgentRepository agentRepository;
+    /*  Need to persist information about weights as well.
+    @Autowired
+    ResourceTypeRepository resourceTypeRepository;
+     */
 
     private Transfer ownerships; // Ownership state can be represented as a transfer, where the ResourceManager transfers everyone their resources.
     private Credit CP;
@@ -186,5 +190,15 @@ public class ResourceManager extends Agent{
     }
     public void getById(){
         ownershipRepository.getById(new OwnershipKey("agentid","Resourcetype"));
+    }
+    public boolean ValidateTransform(Resource r){
+        double sum = 0;
+        for (String type : r.keySet()){
+            sum += weights.get(type)*r.get(type);
+        }
+        return sum<=0;
+    }
+    public void AddWeight(Weight w){
+        weights = Weight.add(weights,w);
     }
 }
