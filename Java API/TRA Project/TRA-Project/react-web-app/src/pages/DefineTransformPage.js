@@ -8,21 +8,43 @@ import {ValidateTransfer} from "../api/TransferAPI";
 import React, {useState} from "react";
 import Title from "../components/Title";
 import {TransformBox} from "../components/Transform/TransformBox";
+import {ConfirmTransformationModal} from "../components/Transform/ConfirmTransformationModal";
 
 
 export const DefineTransformPage = () => {
-    const[transformation, setTransformation] = useState({input: [], output: []});
+    const[inputData, setInputData] = useState([]);
+    const[outputData, setOutputData] = useState([]);
+    const[name, setName] = useState('');
+    const[showModal, setShowModal] = useState(false);
+
+    const handleOpen = () => {
+        setShowModal(true);
+    }
+    const handleClose = () => setShowModal(false);
 
     const handleInputChange = (input) => {
-        setTransformation(prevState => ({...prevState, input: input}))
+        setInputData(inputData => [...inputData, input])
     }
 
     const handleOutputChange = (output) => {
-        setTransformation({...transformation, output: output})
+        setOutputData(outputData => [...outputData, output])
+    }
+
+    const handleNameChange = (event) => {
+        setName(event.target.value);
     }
 
     const handleSubmit = () => {
-        console.log("Transformation data:", transformation)
+        if(name.length < 1) {
+            alert("error when naming");
+        }
+        const data = {
+            uuid: localStorage.getItem('user'),
+            name: name,
+            input: inputData,
+            output: outputData
+        }
+        console.log("Final data:", data);
     }
 
     return (
@@ -41,23 +63,24 @@ export const DefineTransformPage = () => {
                     <form>
                         <Grid container spacing={3}>
                             <Grid item xs={12} md={8} lg={5}>
-                                <TransformBox title={"Input"} handleInputChange={handleInputChange}/>
+                                <TransformBox title={"Input"} handleInputChange={handleInputChange} type={true}/>
                             </Grid>
                             <Grid item md={8} lg={2}>
                                 <ExchangeLogo />
                             </Grid>
                             <Grid item xs={12} md={8} lg={5}>
-                                <TransformBox title={"Output"} handleOutputChange={handleOutputChange}/>
+                                <TransformBox title={"Output"} handleOutputChange={handleOutputChange} type={false}/>
                             </Grid>
                         </Grid>
                         <Box textAlign='center'>
                             <div style={{paddingTop: 30}}>
-                                <Button variant="contained" onClick={handleSubmit}>Confirm Transformation</Button>
+                                <Button variant="contained" onClick={handleOpen}>Name transformation</Button>
                             </div>
                         </Box>
                     </form>
                 </Paper>
             </Grid>
+            <ConfirmTransformationModal onClose={handleClose} open={showModal} handleNameChange={handleNameChange} handleSubmit={handleSubmit} />
         </div>
     )
 }

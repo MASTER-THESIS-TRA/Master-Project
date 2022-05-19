@@ -9,11 +9,37 @@ import Dialog from '@mui/material/Dialog';
 import TextField from "@mui/material/TextField";
 import {useState} from "react";
 import axios from "axios";
+import {FormControl, InputLabel, MenuItem, Select} from "@mui/material";
+
+const ITEM_HEIGHT = 48;
+const ITEM_PADDING_TOP = 8;
+const MenuProps = {
+    PaperProps: {
+        style: {
+            maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+            width: 250,
+        },
+    },
+};
+
+const names = [
+    'Oliver Hansen',
+    'Van Henry',
+    'April Tucker',
+    'Ralph Hubbard',
+    'Omar Alexander',
+    'Carlos Abbott',
+    'Miriam Wagner',
+    'Bradley Wilkerson',
+    'Virginia Andrews',
+    'Kelly Snyder',
+];
+
 
 export const TransformationModal = (props) => {
     const { addResource, onClose, value: valueProp, open, ...other } = props;
     const [value, setValue] = React.useState(valueProp);
-    const[resourceType, setResourceType] = useState();
+    const[resourceType, setResourceType] = useState('');
     const[amount, setAmount] = useState();
 
     const handleCancel = () => {
@@ -71,35 +97,44 @@ export const TransformationModal = (props) => {
 
     return (
         <Dialog
-            sx={{ '& .MuiDialog-paper': { width: '80%', maxHeight: 435 } }}
+            sx={{ '& .MuiDialog-paper': { width: '100%', maxHeight: 435, minWidth: 200, textAlign: 'center'} }}
             maxWidth="xs"
             open={open}
             {...other}
         >
             <DialogTitle>Add new {props.title}</DialogTitle>
             <DialogContent dividers>
-                <Box
-                    component="form"
-                    sx={{
-                        '& .MuiTextField-root': { m: 1, width: '25ch' },
-                    }}
-                    noValidate
-                    autoComplete="off"
-                >
-                    <div>
-                        <TextField
-                            required
-                            id="outlined-required"
-                            label="Resource Type"
-                            onChange={e => handleResourceTypeChange(e)}
-                        />
-                        <TextField
-                            required
-                            id="outlined-required"
-                            label="Amount"
-                            onChange={e => handleAmountChange(e)}
-                        />
-                    </div>
+                <Box>
+                    <FormControl sx={{ width: 250 }}>
+                        <InputLabel id="demo-simple-select-autowidth-label">Resource</InputLabel>
+                        <Select
+                            labelId="demo-simple-select-autowidth-label"
+                            id="demo-simple-select-autowidth"
+                            onChange={handleResourceTypeChange}
+                            autoWidth
+                            value={resourceType}
+                            label="Resource"
+                            MenuProps={MenuProps}
+
+                        >
+                            {names.map((name) => (
+                                <MenuItem
+                                    key={name}
+                                    value={name}
+                                >
+                                    {name}
+                                </MenuItem>
+                            ))}
+                        </Select>
+                    </FormControl>
+                    <TextField
+                        required
+                        id="outlined-required"
+                        label="Amount"
+                        type="number"
+                        sx={{ width: 100, paddingLeft: "5px" }}
+                        onChange={e => handleAmountChange(e)}
+                    />
                 </Box>
             </DialogContent>
             <DialogActions>
