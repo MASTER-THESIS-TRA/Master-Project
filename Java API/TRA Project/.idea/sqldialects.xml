@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="SqlDialectMappings">
+    <file url="file://$PROJECT_DIR$/TRA-Project/src/main/java/dk/diku/TRA/Project/repository/AgentRepository.java" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/TRA-Project/src/main/java/dk/diku/TRA/Project/repository/EventRepository.java" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/TRA-Project/src/main/java/dk/diku/TRA/Project/repository/OwnershipRepository.java" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/TRA-Project/src/main/java/dk/diku/TRA/Project/repository/TransformRepository.java" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/TRA-Project/src/main/resources/sql/deployDb.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/TRA-Project/src/main/resources/sql/dropall.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/TRA-Project/src/main/resources/sql/dummyData.sql" dialect="PostgreSQL" />

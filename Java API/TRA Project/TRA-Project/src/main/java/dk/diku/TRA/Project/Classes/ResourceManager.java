@@ -11,7 +11,9 @@ import dk.diku.TRA.Project.repository.OwnershipRepository;
 import net.bytebuddy.description.modifier.Ownership;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.DependsOn;
 import org.springframework.context.annotation.Primary;
+import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
 import java.util.List;
@@ -19,12 +21,10 @@ import java.util.Map;
 import java.util.UUID;
 
 @Primary
+@DependsOn({"ownershipRepository","creditRepository","agentRepository"})
 public class ResourceManager extends Agent{
-    @Autowired
     OwnershipRepository ownershipRepository;
-    @Autowired
     CreditRepository creditRepository;
-    @Autowired
     AgentRepository agentRepository;
     /*  Need to persist information about weights as well.
     @Autowired
@@ -40,8 +40,6 @@ public class ResourceManager extends Agent{
         setEmail(email);
         setPassword(password);
         // Need some fixing for these two. Probably configuration issue. Repos seem to be null.
-        LoadOwnershipsFromDb();
-        LoadCreditFromDb();
     }
 
     public ResourceManager(String name){
@@ -74,6 +72,14 @@ public class ResourceManager extends Agent{
         try { ownerships = new Transfer(M); } catch (TRAException e){ }
     }
 
+    public void initRepos(AgentRepository a, OwnershipRepository o, CreditRepository c){
+        agentRepository = a;
+        ownershipRepository = o;
+        creditRepository = c;
+        LoadOwnershipsFromDb();
+        LoadCreditFromDb();
+    }
+
     // Initially an agent has no
     public boolean AddAgent(Agent a){
         if (ownerships.keySet().contains(a)){
@@ -98,6 +104,7 @@ public class ResourceManager extends Agent{
     public boolean ApplyTransfer(Transfer t){
         if (CP.ValidateTransfer(t, ownerships)){ // Check if everyone involved can afford the transaction (per the credit policy).
             ownerships = Transfer.add(ownerships, t);
+            saveChangesToDb(t);
             return true;
         }
         return false;
@@ -107,7 +114,8 @@ public class ResourceManager extends Agent{
         if (checkWeightSum(t)){  // Check if the transaction does not introduce more weight.
             Transfer t_prime = transformToTransfer(t);
             if (CP.ValidateTransfer(t_prime, ownerships)){  // Check if everybody involved can afford the transaction.
-                ownerships = Transfer.add(ownerships, transformToTransfer(t));
+                ownerships = Transfer.add(ownerships, t_prime);
+                saveChangesToDb(t_prime);
                 return true;
             }
         }
@@ -125,20 +133,20 @@ public class ResourceManager extends Agent{
     }
 
     // This method handles the logic behind a manager "owing" the customers their resources.
-    // In essence the manager is paying back the consumed resources and now owes the produces resources.
+    // In essence the manager is paying back the consumed resources and now owes the produced resources.
     private Transfer transformToTransfer(Transformation t){
         Resource toManager = Resource.zero();
         for (Resource r : t.values()){
             toManager = Resource.add(toManager,Resource.mult(r,-1));
         }
-        HashMap M = new HashMap<>(t);
+        HashMap<Agent,Resource> M = new HashMap<>(t);
         M.put(this,toManager);
         try{
             return new Transfer(M);
         } catch (TRAException e){
             // This will not happen, as we are ensuring above, that the sum is always 0.
             System.out.println(e.getMessage());
-            return null;
+            return Transfer.zero();
         }
     }
 
@@ -150,20 +158,19 @@ public class ResourceManager extends Agent{
         CP = Credit.add(new Credit(a,r),CP);
     }
 
-    public Agent findAgentById(String id) throws TRAException {
+    public Agent findAgentById(String id) {
         for (Agent a : ownerships.keySet()){
-            String b = a.getUuid();
             if (a.getUuid().equals(id)){
                 return a;
             }
         }
-        throw new TRAException(ExceptionConstants.GENERIC_ERROR + ": Agent not found.");
+        return null;
     }
 
     private void LoadCreditFromDb(){
-        if (creditRepository == null) {
+        /*if (creditRepository == null) {
             return;
-        }
+        }*/
         List<CreditDto> credits = creditRepository.findAll();
         if (credits.isEmpty()){return;}
         for (CreditDto c : credits){
@@ -172,9 +179,9 @@ public class ResourceManager extends Agent{
     }
 
     private void LoadOwnershipsFromDb(){
-        if (ownershipRepository == null) {
+        /*if (ownershipRepository == null) {
             return;
-        }
+        }*/
         List<OwnershipDto> ownerships = ownershipRepository.findAll();
         if (ownerships.isEmpty()){return;}
         Map<Agent,Resource> M = new HashMap<>();
@@ -203,12 +210,30 @@ public class ResourceManager extends Agent{
     }
 
     public Resource GetBalance(Agent a){
-        try{
-            Agent agent = this.findAgentById(a.getUuid());
-            return ownerships.get(agent);
-        } catch(TRAException e) {
+        Agent agent = findAgentById(a.getUuid());
+        if(agent == null) {
             return Resource.zero();
         }
+        return ownerships.get(agent);
+    }
 
+    public void saveChangesToDb(Transfer t){
+        // ownership repository
+        for (Agent a : t.keySet()){
+            saveAgentToDb(a,ownerships.get(a));
+        }
+    }
+
+    // This should probably be a batchjob, to allow for rolling back on error.
+    public void saveAgentToDb(Agent a, Resource r){
+        List<OwnershipDto> owned = ownershipRepository.getByAgentId(a.getUuid());
+        for (OwnershipDto o : owned){
+            if (r.containsKey(o.getResourceType())){
+                ownershipRepository.updateExistingById(a.getUuid(),o.getResourceType(),r.get(o.getResourceType()));
+            }
+            else{
+                ownershipRepository.insertNewById(a.getUuid(),o.getResourceType(),o.getAmount());
+            }
+        }
     }
 }

@@ -22,7 +22,11 @@ public class ResourceManagerConfig {
     @Bean
     @DependsOn({"creditRepository","ownershipRepository","agentRepository"})
     public ResourceManager resourceManager() {
-        ResourceManager rm = new ResourceManager("Bank","bank@bank.dk","bankMCbankerson");
-        return rm;//(ResourceManager) agentRepository.save((Agent)rm);
+        ResourceManager RM = new ResourceManager("Bank","bank@bank.dk","bankMCbankerson");
+        RM.initRepos(agentRepository,ownershipRepository,creditRepository);
+        //ResourceManager agent = (ResourceManager)agentRepository.save((Agent)RM);
+        //RM.setUuid(agent.getUuid());
+        return RM;
+        // agentRepository.save((Agent)rm);
     }
 }
