@@ -4,10 +4,10 @@ CREATE TABLE if not exists AGENT (
     EMAIL char(100) NOT NULL,
     PASSWORD char(100) not null
 );
-CREATE TABLE if not exists TRANSFERS (
-    SENDER_ID char(50) NOT NULL,
-    RECEIVER_ID char(50) NOT NULL
-);
+--CREATE TABLE if not exists TRANSFERS (
+--    SENDER_ID char(50) NOT NULL,
+--    RECEIVER_ID char(50) NOT NULL
+--);
 CREATE TABLE if not exists RESOURCE_TYPE (
        RESOURCE_TYPE_ID char(36) PRIMARY KEY,
        NAME char(100) NOT NULL,
@@ -42,4 +42,8 @@ CREATE TABLE IF NOT EXISTS LOCATION(
     NAME CHAR(120) NOT NULL,
     LONGITUDE NUMERIC NOT NULL,
     LATITUDE NUMERIC NOT NULL
+);
+create table if not exists WEIGHTS(
+    TYPE CHAR(255) primary key,
+    WEIGHT int not null
 );

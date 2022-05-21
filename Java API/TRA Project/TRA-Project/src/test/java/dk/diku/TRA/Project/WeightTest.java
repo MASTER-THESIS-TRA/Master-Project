@@ -16,9 +16,9 @@ class WeightTest {
             return;
         }
         else{
-            w1 = new Weight("a",2.5);
-            w2 = new Weight("b",1337.0);
-            w3 = new Weight("c",42.0);
+            w1 = new Weight("a",25);
+            w2 = new Weight("b",1337);
+            w3 = new Weight("c",42);
             setup = true;
         }
     }

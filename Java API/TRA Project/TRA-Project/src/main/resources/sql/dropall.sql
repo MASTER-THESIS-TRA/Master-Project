@@ -6,3 +6,4 @@ DROP TABLE IF EXISTS OWNERSHIPS;
 DROP TABLE IF EXISTS CREDIT;
 drop table if exists TRANSFORM;
 drop table if exists LOCATION;
+drop table if exists WEIGHTS;
