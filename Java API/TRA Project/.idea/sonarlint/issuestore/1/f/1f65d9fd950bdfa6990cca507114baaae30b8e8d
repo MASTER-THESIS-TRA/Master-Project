@@ -1,0 +1,59 @@
+
+F
+java:S3740†"/Provide the parametrized type for this generic.(ÎöÚ¤
+b	java:S116#"MRename this field "CP" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ì°şÑ
+K
+java:S1948"5Make "ownershipRepository" transient or serializable.(Âçƒ”
+H
+java:S1948"2Make "creditRepository" transient or serializable.(€Æ”
+G
+java:S1948"1Make "agentRepository" transient or serializable.(ÒÃ¿ı
+G
+java:S1948"",Make "ownerships" transient or serializable.(±ñíÎøÿÿÿÿ
+:
+java:S1948#"$Make "CP" transient or serializable.(Ì°şÑ
+?
+java:S1948$")Make "weights" transient or serializable.(ö¯œé
+V	java:S125"<This block of commented-out lines of code should be removed.(ÃÚ‹úşÿÿÿÿ
+F
+java:S11727"+Remove this unused method parameter "name".(»À«ıÿÿÿÿ
+C	java:S108?")Either remove or fill this block of code.(Ó±Ñ×øÿÿÿÿ
+A
+java:S1172A"+Remove this unused method parameter "name".(×Ÿá†
+C	java:S108J")Either remove or fill this block of code.(Ó±Ñ×øÿÿÿÿ
+h	java:S100N"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ˆß•½şÿÿÿÿ
+h	java:S100V"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(’Ä›Øúÿÿÿÿ
+N	java:S106^"9Replace this use of System.out or System.err by a logger.(ß´éÇ
+h	java:S100b"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(‚Ğ·Æıÿÿÿÿ
+c	java:S100j"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¡ÙÎ˜
+T	java:S106Œ"9Replace this use of System.out or System.err by a logger.(©şêÜúÿÿÿÿ
+;
+java:S1168"$Return an empty map instead of null.(¥¹ï
+i	java:S100‘"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ƒÊĞ¸ùÿÿÿÿ
+i	java:S100•"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ç‰üÿÿÿÿ
+m
+java:S2159›"VRemove this call to "equals"; comparisons between unrelated types always return false.(æÒì„
+d	java:S100¢"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(±îŞî
+i	java:S100­"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÅÏúµüÿÿÿÿ
+Z
+java:S1117±">Rename "ownerships" which hides the field declared at line 34.(æœßèüÿÿÿÿ
+i	java:S100Ã"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Õœ½©ûÿÿÿÿ
+K
+java:S2864Å"4Iterate over the "entrySet" instead of the "keySet".(“Ö„Ç
+i	java:S100Ê"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(æ»ªüÿÿÿÿ
+i	java:S100Î"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ôå°‰üÿÿÿÿ
+k
+java:S1128"IRemove this unused import 'net.bytebuddy.description.modifier.Ownership'.(À“ìöıÿÿÿÿ8¼ïƒâ0
+e
+java:S1128"HRemove this unused import 'org.springframework.context.annotation.Bean'.(‚î‰Ş8¼ïƒâ0
+k	java:S1177"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(»À«ıÿÿÿÿ
+f	java:S117A"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(×Ÿá†
+f	java:S117A"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(×Ÿá†
+k	java:S117l"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ë‹©šûÿÿÿÿ
+g	java:S117†"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÎöÚ¤
+g	java:S117³"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¾ç±
+o	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(”×‚ø
+l
+java:S3655©"PCall "Optional#isPresent()" or "!Optional#isEmpty()" before accessing the value.(ß¡œüşÿÿÿÿ
+g
+java:S3655µ"PCall "Optional#isPresent()" or "!Optional#isEmpty()" before accessing the value.(ˆ¸¦
