@@ -12,6 +12,7 @@ import java.util.List;
 @Getter
 @Setter
 public class TransformDto {
+    String uuid;
     List<ResourceDto> input;
     List<ResourceDto> output;
     String name;

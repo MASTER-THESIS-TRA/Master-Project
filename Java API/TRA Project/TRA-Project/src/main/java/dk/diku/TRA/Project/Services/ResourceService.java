@@ -48,6 +48,11 @@ public class ResourceService {
         return "Type does not exist. Try checking spelling.";
     }
 
+
+    public List<TransformDefinitions> GetAllTransformDefinitions() {
+        return transformRepository.findAll();
+    }
+
     public boolean CreateTransform(TransformDto transformDto){
         Resource r = defineTransform(transformDto);
         if (!resourceManager.ValidateTransform(r)){

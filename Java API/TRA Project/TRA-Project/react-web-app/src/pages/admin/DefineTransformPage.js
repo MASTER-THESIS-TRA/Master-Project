@@ -9,6 +9,7 @@ import React, {useState} from "react";
 import Title from "../../components/Title";
 import {TransformBox} from "../../components/Transform/TransformBox";
 import {ConfirmTransformationModal} from "../../components/Transform/ConfirmTransformationModal";
+import axios from "axios";
 
 
 export const DefineTransformPage = () => {
@@ -38,13 +39,26 @@ export const DefineTransformPage = () => {
         if(name.length < 1) {
             alert("error when naming");
         }
+        console.log(inputData);
         const data = {
             uuid: localStorage.getItem('user'),
             name: name,
             input: inputData,
             output: outputData
         }
-        console.log("Final data:", data);
+        console.log("The transform", data)
+        axios.post("http://localhost:8080/admin/createTransform", data, {
+            headers: {
+                'Accept': 'application/json',
+                'content-type': 'application/json'
+            }})
+            .then((response) => {
+                    console.log("API Response", response.data)
+                }
+            )
+            .catch((error) => {
+                console.log(error);
+            })
     }
 
     return (

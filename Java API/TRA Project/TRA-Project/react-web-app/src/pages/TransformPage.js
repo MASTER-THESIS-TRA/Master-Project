@@ -1,12 +1,12 @@
 import React, {useState} from "react";
-import {Transfer} from "../../components/Transfer/Transfer";
+import {Transfer} from "../components/Transfer/Transfer";
 import Grid from "@mui/material/Grid";
 import {DialogContent, FormControl, InputLabel, MenuItem, MenuList, Paper, Select, TextField} from "@mui/material";
-import {AgentBox} from "../../components/Transfer/AgentBox";
-import Title from "../../components/Title";
+import {AgentBox} from "../components/Transfer/AgentBox";
+import Title from "../components/Title";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import {CustomTable} from "../../components/CustomTable";
+import {CustomTable} from "../components/CustomTable";
 import Divider from "@mui/material/Divider";
 import axios from "axios";
 
@@ -21,19 +21,9 @@ const MenuProps = {
     },
 };
 
-
 const names = [
-    'Oliver Hansen',
-    'Van Henry',
-    'April Tucker',
-    'Ralph Hubbard',
-    'Omar Alexander',
-    'Carlos Abbott',
-    'Miriam Wagner',
-    'Bradley Wilkerson',
-    'Virginia Andrews',
-    'Kelly Snyder',
-];
+    'Borgert'
+]
 
 const columns = [
     { id: 'name', label: 'Name', minWidth: 200 },
@@ -44,30 +34,6 @@ function createData(name, amount) {
     return { name, amount};
 }
 
-const rows = [
-    createData('Cheese', 4),
-    createData('Cheese', 4),
-    createData('Cheese', 4),
-    createData('Cheese', 4),
-    createData('Cheese', 4),
-    createData('Cheese', 4),
-    createData('Cheese', 4),
-    createData('Cheese', 4),
-    createData('Cheese', 4),
-    createData('Cheese', 4),
-    createData('Cheese', 4),
-    createData('Cheese', 4),
-    createData('Cheese', 4),
-    createData('Cheese', 4),
-    createData('Cheese', 4),
-    createData('Cheese', 4),
-    createData('Cheese', 4),
-    createData('Cheese', 4),
-    createData('Cheese', 4),
-    createData('Cheese', 4),
-    createData('Cheese', 4),
-    createData('Cheese', 4),
-];
 
 export const TransformPage = () => {
     const[transform, setTransform] = useState('');
@@ -81,17 +47,17 @@ export const TransformPage = () => {
         if((transform, amount) === undefined) {
             alert("One or more fields are empty")
         }
-        createNewTransfer(transform, amount);
+        createNewTransform(transform, amount);
     }
 
-    const createNewTransfer = (transform, amount) => {
+    const createNewTransform = (transform, amount) => {
         const data = {
             sender: localStorage.getItem('user'),
             transform: transform,
             amount: amount
         }
-
-        axios.post("http://localhost:8080/transform/createTransform", data, {
+        console.log("The transform", data)
+        axios.post("http://localhost:8080/admin/createTransform", data, {
             headers: {
                 'Accept': 'application/json',
                 'content-type': 'application/json'

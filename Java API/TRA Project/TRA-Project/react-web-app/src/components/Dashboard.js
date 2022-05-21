@@ -18,7 +18,7 @@ import { mainListItems, secondaryListItems } from './SidebarContent';
 import {Route, Routes} from "react-router-dom";
 import {OverviewPage} from "../pages/OverviewPage";
 import {TransferPage} from "../pages/TransferPage";
-import {TransformPage} from "../pages/admin/TransformPage";
+import {TransformPage} from "../pages/TransformPage";
 import {HistoryPage} from "../pages/HistoryPage";
 import {AgentPage} from "../pages/admin/AgentsPage";
 import {ResourcesPage} from "../pages/admin/ResourcesPage";
