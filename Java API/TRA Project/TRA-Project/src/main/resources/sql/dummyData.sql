@@ -2,8 +2,7 @@
 begin;
     insert into agent (AGENT_ID, NAME, EMAIL, PASSWORD)
     values
-        ('1111-1111','Alexander','alexander@hogwarts.gb','TRA'),
-        ('1111-2222','Daniel','daniel@durmstrang.ro','TRA');
+        ('11111111-1111-1111-1111-111111111111','Admin','admin@mail.com','TRA');
 commit;
 end;
 

@@ -32,7 +32,7 @@ public class ResourceService {
         ResourceType e = new ResourceType();
         e.setName(resourceTypeDto.getName());
         e.setWeight(resourceTypeDto.getWeight());
-        resourceManager.AddWeight(new Weight(resourceTypeDto.getName(),(double)resourceTypeDto.getWeight()));
+        resourceManager.AddWeight(new Weight(resourceTypeDto.getName(),resourceTypeDto.getWeight()));
         return resourceTypeRepository.save(e).getId();
     }
 
@@ -64,7 +64,9 @@ public class ResourceService {
         Resource r = new Resource(giveResourceDto.getResourceType(),giveResourceDto.getAmount());
         Map<Agent,Resource> M = new HashMap<>();
         Agent a = agentService.GetAgentByEmail(giveResourceDto.getEmail());
-        System.out.println(a.getUuid() + " - " +  a.getName() + " - " + a.getEmail() + " - " + a.getPassword());
+        if(a==null){
+            return false;
+        }
         M.put(a,r);
         M.put(resourceManager,Resource.mult(r,-1));
         try{

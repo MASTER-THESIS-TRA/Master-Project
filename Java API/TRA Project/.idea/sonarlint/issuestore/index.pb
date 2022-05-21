@@ -33,8 +33,6 @@ s
 CTRA-Project/src/main/java/dk/diku/TRA/Project/Dtos/ResourceDto.java,c\9\c9de9fa72c65856f574c1341bf66606156405cd4
 w
 GTRA-Project/src/main/java/dk/diku/TRA/Project/Dtos/ResourceTypeDto.java,b\d\bd74d153edb1724c3e173718297ea4079d3177b1
-s
-CTRA-Project/src/main/java/dk/diku/TRA/Project/Dtos/TransferDto.java,e\e\eed1d6ec266960f1539375094025dc6fcec57385
 o
 ?TRA-Project/src/main/java/dk/diku/TRA/Project/Dtos/UserDto.java,5\0\502ef5a3af7b340ca95479aad607fe3418ec737c
 p

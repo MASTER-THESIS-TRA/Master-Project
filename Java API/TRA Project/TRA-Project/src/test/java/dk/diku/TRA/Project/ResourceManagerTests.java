@@ -37,10 +37,10 @@ public class ResourceManagerTests {
             M.put(Daniel,Resource.add(Resource.mult(knuts,50),Resource.add(Resource.mult(sickles,25),galleons)));
             M.put(Alexander,Resource.add(Resource.mult(knuts,75),Resource.add(Resource.mult(sickles,10),Resource.mult(galleons,2))));
             M.put(Fritz,Resource.add(Resource.mult(knuts,50),Resource.add(Resource.mult(sickles,42),Resource.mult(galleons,1337))));
-            HashMap<String,Double> W = new HashMap<>();
-            W.put("Knuts",1.0);
-            W.put("Sickles",100.0);
-            W.put("Galleons",10000.0);
+            HashMap<String,Integer> W = new HashMap<>();
+            W.put("Knuts",1);
+            W.put("Sickles",100);
+            W.put("Galleons",10000);
             bank = new ResourceManager("Gringotts", M, W);
         }
     }

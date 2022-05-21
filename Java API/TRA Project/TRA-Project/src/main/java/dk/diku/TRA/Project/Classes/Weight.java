@@ -7,11 +7,11 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Weight extends Vector<String, Double> {
-    public Weight(Map<String, Double> M){
+public class Weight extends Vector<String, Integer> {
+    public Weight(Map<String, Integer> M){
         super(M);
     }
-    public Weight(String resourceType, Double weight){
+    public Weight(String resourceType, Integer weight){
         super(resourceType,weight);
     }
 
@@ -40,7 +40,7 @@ public class Weight extends Vector<String, Double> {
     }
 
     public static Weight add(Weight x, Weight y) {
-        HashMap<String, Double> sum = new HashMap();
+        HashMap<String, Integer> sum = new HashMap();
         sum.putAll(x);
         sum.putAll(y);
         return new Weight(sum);
@@ -52,8 +52,8 @@ public class Weight extends Vector<String, Double> {
 
     public static Weight mult(Weight x, Integer y) {
         try{
-            Map<String, Double> ret = new HashMap();
-            for (Map.Entry<String, Double> e : x.entrySet()){
+            Map<String, Integer> ret = new HashMap();
+            for (Map.Entry<String, Integer> e : x.entrySet()){
                 ret.put(e.getKey(),e.getValue()*y);
             }
             return new Weight(ret);
@@ -72,8 +72,8 @@ public class Weight extends Vector<String, Double> {
         try {
             Weight cmp = (Weight) o;
             // Creating temporary HashMaps to be able to modify them.
-            HashMap<String,Double> tmpA = new HashMap(cmp);
-            HashMap<String,Double> tmpB = new HashMap(this);
+            HashMap<String,Integer> tmpA = new HashMap(cmp);
+            HashMap<String,Integer> tmpB = new HashMap(this);
             // Removing any keys that are zero, since any resource implicitly has 0 of all possible resource types in existence.
             tmpA.entrySet().removeIf(entry -> entry.getValue() == 0);
             tmpB.entrySet().removeIf(entry -> entry.getValue() == 0);

@@ -5,10 +5,13 @@ import dk.diku.TRA.Project.Classes.ResourceManager;
 import dk.diku.TRA.Project.repository.AgentRepository;
 import dk.diku.TRA.Project.repository.CreditRepository;
 import dk.diku.TRA.Project.repository.OwnershipRepository;
+import dk.diku.TRA.Project.repository.WeightRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
+import org.springframework.context.event.EventListener;
 
 @Configuration
 public class ResourceManagerConfig {
@@ -18,15 +21,21 @@ public class ResourceManagerConfig {
     CreditRepository creditRepository;
     @Autowired
     OwnershipRepository ownershipRepository;
+    @Autowired
+    WeightRepository weightRepository;
 
+    ResourceManager RM;
     @Bean
     @DependsOn({"creditRepository","ownershipRepository","agentRepository"})
     public ResourceManager resourceManager() {
-        ResourceManager RM = new ResourceManager("Bank","bank@bank.dk","bankMCbankerson");
-        RM.initRepos(agentRepository,ownershipRepository,creditRepository);
-        //ResourceManager agent = (ResourceManager)agentRepository.save((Agent)RM);
-        //RM.setUuid(agent.getUuid());
+        RM = new ResourceManager("Bank","bank@bank.dk","bankMCbankerson");
+        RM.initRepos(agentRepository,ownershipRepository,creditRepository,weightRepository);
         return RM;
         // agentRepository.save((Agent)rm);
     }
+    /*@EventListener(ApplicationReadyEvent.class)
+    public void doSomethingAfterStartup() {
+        RM.initRepos(agentRepository,ownershipRepository,creditRepository);
+    }*/
 }
+

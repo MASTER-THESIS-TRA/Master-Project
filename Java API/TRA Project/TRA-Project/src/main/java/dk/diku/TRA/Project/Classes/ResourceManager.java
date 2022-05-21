@@ -2,12 +2,14 @@ package dk.diku.TRA.Project.Classes;
 
 import dk.diku.TRA.Project.Dtos.CreditDto;
 import dk.diku.TRA.Project.Dtos.OwnershipDto;
+import dk.diku.TRA.Project.Dtos.WeightDto;
 import dk.diku.TRA.Project.Dtos.keys.OwnershipKey;
 import dk.diku.TRA.Project.Exceptions.ExceptionConstants;
 import dk.diku.TRA.Project.Exceptions.TRAException;
 import dk.diku.TRA.Project.repository.AgentRepository;
 import dk.diku.TRA.Project.repository.CreditRepository;
 import dk.diku.TRA.Project.repository.OwnershipRepository;
+import dk.diku.TRA.Project.repository.WeightRepository;
 import net.bytebuddy.description.modifier.Ownership;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -21,11 +23,11 @@ import java.util.Map;
 import java.util.UUID;
 
 @Primary
-@DependsOn({"ownershipRepository","creditRepository","agentRepository"})
 public class ResourceManager extends Agent{
     OwnershipRepository ownershipRepository;
     CreditRepository creditRepository;
     AgentRepository agentRepository;
+    WeightRepository weightRepository;
     /*  Need to persist information about weights as well.
     @Autowired
     ResourceTypeRepository resourceTypeRepository;
@@ -60,7 +62,7 @@ public class ResourceManager extends Agent{
         CP = new Credit(this,new Resource("*",1));
         try { ownerships = new Transfer(M); } catch (TRAException e){ }
     }
-    public ResourceManager(String name, Map<Agent,Resource> M, Map<String, Double> W){
+    public ResourceManager(String name, Map<Agent,Resource> M, Map<String, Integer> W){
         super();
         Resource debt = Resource.zero();
         for (Resource r : M.values()){
@@ -72,12 +74,14 @@ public class ResourceManager extends Agent{
         try { ownerships = new Transfer(M); } catch (TRAException e){ }
     }
 
-    public void initRepos(AgentRepository a, OwnershipRepository o, CreditRepository c){
+    public void initRepos(AgentRepository a, OwnershipRepository o, CreditRepository c, WeightRepository w){
         agentRepository = a;
         ownershipRepository = o;
         creditRepository = c;
+        weightRepository = w;
         LoadOwnershipsFromDb();
         LoadCreditFromDb();
+        LoadWeightsFromDb();
     }
 
     // Initially an agent has no
@@ -168,9 +172,6 @@ public class ResourceManager extends Agent{
     }
 
     private void LoadCreditFromDb(){
-        /*if (creditRepository == null) {
-            return;
-        }*/
         List<CreditDto> credits = creditRepository.findAll();
         if (credits.isEmpty()){return;}
         for (CreditDto c : credits){
@@ -178,14 +179,20 @@ public class ResourceManager extends Agent{
         }
     }
 
+    private void LoadWeightsFromDb(){
+        List<WeightDto> weightDtos = weightRepository.findAll();
+        weights = Weight.zero();
+        if (weightDtos.isEmpty()){return;}
+        for (WeightDto w : weightDtos){
+            AddWeight(new Weight(w.getResourceType(),w.getWeight()));
+        }
+    }
+
     private void LoadOwnershipsFromDb(){
-        /*if (ownershipRepository == null) {
-            return;
-        }*/
-        List<OwnershipDto> ownerships = ownershipRepository.findAll();
-        if (ownerships.isEmpty()){return;}
+        List<OwnershipDto> owns = ownershipRepository.findAll();
+        if (owns.isEmpty()){return;}
         Map<Agent,Resource> M = new HashMap<>();
-        for (OwnershipDto o : ownerships){
+        for (OwnershipDto o : owns){
             Agent a = agentRepository.findById(o.getAgentId()).get();
             if (M.containsKey(a)){
                 M.put(a, Resource.add(M.get(a),new Resource(o.getResourceType(),o.getAmount())));
@@ -195,6 +202,11 @@ public class ResourceManager extends Agent{
                 M.put(a,new Resource(o.getResourceType(),o.getAmount()));
                 M.put(this,new Resource(o.getResourceType(),-o.getAmount()));
             }
+        }
+        try {
+            ownerships = new Transfer(M);
+        } catch (TRAException e){
+            ownerships = new Transfer();
         }
     }
     public void getById(){
@@ -209,6 +221,9 @@ public class ResourceManager extends Agent{
     }
     public void AddWeight(Weight w){
         weights = Weight.add(weights,w);
+        for (String type : w.keySet()){
+            weightRepository.save(new WeightDto(type,(int)w.get(type)));
+        }
     }
 
     public Resource GetBalance(Agent a){
@@ -223,6 +238,9 @@ public class ResourceManager extends Agent{
     public void saveChangesToDb(Transfer t){
         // ownership repository
         for (Agent a : t.keySet()){
+            if (a.getUuid().equals(this.getUuid())){
+                continue;
+            }
             saveAgentToDb(a,ownerships.get(a));
         }
     }
@@ -230,12 +248,16 @@ public class ResourceManager extends Agent{
     // This should probably be a batchjob, to allow for rolling back on error.
     public void saveAgentToDb(Agent a, Resource r){
         List<OwnershipDto> owned = ownershipRepository.getByAgentId(a.getUuid());
-        for (OwnershipDto o : owned){
-            if (r.containsKey(o.getResourceType())){
-                ownershipRepository.updateExistingById(a.getUuid(),o.getResourceType(),r.get(o.getResourceType()));
+        for (String type : r.keySet()){
+            boolean exists = false;
+            for (OwnershipDto o : owned){
+                if (type.equals(o.getResourceType())){
+                    ownershipRepository.updateExistingById(a.getUuid(),type,r.get(type));
+                    exists = true;
+                }
             }
-            else{
-                ownershipRepository.insertNewById(a.getUuid(),o.getResourceType(),o.getAmount());
+            if (!exists){
+                ownershipRepository.insertNewById(a.getUuid(),type, r.get(type));
             }
         }
     }

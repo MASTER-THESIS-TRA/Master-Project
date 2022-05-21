@@ -43,3 +43,7 @@ CREATE TABLE IF NOT EXISTS LOCATION(
     LONGITUDE NUMERIC NOT NULL,
     LATITUDE NUMERIC NOT NULL
 );
+create table if not exists WEIGHTS(
+    TYPE CHAR(255) primary key,
+    WEIGHT int not null
+);
