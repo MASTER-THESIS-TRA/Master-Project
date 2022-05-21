@@ -64,7 +64,6 @@ public class ResourceService {
         Resource r = new Resource(giveResourceDto.getResourceType(),giveResourceDto.getAmount());
         Map<Agent,Resource> M = new HashMap<>();
         Agent a = agentService.GetAgentByEmail(giveResourceDto.getEmail());
-        System.out.println(a.getUuid() + " - " +  a.getName() + " - " + a.getEmail() + " - " + a.getPassword());
         M.put(a,r);
         M.put(resourceManager,Resource.mult(r,-1));
         try{
@@ -76,6 +75,7 @@ public class ResourceService {
     }
 
     public List<ResourceDto> GetBalanceById(String id){
+        Agent a = agentService.GetAgentById(id);
         Resource r = resourceManager.GetBalance(agentService.GetAgentById(id));
         List<ResourceDto> ret = new ArrayList<>();
         for (String key : r.keySet()){

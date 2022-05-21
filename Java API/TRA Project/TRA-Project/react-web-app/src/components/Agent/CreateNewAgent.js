@@ -24,7 +24,7 @@ export const CreateNewAgent = (props) => {
     const handleOk = (event) => {
         createNewAgentData(aName, aEmail, aPassword, event);
         onClose(value);
-        //window.location.reload();
+        window.location.reload();
     };
 
     const handleNameChange = (event) => {

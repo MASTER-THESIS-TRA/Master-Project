@@ -20,7 +20,6 @@ public class OverviewController {
 
     @CrossOrigin
     @RequestMapping(value = "/getBalance/{id}", method = RequestMethod.GET)
-    //@GetMapping(path="/getBalance")
     public List<ResourceDto> GetBalance(@PathVariable String id){
         return resourceService.GetBalanceById(id);
     }

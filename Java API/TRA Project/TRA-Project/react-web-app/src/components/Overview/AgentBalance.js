@@ -5,15 +5,6 @@ import {useState, useEffect} from "react";
 
 const axios = require('axios');
 
-const cols = [
-    { id: 'resourceId', label: 'Resource Id', minWidth: 170 },
-    { id: 'resourceType', label: 'Resource Type', minWidth: 170 },
-    { id: 'amount', label: 'Amount', minWidth: 170 },
-];
-
-function createData(resourceId, resourceType, amount) {
-    return { resourceId, resourceType, amount };
-}
 
 export const AgentBalance = () => {
     const[rows, setRows] = useState([]);
@@ -21,20 +12,30 @@ export const AgentBalance = () => {
 
     useEffect(async () => {
         const id = localStorage.getItem('user');
+        console.log((id))
         const data = [];
         const res = await axios.get(`http://localhost:8080/overview/getBalance/${id}`)
         if(res.status != 500) {
-            res.data.map((resourceType) => {
-                data.push(createData(resourceType.id, resourceType.name, resourceType.weight))
+            res.data.map((item) => {
+                data.push(createData(item.type, item.amount))
             })
             setRows(data);
         }
     }, [])
 
+    const cols = [
+        { id: 'resourceType', label: 'Resource Type', minWidth: 170 },
+        { id: 'amount', label: 'Amount', minWidth: 170 },
+    ];
+
+    function createData(resourceType, amount) {
+        return { resourceType, amount };
+    }
+
 
     return (
         <div>
-            <Title>Balance</Title>
+            <Title>List of Resources</Title>
             <CustomTable columns={cols} rows={rows} showPagination={false} maxHeight={440}/>
         </div>
     )

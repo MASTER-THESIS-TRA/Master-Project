@@ -49,7 +49,7 @@ public class TransferController {
         M.put(agentService.GetAgentById(transferDto.sender),
                 new Resource(transferDto.resourceName, -transferDto.amount));
         M.put(agentService.GetAgentByEmail(transferDto.receiver),
-                new Resource(transferDto.resourceName, -transferDto.amount));
+                new Resource(transferDto.resourceName, transferDto.amount));
         try{
             return new Transfer(M);
         }catch(TRAException e){
