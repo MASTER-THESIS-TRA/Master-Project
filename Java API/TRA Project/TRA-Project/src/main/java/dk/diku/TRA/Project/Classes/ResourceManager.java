@@ -11,7 +11,9 @@ import dk.diku.TRA.Project.repository.OwnershipRepository;
 import net.bytebuddy.description.modifier.Ownership;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.DependsOn;
 import org.springframework.context.annotation.Primary;
+import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
 import java.util.List;
@@ -19,12 +21,10 @@ import java.util.Map;
 import java.util.UUID;
 
 @Primary
+@DependsOn({"ownershipRepository","creditRepository","agentRepository"})
 public class ResourceManager extends Agent{
-    @Autowired
     OwnershipRepository ownershipRepository;
-    @Autowired
     CreditRepository creditRepository;
-    @Autowired
     AgentRepository agentRepository;
     /*  Need to persist information about weights as well.
     @Autowired
@@ -40,8 +40,6 @@ public class ResourceManager extends Agent{
         setEmail(email);
         setPassword(password);
         // Need some fixing for these two. Probably configuration issue. Repos seem to be null.
-        LoadOwnershipsFromDb();
-        LoadCreditFromDb();
     }
 
     public ResourceManager(String name){
@@ -72,6 +70,14 @@ public class ResourceManager extends Agent{
         CP = new Credit(this,new Resource("*",1));
         weights = new Weight(W);
         try { ownerships = new Transfer(M); } catch (TRAException e){ }
+    }
+
+    public void initRepos(AgentRepository a, OwnershipRepository o, CreditRepository c){
+        agentRepository = a;
+        ownershipRepository = o;
+        creditRepository = c;
+        LoadOwnershipsFromDb();
+        LoadCreditFromDb();
     }
 
     // Initially an agent has no
@@ -162,9 +168,9 @@ public class ResourceManager extends Agent{
     }
 
     private void LoadCreditFromDb(){
-        if (creditRepository == null) {
+        /*if (creditRepository == null) {
             return;
-        }
+        }*/
         List<CreditDto> credits = creditRepository.findAll();
         if (credits.isEmpty()){return;}
         for (CreditDto c : credits){
@@ -173,9 +179,9 @@ public class ResourceManager extends Agent{
     }
 
     private void LoadOwnershipsFromDb(){
-        if (ownershipRepository == null) {
+        /*if (ownershipRepository == null) {
             return;
-        }
+        }*/
         List<OwnershipDto> ownerships = ownershipRepository.findAll();
         if (ownerships.isEmpty()){return;}
         Map<Agent,Resource> M = new HashMap<>();

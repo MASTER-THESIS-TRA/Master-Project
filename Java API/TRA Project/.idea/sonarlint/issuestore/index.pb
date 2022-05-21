@@ -21,8 +21,6 @@ A
 QTRA-Project/src/main/java/dk/diku/TRA/Project/Controller/TransformController.java,9\1\912a9828678cbb38a5e0ac18d3b1cbfe766cc592
 {
 KTRA-Project/src/main/java/dk/diku/TRA/Project/Services/TransferService.java,7\3\73b9b90a1104c8e243e9076bbee51517a64815d1
-
-OTRA-Project/src/main/java/dk/diku/TRA/Project/Config/ResourceManagerConfig.java,a\2\a2b4c8edc5027feed8bead4c607a1f52a76cc140
 y
 ITRA-Project/src/main/java/dk/diku/TRA/Project/Classes/Transformation.java,f\b\fb6af2be97cf01490f26c046c6e6e7fd3469767d
 t
