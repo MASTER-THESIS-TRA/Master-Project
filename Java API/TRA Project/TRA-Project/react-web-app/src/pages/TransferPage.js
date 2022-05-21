@@ -62,7 +62,10 @@ export const TransferPage = () => {
                 'content-type': 'application/json'
             }})
             .then((response) => {
+                    alert(response.data)
+                    window.location.reload();
                     console.log("API Response", response.data)
+
                 }
             )
             .catch((error) => {
@@ -132,7 +135,7 @@ export const TransferPage = () => {
                         </Box>
                     </DialogContent>
                     <Box textAlign='center' sx={{paddingTop: '10px'}}>
-                        <Button variant='contained' size='medium' onClick={handleSubmit}>Send</Button>
+                        <Button variant='contained' href={"localhost:3000/"} size='medium' onClick={handleSubmit}>Send</Button>
                     </Box>
                 </Paper>
             </Grid>

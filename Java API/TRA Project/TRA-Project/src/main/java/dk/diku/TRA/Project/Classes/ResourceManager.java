@@ -162,13 +162,13 @@ public class ResourceManager extends Agent{
         CP = Credit.add(new Credit(a,r),CP);
     }
 
-    public Agent findAgentById(String id) throws TRAException {
+    public Agent findAgentById(String id) {
         for (Agent a : ownerships.keySet()){
             if (a.getUuid().equals(id)){
                 return a;
             }
         }
-        throw new TRAException(ExceptionConstants.GENERIC_ERROR + ": Agent not found.");
+        return null;
     }
 
     private void LoadCreditFromDb(){
@@ -209,9 +209,7 @@ public class ResourceManager extends Agent{
             ownerships = new Transfer();
         }
     }
-    public void getById(){
-        ownershipRepository.getById(new OwnershipKey("agentid","Resourcetype"));
-    }
+
     public boolean ValidateTransform(Resource r){
         double sum = 0;
         for (String type : r.keySet()){
@@ -227,12 +225,11 @@ public class ResourceManager extends Agent{
     }
 
     public Resource GetBalance(Agent a){
-        if (ownerships.containsKey(a)){
-            return ownerships.get(a);
-        }
-        else{
+        Agent agent = findAgentById(a.getUuid());
+        if(agent == null) {
             return Resource.zero();
         }
+        return ownerships.get(agent);
     }
 
     public void saveChangesToDb(Transfer t){

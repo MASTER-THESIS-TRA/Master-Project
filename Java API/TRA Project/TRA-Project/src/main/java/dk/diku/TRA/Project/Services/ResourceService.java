@@ -78,6 +78,7 @@ public class ResourceService {
     }
 
     public List<ResourceDto> GetBalanceById(String id){
+        Agent a = agentService.GetAgentById(id);
         Resource r = resourceManager.GetBalance(agentService.GetAgentById(id));
         List<ResourceDto> ret = new ArrayList<>();
         for (String key : r.keySet()){
