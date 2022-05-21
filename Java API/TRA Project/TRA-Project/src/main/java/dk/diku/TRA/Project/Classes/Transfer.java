@@ -154,7 +154,7 @@ public class Transfer extends Vector<Agent, Resource> {
                 if (resource.charAt(resource.length()-1)!='}'){
                     resource = resource+"}";
                 }
-                m.put(manager.findAgentById(UUID.fromString(agentId)),Resource.ParseStringToResource(resource));
+                m.put(manager.findAgentById(agentId),Resource.ParseStringToResource(resource));
             }
             return new Transfer(m);
         }catch (Exception e){

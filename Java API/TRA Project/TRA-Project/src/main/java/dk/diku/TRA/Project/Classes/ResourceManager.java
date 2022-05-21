@@ -98,6 +98,7 @@ public class ResourceManager extends Agent{
     public boolean ApplyTransfer(Transfer t){
         if (CP.ValidateTransfer(t, ownerships)){ // Check if everyone involved can afford the transaction (per the credit policy).
             ownerships = Transfer.add(ownerships, t);
+            saveChangesToDb(t);
             return true;
         }
         return false;
@@ -107,7 +108,8 @@ public class ResourceManager extends Agent{
         if (checkWeightSum(t)){  // Check if the transaction does not introduce more weight.
             Transfer t_prime = transformToTransfer(t);
             if (CP.ValidateTransfer(t_prime, ownerships)){  // Check if everybody involved can afford the transaction.
-                ownerships = Transfer.add(ownerships, transformToTransfer(t));
+                ownerships = Transfer.add(ownerships, t_prime);
+                saveChangesToDb(t_prime);
                 return true;
             }
         }
@@ -131,14 +133,14 @@ public class ResourceManager extends Agent{
         for (Resource r : t.values()){
             toManager = Resource.add(toManager,Resource.mult(r,-1));
         }
-        HashMap M = new HashMap<>(t);
+        HashMap<Agent,Resource> M = new HashMap<>(t);
         M.put(this,toManager);
         try{
             return new Transfer(M);
         } catch (TRAException e){
             // This will not happen, as we are ensuring above, that the sum is always 0.
             System.out.println(e.getMessage());
-            return null;
+            return Transfer.zero();
         }
     }
 
@@ -150,7 +152,7 @@ public class ResourceManager extends Agent{
         CP = Credit.add(new Credit(a,r),CP);
     }
 
-    public Agent findAgentById(UUID id) throws TRAException {
+    public Agent findAgentById(String id) throws TRAException {
         for (Agent a : ownerships.keySet()){
             if (a.getUuid().equals(id)){
                 return a;
