@@ -184,7 +184,7 @@ public class ResourceManager extends Agent{
         weights = Weight.zero();
         if (weightDtos.isEmpty()){return;}
         for (WeightDto w : weightDtos){
-            AddWeight(new Weight(w.getResourceType(),w.getWeight()));
+            weights = Weight.add(weights,new Weight(w.getResourceType(),w.getWeight()));
         }
     }
 
