@@ -125,7 +125,7 @@ public class ResourceManager extends Agent{
     }
 
     // This method handles the logic behind a manager "owing" the customers their resources.
-    // In essence the manager is paying back the consumed resources and now owes the produces resources.
+    // In essence the manager is paying back the consumed resources and now owes the produced resources.
     private Transfer transformToTransfer(Transformation t){
         Resource toManager = Resource.zero();
         for (Resource r : t.values()){
@@ -204,11 +204,31 @@ public class ResourceManager extends Agent{
     }
 
     public Resource GetBalance(Agent a){
-        if (ownerships.keySet().contains(a)){
+        if (ownerships.containsKey(a)){
             return ownerships.get(a);
         }
         else{
             return Resource.zero();
+        }
+    }
+
+    public void saveChangesToDb(Transfer t){
+        // ownership repository
+        for (Agent a : t.keySet()){
+            saveAgentToDb(a,ownerships.get(a));
+        }
+    }
+
+    // This should probably be a batchjob, to allow for rolling back on error.
+    public void saveAgentToDb(Agent a, Resource r){
+        List<OwnershipDto> owned = ownershipRepository.getByAgentId(a.getUuid());
+        for (OwnershipDto o : owned){
+            if (r.containsKey(o.getResourceType())){
+                ownershipRepository.updateExistingById(a.getUuid(),o.getResourceType(),r.get(o.getResourceType()));
+            }
+            else{
+                ownershipRepository.insertNewById(a.getUuid(),o.getResourceType(),o.getAmount());
+            }
         }
     }
 }
