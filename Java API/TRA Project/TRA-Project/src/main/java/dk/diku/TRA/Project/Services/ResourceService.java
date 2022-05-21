@@ -63,7 +63,9 @@ public class ResourceService {
     public boolean GiveResource(GiveResourceDto giveResourceDto){
         Resource r = new Resource(giveResourceDto.getResourceType(),giveResourceDto.getAmount());
         Map<Agent,Resource> M = new HashMap<>();
-        M.put(agentService.GetAgentByEmail(giveResourceDto.getEmail()),r);
+        Agent a = agentService.GetAgentByEmail(giveResourceDto.getEmail());
+        System.out.println(a.getUuid() + " - " +  a.getName() + " - " + a.getEmail() + " - " + a.getPassword());
+        M.put(a,r);
         M.put(resourceManager,Resource.mult(r,-1));
         try{
             resourceManager.ApplyTransfer(new Transfer(M));

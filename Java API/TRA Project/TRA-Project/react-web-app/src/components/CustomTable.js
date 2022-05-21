@@ -42,9 +42,8 @@ export const CustomTable = ({columns, rows, showPagination, maxHeight}) => {
                         {rows
                             .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                             .map((row) => {
-                                let key = Math.random();
                                 return (
-                                    <TableRow hover role="checkbox" tabIndex={-1} key={key}>
+                                    <TableRow hover role="checkbox" tabIndex={-1} key={row.id}>
                                         {columns.map((column) => {
                                             const value = row[column.id];
                                             return (

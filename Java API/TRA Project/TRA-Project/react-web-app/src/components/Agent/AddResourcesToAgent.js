@@ -22,19 +22,6 @@ const MenuProps = {
     },
 };
 
-const names = [
-    'Oliver Hansen',
-    'Van Henry',
-    'April Tucker',
-    'Ralph Hubbard',
-    'Omar Alexander',
-    'Carlos Abbott',
-    'Miriam Wagner',
-    'Bradley Wilkerson',
-    'Virginia Andrews',
-    'Kelly Snyder',
-];
-
 export const AddResourcesToAgent = (props) => {
     const {onClose, value: valueProp, open, ...other} = props;
     const [value, setValue] = React.useState(valueProp);
@@ -54,7 +41,7 @@ export const AddResourcesToAgent = (props) => {
     const handleOk = () => {
         addResource(agentEmail, resourceType, amount)
         onClose(value);
-        window.location.reload();
+        //window.location.reload();
     };
 
     const handleAgentEmailChange = (event) => {
@@ -89,7 +76,8 @@ export const AddResourcesToAgent = (props) => {
             resourceType: resource,
             amount: amount
         }
-
+        console.log(data)
+        alert(data.email, data.resourceType, data.amount)
         axios.post("http://localhost:8080/admin/giveResource", data, {
             headers: {
                 'Accept': 'application/json',

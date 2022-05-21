@@ -14,14 +14,17 @@ export const LocationModal = (props) => {
     const { onClose, value: valueProp, open, ...other } = props;
     const [value, setValue] = React.useState(valueProp);
     const[name, setName] = useState();
-    const[weight, setWeight] = useState();
+    const[longitude, setLongitude] = useState();
+    const[latitude, setLatitude] = useState();
 
     const handleCancel = () => {
         onClose();
     };
 
     const handleOk = (event) => {
-        createNewAgentData(name, weight, event);
+        event.preventDefault();
+
+        createNewLocationData(name, longitude, latitude);
         onClose(value);
     };
 
@@ -29,8 +32,12 @@ export const LocationModal = (props) => {
         setName(event.target.value);
     };
 
-    const handleWeightChange = (event) => {
-        setWeight(event.target.value);
+    const handleLongitudeChange = (event) => {
+        setLongitude(event.target.value);
+    };
+
+    const handleLatitudeChange = (event) => {
+        setLatitude(event.target.value);
     };
 
     React.useEffect(() => {
@@ -39,14 +46,15 @@ export const LocationModal = (props) => {
         }
     }, [valueProp, open]);
 
-    const createNewAgentData = (name, weight, event) => {
-        event.preventDefault();
+    const createNewLocationData = (name, longitude, latitude) => {
 
         const data = {
             name: name,
-            weight: weight,
+            longitude: longitude,
+            latitude: latitude
         }
-        axios.post("http://localhost:8080/admin/createResourceType", data, {
+
+        axios.post("http://localhost:8080/admin/saveLocation", data, {
             headers: {
                 'Accept': 'application/json',
                 'content-type': 'application/json'
@@ -91,15 +99,17 @@ export const LocationModal = (props) => {
                         <TextField
                             required
                             id="outlined-required"
-                            label="X-coordinate"
-                            onChange={e => handleWeightChange(e)}
+                            label="Longitude"
+                            type="number"
+                            onChange={e => handleLongitudeChange(e)}
                             sx={{ width: "46%" }}
                         />
                         <TextField
                             required
                             id="outlined-required"
-                            label="Y-coordinate"
-                            onChange={e => handleWeightChange(e)}
+                            label="Latitude"
+                            type="number"
+                            onChange={e => handleLatitudeChange(e)}
                             sx={{ width: "45%" }}
                         />
                     </Box>

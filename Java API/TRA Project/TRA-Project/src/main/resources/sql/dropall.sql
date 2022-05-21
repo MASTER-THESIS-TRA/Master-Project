@@ -5,3 +5,4 @@ DROP TABLE if exists event;
 DROP TABLE IF EXISTS OWNERSHIPS;
 DROP TABLE IF EXISTS CREDIT;
 drop table if exists TRANSFORM;
+drop table if exists LOCATION;

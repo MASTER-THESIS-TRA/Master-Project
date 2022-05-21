@@ -44,15 +44,14 @@ export const LocationTable = ({columns, rows, showPagination, maxHeight}) => {
                         {rows
                             .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                             .map((row) => {
-                                let key = Math.random();
                                 return (
-                                    <TableRow hover role="checkbox" tabIndex={-1} key={key}>
+                                    <TableRow hover role="checkbox" tabIndex={-1}>
                                         {columns.map((column) => {
                                             const value = row[column.id];
                                             if(column.id === "location") {
                                                 return(
                                                     <TableCell key={column.id} align={column.align}>
-                                                        <Button href={`https://google.com/maps/place/${row.xCoord},${row.yCoord}`} target="_blank" rel="noopener noreferrer">See location</Button>
+                                                        <Button href={`https://google.com/maps/place/${row.longitude},${row.latitude}`} target="_blank" rel="noopener noreferrer">See location</Button>
                                                     </TableCell>
                                                 )
                                             }

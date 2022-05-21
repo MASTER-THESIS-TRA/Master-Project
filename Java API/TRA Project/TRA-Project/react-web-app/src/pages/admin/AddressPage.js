@@ -13,39 +13,37 @@ import {LocationTable} from "../../components/Transport/LocationTable";
 const columns = [
     { id: 'id', label: 'Id', minWidth: 130 },
     { id: 'name', label: 'Name', minWidth: 150 },
-    { id: 'xCoord', label: 'X-coordinate', minWidth: 150, format: (value) => value.toFixed(6),},
-    { id: 'yCoord', label: 'Y-coordinate', minWidth: 150, format: (value) => value.toFixed(6),},
+    { id: 'longitude', label: 'Longitude', minWidth: 150, format: (value) => value.toFixed(6),},
+    { id: 'latitude', label: 'Latitude', minWidth: 150, format: (value) => value.toFixed(6),},
     { id: 'location', label: 'Location', minWidth: 100, align: "center"},
 ]
-function createData(id, name, xCoord, yCoord ) {
-    return { id, name, xCoord, yCoord};
-}
 
-const rows = [
-    createData('11-22', 'Work Place', 55.6932463728027, 12.582942373108413)
-];
+
 
 export const AddressPage = () => {
     //const[rows, setRows] = useState([])
-    const[resources, setResources] = useState({});
+    const[rows, setRows] = useState([]);
     const[showModal, setShowModal] = useState(false);
 
     const handleOpen = () => setShowModal(true);
     const handleClose = () => setShowModal(false);
 
-    /*
+
     useEffect(async () => {
         const data = [];
-        const res = await axios.get("http://localhost:8080/admin/getAllResources")
+        const res = await axios.get("http://localhost:8080/admin/getLocations")
+        console.log("RES:", res);
         if(res.status != 500) {
-            res.data.map((resourceType) => {
-                data.push(createData(resourceType.id, resourceType.name, resourceType.weight))
+            res.data.map((location) => {
+                data.push(createData(location.id, location.name, location.longitude, location.latitude))
             })
             setRows(data);
         }
     }, [])
-     */
 
+    function createData(id, name, longitude, latitude ) {
+        return { id, name, longitude, latitude};
+    }
 
     return(
         <div>

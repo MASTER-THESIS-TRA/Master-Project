@@ -1,14 +1,18 @@
 package dk.diku.TRA.Project.Controller;
 
 import dk.diku.TRA.Project.Classes.Agent;
+import dk.diku.TRA.Project.Classes.GeoCoordinate;
 import dk.diku.TRA.Project.Classes.ResourceType;
 import dk.diku.TRA.Project.Classes.Transformation;
 import dk.diku.TRA.Project.Dtos.AgentDto;
+import dk.diku.TRA.Project.Dtos.LocationDto;
 import dk.diku.TRA.Project.Dtos.PersistStateless.GiveResourceDto;
 import dk.diku.TRA.Project.Dtos.ResourceTypeDto;
 import dk.diku.TRA.Project.Dtos.TransformDto;
 import dk.diku.TRA.Project.Services.AgentService;
+import dk.diku.TRA.Project.Services.LocationService;
 import dk.diku.TRA.Project.Services.ResourceService;
+import lombok.extern.slf4j.Slf4j;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -25,6 +29,9 @@ public class AdminController {
     @Autowired
     private ResourceService resourceService;
 
+    @Autowired
+    private LocationService locationService;
+
     @CrossOrigin
     @PostMapping(path = "/newAgent")
     public String NewAgent(@RequestBody AgentDto agentDto) {
@@ -38,8 +45,9 @@ public class AdminController {
     }
 
     @CrossOrigin
-    @GetMapping(path="/existsAgent")
-    public boolean ExistsAgent(String id){
+    @RequestMapping(value = "/existsAgent/{id}", method = RequestMethod.GET)
+    public boolean ExistsAgent(@PathVariable String id){
+
         return agentService.existsAgent(id);
     }
 
@@ -73,9 +81,23 @@ public class AdminController {
     @CrossOrigin
     @PostMapping(path = "/giveResource")
     public String GiveResource(@RequestBody GiveResourceDto giveResourceDto){
+        System.out.println(giveResourceDto.getEmail() + " " + giveResourceDto.getResourceType());
         if(resourceService.GiveResource(giveResourceDto)){
             return "Success";
         }
         return "error";
     }
+
+    @CrossOrigin
+    @GetMapping(path = "/getLocations")
+    public List<GeoCoordinate> GetAllLocations() {
+        return locationService.GetAllLocations();
+    }
+
+    @CrossOrigin
+    @PostMapping(path = "/saveLocation")
+    public String SaveLocations(@RequestBody LocationDto locationDto) {
+        return locationService.SaveLocaition(locationDto.getName(), locationDto.getLongitude(), locationDto.getLatitude());
+    }
+
 }
