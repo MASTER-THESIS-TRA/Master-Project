@@ -9,12 +9,12 @@ import {CustomTable} from "../CustomTable";
 import {useEffect, useRef} from "react";
 
 const columns = [
-    { id: 'resourceType', label: 'Resource Type', minWidth: 170,  fontWeight: 'bold' },
+    { id: 'type', label: 'Resource Type', minWidth: 170,  fontWeight: 'bold' },
     { id: 'amount', label: 'Amount', minWidth: 100, align: 'right'},
 ];
 
-function createData(resourceType, amount) {
-    return { resourceType, amount };
+function createData(type, amount) {
+    return { type, amount };
 }
 
 
@@ -47,7 +47,6 @@ export const TransformBox = (props) => {
                 }}
             >
                 <Grid container spacing={2} sx={{ paddingBottom: 1}}>
-                    {/* Chart */}
                     <Grid item xs={12} md={8} lg={6}>
                         <Title>{props.title}</Title>
                     </Grid>

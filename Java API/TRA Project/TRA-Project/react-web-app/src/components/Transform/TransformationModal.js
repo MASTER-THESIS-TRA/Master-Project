@@ -22,24 +22,11 @@ const MenuProps = {
     },
 };
 
-const names = [
-    'Oliver Hansen',
-    'Van Henry',
-    'April Tucker',
-    'Ralph Hubbard',
-    'Omar Alexander',
-    'Carlos Abbott',
-    'Miriam Wagner',
-    'Bradley Wilkerson',
-    'Virginia Andrews',
-    'Kelly Snyder',
-];
-
 
 export const TransformationModal = (props) => {
     const { addResource, onClose, value: valueProp, open, ...other } = props;
     const [value, setValue] = React.useState(valueProp);
-    const[resourceType, setResourceType] = useState('');
+    const[type, setType] = useState('');
     const[amount, setAmount] = useState();
     const[options, setOptions] = useState([]);
 
@@ -47,17 +34,14 @@ export const TransformationModal = (props) => {
         onClose();
     };
 
-    function createData(resourceType, amount) {
-        return { resourceType, amount };
-    }
 
     const handleOk = (event) => {
-        addResource(resourceType, amount)
+        addResource(type, amount)
         onClose(value);
     };
 
     const handleResourceTypeChange = (event) => {
-        setResourceType(event.target.value);
+        setType(event.target.value);
     };
 
     const handleAmountChange = (event) => {
@@ -73,8 +57,8 @@ export const TransformationModal = (props) => {
     useEffect(async () => {
         const res = await axios.get("http://localhost:8080/admin/getAllResources")
         if(res.status != 500) {
-            res.data.map((resourceType) => {
-                setOptions(prevState => [...prevState, resourceType.name])
+            res.data.map((type) => {
+                setOptions(prevState => [...prevState, type.name])
             })
         }
     }, [])
@@ -96,7 +80,7 @@ export const TransformationModal = (props) => {
                             id="demo-simple-select-autowidth"
                             onChange={handleResourceTypeChange}
                             autoWidth
-                            value={resourceType}
+                            value={type}
                             label="Resource"
                             MenuProps={MenuProps}
 

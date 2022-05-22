@@ -52,8 +52,9 @@ public class AdminController {
     }
 
     @CrossOrigin
-    @PostMapping(path = "createTransform")
-    public String CreateTransformation(TransformDto transformDto) {
+    @PostMapping(path = "/createTransform")
+    public String CreateTransformation(@RequestBody TransformDto transformDto) {
+        TransformDto t = transformDto;
         if (resourceService.CreateTransform(transformDto)){
             return "Transformation with name: \"" + transformDto.getName() + "\" created.";
         }
