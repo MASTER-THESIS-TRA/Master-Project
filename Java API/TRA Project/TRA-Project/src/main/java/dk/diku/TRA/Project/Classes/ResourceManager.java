@@ -212,8 +212,8 @@ public class ResourceManager extends Agent{
 
     public boolean ValidateTransform(Resource r){
         double sum = 0;
-        for (String type : r.keySet()){
-            sum += weights.get(type)*r.get(type);
+        for (Map.Entry<String,Integer> e : r.entrySet()){
+            sum += weights.get(e.getKey())*e.getValue();
         }
         return sum<=0;
     }
