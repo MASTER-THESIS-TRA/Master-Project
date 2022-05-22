@@ -160,6 +160,7 @@ public class ResourceManager extends Agent{
 
     private void GiveCredit(Agent a, Resource r){
         CP = Credit.add(new Credit(a,r),CP);
+        creditRepository.save(new CreditDto(a.getUuid(),CP.get(a).toString()));
     }
 
     public Agent findAgentById(String id) {
@@ -175,7 +176,7 @@ public class ResourceManager extends Agent{
         List<CreditDto> credits = creditRepository.findAll();
         if (credits.isEmpty()){return;}
         for (CreditDto c : credits){
-            GiveCredit(agentRepository.findById(c.getAgentId()).get(),new Resource(c.getResourceType(),c.getAmount()));
+            GiveCredit(agentRepository.findById(c.getAgentId()).get(),new Resource(Resource.ParseStringToResource(c.getResource())));
         }
     }
 
@@ -190,19 +191,14 @@ public class ResourceManager extends Agent{
 
     private void LoadOwnershipsFromDb(){
         List<OwnershipDto> owns = ownershipRepository.findAll();
+        Resource bankDebt = Resource.zero();
         if (owns.isEmpty()){return;}
         Map<Agent,Resource> M = new HashMap<>();
         for (OwnershipDto o : owns){
-            Agent a = agentRepository.findById(o.getAgentId()).get();
-            if (M.containsKey(a)){
-                M.put(a, Resource.add(M.get(a),new Resource(o.getResourceType(),o.getAmount())));
-                M.put(this, Resource.add(M.get(this),new Resource(o.getResourceType(),-o.getAmount())));
-            }
-            else{
-                M.put(a,new Resource(o.getResourceType(),o.getAmount()));
-                M.put(this,new Resource(o.getResourceType(),-o.getAmount()));
-            }
+            M.put(agentRepository.findById(o.getAgentId()).get(),Resource.ParseStringToResource(o.getResource()));
+            bankDebt = Resource.add(bankDebt,Resource.mult(Resource.ParseStringToResource(o.getResource()),-1));
         }
+        M.put(this,bankDebt);
         try {
             ownerships = new Transfer(M);
         } catch (TRAException e){
@@ -244,18 +240,6 @@ public class ResourceManager extends Agent{
 
     // This should probably be a batchjob, to allow for rolling back on error.
     public void saveAgentToDb(Agent a, Resource r){
-        List<OwnershipDto> owned = ownershipRepository.getByAgentId(a.getUuid());
-        for (String type : r.keySet()){
-            boolean exists = false;
-            for (OwnershipDto o : owned){
-                if (type.equals(o.getResourceType())){
-                    ownershipRepository.updateExistingById(a.getUuid(),type,r.get(type));
-                    exists = true;
-                }
-            }
-            if (!exists){
-                ownershipRepository.insertNewById(a.getUuid(),type, r.get(type));
-            }
-        }
+        ownershipRepository.save(new OwnershipDto(a.getUuid(),r.toString()));
     }
 }

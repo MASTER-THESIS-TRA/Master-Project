@@ -14,16 +14,12 @@ import java.io.Serializable;
 @Builder(setterPrefix = "with")
 @AllArgsConstructor
 @NoArgsConstructor
-@IdClass(CreditKey.class)
 public class CreditDto implements Serializable {
     @Id
     @Column(name = "AGENT_ID", nullable = false,unique = true,length=36)
     private String agentId;
 
-    @Id
-    @Column(name = "RESOURCE_TYPE")
-    private String resourceType;
-
-    @Column(name = "AMOUNT", nullable = false)
-    private int amount;
+    @Lob
+    @Column(name = "RESOURCE", nullable = false)
+    private String resource;
 }
