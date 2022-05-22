@@ -14,16 +14,12 @@ import java.io.Serializable;
 @Builder(setterPrefix = "with")
 @AllArgsConstructor
 @NoArgsConstructor
-@IdClass(OwnershipKey.class)
 public class OwnershipDto implements Serializable {
     @Id
     @Column(name = "AGENT_ID", nullable = false,unique = true,length=36)
     private String agentId;
 
-    @Id
-    @Column(name = "RESOURCE_TYPE")
-    private String resourceType;
-
-    @Column(name = "AMOUNT", nullable = false)
-    private int amount;
+    @Lob
+    @Column(name = "RESOURCE")
+    private String resource;
 }

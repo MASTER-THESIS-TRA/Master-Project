@@ -15,13 +15,13 @@ import java.util.List;
 @Transactional
 public interface OwnershipRepository extends JpaRepository<OwnershipDto, OwnershipKey> {
     @Modifying
-    @Query(value= "update OwnershipDto set amount = :val where agentId = :agentId and resourceType = :type")
-    public void updateExistingById(@Param("agentId") String agentId, @Param("type") String type, @Param("val") int val);
+    @Query(value= "update OwnershipDto set resource = :resource where agentId = :agentId")
+    void updateExistingById(@Param("agentId") String agentId, @Param("resource") String resource);
 
     @Modifying
-    @Query(value = "INSERT INTO ownerships (agent_id, resource_type, amount) VALUES (:agentId,:type,:val)", nativeQuery = true)
-    public void insertNewById(@Param("agentId") String agentId, @Param("type") String type, @Param("val") int val);
+    @Query(value = "INSERT INTO ownerships (agent_id, resource) VALUES (:agentId,:resource)", nativeQuery = true)
+    void insertNewById(@Param("agentId") String agentId, @Param("resource") String resource);
 
     @Query(value = "SELECT * FROM ownerships WHERE agent_id = :agentId", nativeQuery = true)
-    public List<OwnershipDto> getByAgentId(@Param("agentId") String agentId);
+    OwnershipDto getByAgentId(@Param("agentId") String agentId);
 }
