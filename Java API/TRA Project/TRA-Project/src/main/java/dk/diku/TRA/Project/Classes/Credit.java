@@ -78,11 +78,12 @@ public class Credit extends Vector<Agent, Resource>{
     public boolean ValidateTransfer(Transfer t, Transfer ownershipState){
         Transfer sum = Transfer.add(t,ownershipState);
         for (Agent a : sum.keySet()){
-            if (this.containsKey(a)) {
-                if (this.get(a).containsKey("*")) {
+            Agent _a = findAgentById(a.getUuid());
+            if (_a!= null && this.containsKey(_a)) {
+                if (this.get(_a).containsKey("*")) {
                     continue;
                 }
-                boolean geq0 = Resource.add(sum.get(a), (this.get(a) != null ? this.get(a) : Resource.zero()))
+                boolean geq0 = Resource.add(sum.get(_a), (this.get(_a) != null ? this.get(_a) : Resource.zero()))
                         .values().stream().allMatch(val -> val >= 0);
                 if (!geq0) {
                     return false;
@@ -90,5 +91,13 @@ public class Credit extends Vector<Agent, Resource>{
             }
         }
         return true;
+    }
+    public Agent findAgentById(String id) {
+        for (Agent a : this.keySet()){
+            if (a.getUuid().equals(id)){
+                return a;
+            }
+        }
+        return null;
     }
 }

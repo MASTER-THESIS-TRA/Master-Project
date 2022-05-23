@@ -24,12 +24,12 @@ public class ResourceManagerConfig {
     @Autowired
     WeightRepository weightRepository;
 
-    ResourceManager RM;
     @Bean
     @DependsOn({"creditRepository","ownershipRepository","agentRepository"})
     public ResourceManager resourceManager() {
-        RM = new ResourceManager("Bank","bank@bank.dk","bankMCbankerson");
+        ResourceManager RM = new ResourceManager("Bank","bank@bank.dk","bankMCbankerson");
         RM.initRepos(agentRepository,ownershipRepository,creditRepository,weightRepository);
+        RM.setUuid("1");
         return RM;
         // agentRepository.save((Agent)rm);
     }

@@ -61,9 +61,13 @@ public class Transfer extends Vector<Agent, Resource> {
             HashMap<Agent,Resource> sum = new HashMap<>();
             sum.putAll(x);
             for (Agent k : y.keySet()){
-                sum.computeIfPresent(k,
-                        (key, val) -> Resource.add(val, y.get(k)));
-                sum.putIfAbsent(k, y.get(k));
+                if (x.existAgentId(k.getUuid())){
+                    sum.compute(getAgentById(x,k.getUuid()),
+                            (key, val) -> Resource.add(val, y.get(k)));
+                }
+                else{
+                    sum.put(k, y.get(k));
+                }
             }
             return new Transfer(sum);
         } catch (ClassCastException e){
@@ -191,5 +195,22 @@ public class Transfer extends Vector<Agent, Resource> {
             ret = ret + a.getUuid() + "->" + Resource.ToString(trans.get(a)) + ",";
         }
         return ret.substring(0,ret.length()-1)+"}";
+    }
+
+    private boolean existAgentId(String agentId){
+        for (Agent a : keySet()){
+            if (a.getUuid().equals(agentId)){
+                return true;
+            }
+        }
+        return false;
+    }
+    private static Agent getAgentById(Transfer t, String agentId){
+        for (Agent a : t.keySet()){
+            if (a.getUuid().equals(agentId)){
+                return a;
+            }
+        }
+        return null;
     }
 }

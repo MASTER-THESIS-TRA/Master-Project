@@ -14,12 +14,12 @@ begin;
 commit;
 end;
 
-begin;
-    insert into ownerships (AGENT_ID, RESOURCE_TYPE, AMOUNT)
-    values
-        ('1111-1111', 'Honey', 1);
-commit;
-end;
+--begin;
+--    insert into ownerships (AGENT_ID, RESOURCE)
+--    values
+--        ('11111111-1111-1111-1111-111111111111', '{Honey->1}');
+--commit;
+--end;
 
 begin;
 insert into location (LOCATION_ID, NAME, LONGITUDE, LATITUDE)

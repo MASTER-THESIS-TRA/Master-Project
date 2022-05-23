@@ -85,16 +85,18 @@ public class ResourceManager extends Agent{
     }
 
     // Initially an agent has no
-    public boolean AddAgent(Agent a){
-        if (ownerships.keySet().contains(a)){
+    public boolean AddAgent(Agent _a){
+        Agent a = findAgentById(_a.getUuid());
+        if(a!=null){
             return false;
         }
         ownerships = Transfer.add(ownerships, new Transfer(a,Resource.zero()));
         return true;
     }
 
-    public boolean AddAgent(Agent a, Resource initialBalance) {
-        if(this.ownerships.containsKey(a)){
+    public boolean AddAgent(Agent _a, Resource initialBalance) {
+        Agent a = findAgentById(_a.getUuid());
+        if(a!=null){
             return false;
         }
         HashMap<Agent,Resource> balance = new HashMap<>();
@@ -106,12 +108,31 @@ public class ResourceManager extends Agent{
     }
 
     public boolean ApplyTransfer(Transfer t){
+        // Agent needs to be confirmed by id
         if (CP.ValidateTransfer(t, ownerships)){ // Check if everyone involved can afford the transaction (per the credit policy).
-            ownerships = Transfer.add(ownerships, t);
-            saveChangesToDb(t);
+            Transfer _t = swapAgentById(t);
+            ownerships = Transfer.add(ownerships, _t);
+            saveChangesToDb(_t);
             return true;
         }
         return false;
+    }
+    private Transfer swapAgentById(Transfer t){
+        Map<Agent,Resource> M = new HashMap<>();
+        for (Agent _a : t.keySet()){
+            Agent a = findAgentById(_a.getUuid());
+            if (a!=null){
+                M.put(a,t.get(_a));
+            }
+            else{
+                M.put(_a,t.get(_a));
+            }
+        }
+        try{
+            return new Transfer(M);
+        }catch(TRAException e){
+            return null;
+        }
     }
 
     public boolean ApplyTransform(Transformation t){
@@ -160,7 +181,7 @@ public class ResourceManager extends Agent{
 
     private void GiveCredit(Agent a, Resource r){
         CP = Credit.add(new Credit(a,r),CP);
-        creditRepository.save(new CreditDto(a.getUuid(),CP.get(a).toString()));
+        creditRepository.save(new CreditDto(a.getUuid(),Resource.ToString(CP.get(a))));
     }
 
     public Agent findAgentById(String id) {
@@ -240,6 +261,6 @@ public class ResourceManager extends Agent{
 
     // This should probably be a batchjob, to allow for rolling back on error.
     public void saveAgentToDb(Agent a, Resource r){
-        ownershipRepository.save(new OwnershipDto(a.getUuid(),r.toString()));
+        ownershipRepository.save(new OwnershipDto(a.getUuid(),Resource.ToString(r)));
     }
 }

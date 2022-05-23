@@ -19,7 +19,6 @@ public class CreditDto implements Serializable {
     @Column(name = "AGENT_ID", nullable = false,unique = true,length=36)
     private String agentId;
 
-    @Lob
-    @Column(name = "RESOURCE", nullable = false)
+    @Column(name = "RESOURCE", columnDefinition = "TEXT",nullable = false)
     private String resource;
 }

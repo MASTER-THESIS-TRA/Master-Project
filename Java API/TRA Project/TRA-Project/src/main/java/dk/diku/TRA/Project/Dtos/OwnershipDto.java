@@ -19,7 +19,6 @@ public class OwnershipDto implements Serializable {
     @Column(name = "AGENT_ID", nullable = false,unique = true,length=36)
     private String agentId;
 
-    @Lob
-    @Column(name = "RESOURCE")
+    @Column(name = "RESOURCE", columnDefinition = "TEXT")
     private String resource;
 }
