@@ -1,16 +1,15 @@
-import {CustomTable} from "../CustomTable";
 import Title from "../Title";
 import * as React from "react";
-import {AgentBalance} from "./AgentBalance";
 import {useEffect, useState} from "react";
 import axios from "axios";
+import {EventTable} from "./EventTable";
 
 const columns = [
     { id: 'id', label: 'Id', minWidth: 100 },
     { id: 'eventType', label: 'Event Type', minWidth: 100 },
     { id: 'agentId', label: 'Created By', minWidth: 100 },
     { id: 'time', label: 'Time Of Creation', minWidth: 100 },
-    { id: 'body', label: 'Name', minWidth: 200 },
+    { id: 'body', label: 'Details', minWidth: 200 },
 
 ];
 
@@ -22,6 +21,7 @@ export const RecentEvents = () => {
         const data = [];
         const res = await axios.get("http://localhost:8080/history/getAllEvents")
         if(res.status != 500) {
+            console.log(res.data)
             res.data.map((elem) => {
                 data.push(createData(elem.id, elem.eventType, elem.agentId, elem.time, elem.body))
             })
@@ -36,7 +36,7 @@ export const RecentEvents = () => {
     return (
         <div>
             <Title>Recent Events</Title>
-            <CustomTable rows={rows} columns={columns} showPagination={false} maxHeight={240}/>
+            <EventTable rows={rows} columns={columns} showPagination={false} maxHeight={240}/>
         </div>
     )
 }

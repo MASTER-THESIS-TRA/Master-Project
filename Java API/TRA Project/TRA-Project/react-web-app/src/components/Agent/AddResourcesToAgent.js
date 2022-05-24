@@ -76,15 +76,16 @@ export const AddResourcesToAgent = (props) => {
             resourceType: resource,
             amount: amount
         }
-        console.log(data)
-        alert(data.email, data.resourceType, data.amount)
+
+
         axios.post("http://localhost:8080/admin/giveResource", data, {
             headers: {
                 'Accept': 'application/json',
                 'content-type': 'application/json'
             }})
             .then((response) => {
-                    console.log("API Response", response)
+                    alert(response.data)
+                    window.location.reload();
                 }
             )
             .catch((error) => {
