@@ -57,4 +57,8 @@ public class AgentService {
         }
         return "error";
     }
+
+    public void DeleteById(String id){
+        agentRepository.deleteById(id);
+    }
 }

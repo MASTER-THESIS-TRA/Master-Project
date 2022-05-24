@@ -35,8 +35,6 @@ p
 @TRA-Project/src/main/java/dk/diku/TRA/Project/Dtos/AgentDto.java,2\d\2dfb1ba52612508222e6b09eb8c93460499d40ae
 €
 PTRA-Project/src/main/java/dk/diku/TRA/Project/Controller/ResourceController.java,b\f\bf58757a394fa4a4b894f48eee8e13ee95bd92e4
-}
-MTRA-Project/src/main/java/dk/diku/TRA/Project/Controller/AgentController.java,3\c\3cfa21ad49194cef0d59a24d119202aaac9b104c
 €
 PTRA-Project/src/main/java/dk/diku/TRA/Project/Controller/TransferController.java,c\e\ce7d82d20110cc96fa11dfdf306f765b9927eadc
 s
