@@ -19,7 +19,11 @@ export const DefineTransformPage = () => {
     const[showModal, setShowModal] = useState(false);
 
     const handleOpen = () => {
-        setShowModal(true);
+        if (inputData.length < 1 || outputData.length < 1 ) {
+            alert("Input or output is empty");
+        } else {
+            setShowModal(true);
+        }
     }
     const handleClose = () => setShowModal(false);
 
@@ -35,11 +39,12 @@ export const DefineTransformPage = () => {
         setName(event.target.value);
     }
 
+
     const handleSubmit = () => {
         if(name.length < 1) {
             alert("error when naming");
         }
-        console.log(inputData);
+
         const data = {
             uuid: localStorage.getItem('user'),
             name: name,
