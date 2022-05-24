@@ -60,7 +60,7 @@ public class ResourceService {
         }
         TransformDefinitions pt = new TransformDefinitions();
         pt.setName(transformDto.getName());
-        pt.setTransform(r.toString());
+        pt.setTransform(Resource.ToString(r));
         transformRepository.save(pt);
         return true;
     }
