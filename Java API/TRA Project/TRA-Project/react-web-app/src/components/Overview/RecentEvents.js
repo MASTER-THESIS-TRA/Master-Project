@@ -6,7 +6,7 @@ import {EventTable} from "./EventTable";
 
 const columns = [
     { id: 'id', label: 'Id', minWidth: 100 },
-    { id: 'eventType', label: 'Event Type', minWidth: 100 },
+    { id: 'eventType', label: 'Event Type', minWidth: 130 },
     { id: 'agentId', label: 'Created By', minWidth: 100 },
     { id: 'time', label: 'Time Of Creation', minWidth: 100 },
     { id: 'body', label: 'Details', minWidth: 200 },
@@ -16,10 +16,10 @@ const columns = [
 export const RecentEvents = () => {
     const[rows, setRows] = useState([]);
 
-
     useEffect(async () => {
+        const id = localStorage.getItem('user');
         const data = [];
-        const res = await axios.get("http://localhost:8080/history/getAllEvents")
+        const res = await axios.get(`http://localhost:8080/history/getEventsById/${id}`)
         if(res.status != 500) {
             console.log(res.data)
             res.data.map((elem) => {

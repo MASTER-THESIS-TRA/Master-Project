@@ -3,10 +3,7 @@ package dk.diku.TRA.Project.Controller;
 import dk.diku.TRA.Project.Classes.Event;
 import dk.diku.TRA.Project.Services.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -23,8 +20,8 @@ public class HistoryController {
     }
 
     @CrossOrigin
-    @GetMapping(path="/getEventsById")
-    public List<Event> GetEventsById(String id){
+    @RequestMapping(value = "/getEventsById/{id}", method = RequestMethod.GET)
+    public List<Event> GetEventsById(@PathVariable String id){
         return eventService.FindAllByAgentId(id);
     }
 }
