@@ -115,7 +115,7 @@ public class Resource extends Vector<String, Integer> {
      * @return The resource, represented by the input string.
      */
     public static Resource ParseStringToResource(String resourceString){
-        if (resourceString.equals("{}")){
+        if ((resourceString == null) || (resourceString.equals("{}"))){
             return Resource.zero();
         }
         try {

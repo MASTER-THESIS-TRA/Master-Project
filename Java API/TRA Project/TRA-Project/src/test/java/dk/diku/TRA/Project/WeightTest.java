@@ -27,14 +27,14 @@ class WeightTest {
     void TestWeightAdditionBasic() {
         Weight w = Weight.add(w1,w2);
         assert(w.containsKey("a") && w.containsKey("b") && w.entrySet().size()==2);
-        assert(w.get("a")==2.5 && w.get("b")==1337.0);
+        assert(w.get("a")==25 && w.get("b")==1337);
     }
 
     @Test
     void TestWeightAdditionNoDuplicateWeight() {
         Weight w = Weight.add(w1,w1);
         assert(w.containsKey("a") && w.entrySet().size()==1);
-        assert(w.get("a")==2.5);
+        assert(w.get("a")==25);
     }
 
 
