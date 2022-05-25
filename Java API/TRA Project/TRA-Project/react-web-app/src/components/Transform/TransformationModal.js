@@ -100,6 +100,11 @@ export const TransformationModal = (props) => {
                         id="outlined-required"
                         label="Amount"
                         type="number"
+                        InputProps={{
+                            inputProps: {
+                                max: 999, min: 0
+                            }
+                        }}
                         sx={{ width: 100, paddingLeft: "5px" }}
                         onChange={e => handleAmountChange(e)}
                     />

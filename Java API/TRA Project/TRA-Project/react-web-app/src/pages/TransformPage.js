@@ -123,6 +123,11 @@ export const TransformPage = () => {
                                 id="outlined-required"
                                 label="Amount"
                                 type="number"
+                                InputProps={{
+                                    inputProps: {
+                                        max: 100, min: 0
+                                    }
+                                }}
                                 sx={{ width: 130, paddingLeft: "5px" }}
                                 onChange={e => handleAmountChange(e)}
                             />
