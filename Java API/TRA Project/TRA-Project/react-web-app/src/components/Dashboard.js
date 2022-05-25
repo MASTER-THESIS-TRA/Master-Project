@@ -147,7 +147,7 @@ export const Dashboard = ({handleLogout}) => {
                     <List component="nav">
                         {mainListItems}
                         <Divider sx={{ my: 1 }} />
-                        {secondaryListItems}
+                        {localStorage.getItem('role') == "admin" ? secondaryListItems : null}
                         <ListItem>
                             <Button onClick={handleLogout}>Log Out</Button>
                         </ListItem>

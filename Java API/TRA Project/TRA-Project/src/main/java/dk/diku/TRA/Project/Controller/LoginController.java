@@ -8,6 +8,9 @@ import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.Map;
+
 @Slf4j
 @RestController
 @RequestMapping("/login")
@@ -18,7 +21,7 @@ public class LoginController {
 
     @CrossOrigin
     @PostMapping(path="/validateLogin")
-    public String ValidateLogin(@RequestBody UserDto userDto){
+    public Map<String, String> ValidateLogin(@RequestBody UserDto userDto){
         System.out.print("Email: " + userDto.email + " Password: " + userDto.password);
         return agentService.validateLogin(userDto.email, userDto.password);
     }

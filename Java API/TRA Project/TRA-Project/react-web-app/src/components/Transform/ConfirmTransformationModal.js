@@ -26,6 +26,7 @@ export const ConfirmTransformationModal = (props) => {
 
     const handleOk = () => {
         props.handleSubmit();
+        onClose();
     };
 
 
