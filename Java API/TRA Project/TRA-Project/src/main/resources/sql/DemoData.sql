@@ -1,5 +1,6 @@
 begin;
 insert into agent (agent_id, name, email, password) VALUES
+    ('11111111-1111-1111-1111-111111111111','Admin','admin@mail.com','TRA'),
     ('e2ed2e7f-0b9d-41a5-85ce-408ac371e58a','Farmer','farmer@mail.co','password1'),
     ('ee445839-76dd-4d24-bf90-b5370e04ef73','Purchase Point','purchasepoint@mail.co','password2'),
     ('e0ef4798-3360-46bc-8572-0d86adcdcb26','Dry Mill','drymill@mail.co','password3'),
