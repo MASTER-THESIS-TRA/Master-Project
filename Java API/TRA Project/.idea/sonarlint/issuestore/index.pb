@@ -3,8 +3,6 @@ p
 @TRA-Project/src/test/java/dk/diku/TRA/Project/ResourceTests.java,9\9\99d8877155b74827e7cdda509389a961bcfcf79a
 w
 GTRA-Project/src/main/java/dk/diku/TRA/Project/Tables/TransferTable.java,f\7\f7c61cb629ffda91838cf60ff15c9f79f7110bcb
-p
-@TRA-Project/src/test/java/dk/diku/TRA/Project/TransferTests.java,2\b\2b34b6c46ea9faba46f709faa49b78b88d7fdd4b
 F
 TRA-Project/.gitignore,2\c\2ccc275eca62427fee88595c28f5faa49ba87f52
 p

@@ -32,8 +32,8 @@ public class TransferTests {
                 Resource a = new Resource("a", 42);
                 Resource b = new Resource("b", 1337);
                 Resource c = new Resource("c", 888);
-                alice = new Agent("Alice","","","");
-                bob = new Agent("Bob","","","");
+                alice = new Agent("1","Alice","","");
+                bob = new Agent("2","Bob","","");
                 HashMap<Agent, Resource> M1 = new HashMap<>();
                 M1.put(alice, a);
                 M1.put(bob, Resource.mult(a, -1));

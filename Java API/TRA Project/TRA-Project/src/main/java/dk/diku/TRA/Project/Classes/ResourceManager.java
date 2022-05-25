@@ -47,6 +47,7 @@ public class ResourceManager extends Agent{
     public ResourceManager(String name){
         super();
         super.setName(name);
+        this.setUuid("1");
         ownerships = Transfer.zero();
         CP = new Credit(this,new Resource("*",1));
         weights = Weight.zero();
@@ -54,6 +55,7 @@ public class ResourceManager extends Agent{
 
     public ResourceManager(String name, Map<Agent,Resource> M){
         super();
+        this.setUuid("1");
         Resource debt = Resource.zero();
         for (Resource r : M.values()){
             debt = Resource.add(debt, Resource.mult(r,-1));
@@ -65,6 +67,7 @@ public class ResourceManager extends Agent{
     public ResourceManager(String name, Map<Agent,Resource> M, Map<String, Integer> W){
         super();
         Resource debt = Resource.zero();
+        this.setUuid("1");
         for (Resource r : M.values()){
             debt = Resource.add(debt, Resource.mult(r,-1));
         }
