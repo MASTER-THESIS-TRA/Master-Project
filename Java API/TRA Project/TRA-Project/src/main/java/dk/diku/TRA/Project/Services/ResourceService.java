@@ -12,6 +12,7 @@ import dk.diku.TRA.Project.repository.TransformRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.xml.crypto.dsig.Transform;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -104,5 +105,7 @@ public class ResourceService {
         return Resource.add(Resource.mult(input,-1),output);
     }
 
-
+    public boolean ApplyTransform(Transformation t){
+        return resourceManager.ApplyTransform(t);
+    }
 }
