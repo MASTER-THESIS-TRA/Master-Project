@@ -17,10 +17,6 @@ export const CreateNewAgent = (props) => {
     const[aEmail, setEmail] = useState();
     const[aPassword, setPassword] = useState();
 
-    const handleCancel = () => {
-        onClose(value);
-    };
-
     const handleOk = (event) => {
         createNewAgentData(aName, aEmail, aPassword, event);
         onClose(value);
@@ -52,13 +48,13 @@ export const CreateNewAgent = (props) => {
             email: email,
             password: password
         }
-        console.log(data)
         axios.post("http://localhost:8080/admin/newAgent", data, {
             headers: {
                 'Accept': 'application/json',
                 'content-type': 'application/json'
             }})
             .then((response) => {
+                    alert(response.data)
                     console.log("API Response", response)
                 }
             )

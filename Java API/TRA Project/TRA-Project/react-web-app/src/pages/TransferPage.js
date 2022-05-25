@@ -131,6 +131,11 @@ export const TransferPage = () => {
                                 id="outlined-required"
                                 label="Amount"
                                 type="number"
+                                InputProps={{
+                                    inputProps: {
+                                        max: 999, min: 0
+                                    }
+                                }}
                                 sx={{ width: 130, paddingLeft: "5px" }}
                                 onChange={e => handleAmountChange(e)}
                             />
