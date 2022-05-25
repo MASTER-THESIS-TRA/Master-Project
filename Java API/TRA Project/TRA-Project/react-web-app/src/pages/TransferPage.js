@@ -32,13 +32,15 @@ export const TransferPage = () => {
     const handleAmountChange = (event) => { setAmount(event.target.value); };
 
     useEffect(async () => {
-        const res = await axios.get("http://localhost:8080/admin/getAllResources")
+        const id = localStorage.getItem('user');
+        const res = await axios.get(`http://localhost:8080/overview/getBalance/${id}`)
         if(res.status != 500) {
             res.data.map((resourceType) => {
-                setOptions(prevState => [...prevState, resourceType.name])
+                setOptions(prevState => [...prevState, resourceType.type])
             })
         }
     }, [])
+
 
     const handleSubmit = (event) => {
         event.preventDefault();

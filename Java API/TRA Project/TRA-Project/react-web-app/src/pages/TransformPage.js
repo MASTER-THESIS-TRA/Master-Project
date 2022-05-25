@@ -29,15 +29,11 @@ export const TransformPage = () => {
     const handleTransformChange = (event) => { setTransform(event.target.value); };
     const handleAmountChange = (event) => { setAmount(event.target.value); };
 
-    let navigate = useNavigate();
-    const routeChange = () =>{
-        let path = `newPath`;
-        navigate(path);
-    }
 
     useEffect(async () => {
         const res = await axios.get("http://localhost:8080/transform/allTransforms")
         if(res.status != 500) {
+            console.log(res.data)
             res.data.map((transform) => {
                 setOptions(prevState => ([...prevState, transform]))
             })
@@ -56,13 +52,14 @@ export const TransformPage = () => {
     }
 
     const createNewTransform = (transform, amount) => {
+        console.log("transform", transform)
         const data = {
             sender: localStorage.getItem('user'),
-            transform: transform.transform,
+            transform: transform,
             amount: amount
         }
-        console.log("The transform", data)
-        axios.post("http://localhost:8080/admin/createTransform", data, {
+        console.log("what to send", data)
+        axios.post("http://localhost:8080/transform/doTransform", data, {
             headers: {
                 'Accept': 'application/json',
                 'content-type': 'application/json'
@@ -70,7 +67,6 @@ export const TransformPage = () => {
             .then((response) => {
                     console.log("API Response", response.data)
                     alert(response.data)
-                    routeChange()
                 }
             )
             .catch((error) => {
@@ -81,7 +77,6 @@ export const TransformPage = () => {
 
     return(
         <div>
-            {console.log("OP", options)},
             <Grid container
                   spacing={0}
                   direction="column"
@@ -116,7 +111,7 @@ export const TransformPage = () => {
                                     {options.map((option) => (
                                         <MenuItem
                                             key={option.uuid}
-                                            value={option.name}
+                                            value={option.transform}
                                         >
                                             {option.name}
                                         </MenuItem>
