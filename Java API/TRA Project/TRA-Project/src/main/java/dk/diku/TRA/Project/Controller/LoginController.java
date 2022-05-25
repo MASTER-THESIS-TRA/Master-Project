@@ -22,7 +22,6 @@ public class LoginController {
     @CrossOrigin
     @PostMapping(path="/validateLogin")
     public Map<String, String> ValidateLogin(@RequestBody UserDto userDto){
-        System.out.print("Email: " + userDto.email + " Password: " + userDto.password);
         return agentService.validateLogin(userDto.email, userDto.password);
     }
 }

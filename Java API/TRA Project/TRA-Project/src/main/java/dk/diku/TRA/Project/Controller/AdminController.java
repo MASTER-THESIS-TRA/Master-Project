@@ -82,7 +82,6 @@ public class AdminController {
     @CrossOrigin
     @PostMapping(path = "/giveResource")
     public String GiveResource(@RequestBody GiveResourceDto giveResourceDto){
-        //System.out.println(giveResourceDto.getEmail() + " " + giveResourceDto.getResourceType());
         if(resourceService.GiveResource(giveResourceDto)){
             return "Success";
         }

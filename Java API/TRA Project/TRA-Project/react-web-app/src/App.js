@@ -39,8 +39,7 @@ export const App = () => {
                 'content-type': 'application/json'
             }})
             .then((response) => {
-                    if(response.error != "error") {
-                        console.log(response.data);
+                    if(response.data.error != "error") {
                         localStorage.setItem('user', response.data.user)
                         setUser(response.data.user);
                         setLoggedIn(true);

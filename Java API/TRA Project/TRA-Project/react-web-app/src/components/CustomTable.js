@@ -88,7 +88,7 @@ export const CustomTable = ({columns, rows, showPagination, maxHeight}) => {
                 onPageChange={handleChangePage}
                 onRowsPerPageChange={handleChangeRowsPerPage}
             /> : null }
-            <EventModal onClose={handleClose} open={showModal} events={events} />   
+            <EventModal onClose={handleClose} open={showModal} events={events} />
         </div>
 
     );

@@ -1,7 +1,6 @@
 import Title from "../Title";
 import Typography from "@mui/material/Typography";
 import {useEffect, useState} from "react";
-import {fetchAccountInfo} from "../../api/AccountAPI";
 import axios from "axios";
 
 export const AccountList = () => {
