@@ -17,7 +17,7 @@ export const EventModal = (props) => {
 
     return (
         <Dialog
-            sx={{ '& .MuiDialog-paper': { width: '80%', maxHeight: 435, textAlign: 'center'} }}
+            sx={{ '& .MuiDialog-paper': { minWidth: '600px', width: '80%', maxHeight: 435, textAlign: 'center'} }}
             maxWidth="xs"
             open={open}
             {...other}

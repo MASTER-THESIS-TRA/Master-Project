@@ -6,15 +6,27 @@ import TableCell from "@mui/material/TableCell";
 import TableBody from "@mui/material/TableBody";
 import * as React from "react";
 import TablePagination from "@mui/material/TablePagination";
+import Button from "@mui/material/Button";
+import {useState} from "react";
+import {EventModal} from "./Overview/EventModal";
 
 
 export const CustomTable = ({columns, rows, showPagination, maxHeight}) => {
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
+    const[events, setEvents] = useState();
+    const[showModal, setShowModal] = useState(false);
 
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
     };
+
+    const handleOpen = (body) => {
+        setEvents(body)
+        setShowModal(true);
+    }
+
+    const handleClose = () => setShowModal(false);
 
     const handleChangeRowsPerPage = (event) => {
         setRowsPerPage(+event.target.value);
@@ -46,6 +58,13 @@ export const CustomTable = ({columns, rows, showPagination, maxHeight}) => {
                                     <TableRow hover role="checkbox" tabIndex={-1} key={row.id}>
                                         {columns.map((column) => {
                                             const value = row[column.id];
+                                            if(column.id === "body") {
+                                                return(
+                                                    <TableCell key={column.id} align={column.align}>
+                                                        <Button onClick={() => handleOpen(row.body)}>See details</Button>
+                                                    </TableCell>
+                                                )
+                                            }
                                             return (
                                                 <TableCell key={column.id} align={column.align}>
                                                     {column.format && typeof value === 'number'
@@ -69,6 +88,7 @@ export const CustomTable = ({columns, rows, showPagination, maxHeight}) => {
                 onPageChange={handleChangePage}
                 onRowsPerPageChange={handleChangeRowsPerPage}
             /> : null }
+            <EventModal onClose={handleClose} open={showModal} events={events} />   
         </div>
 
     );

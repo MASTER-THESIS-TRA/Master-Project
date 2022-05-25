@@ -11,7 +11,7 @@ const columns = [
     { id: 'eventType', label: 'Event Type', minWidth: 130 },
     { id: 'agentId', label: 'Created By', minWidth: 100 },
     { id: 'time', label: 'Time Of Creation', minWidth: 100 },
-    { id: 'body', label: 'Name', minWidth: 200 },
+    { id: 'body', label: 'Details', minWidth: 200 },
 
 ];
 
