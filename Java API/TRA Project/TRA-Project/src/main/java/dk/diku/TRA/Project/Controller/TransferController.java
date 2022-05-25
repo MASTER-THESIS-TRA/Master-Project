@@ -38,7 +38,7 @@ public class TransferController {
         }
         String transferResult = transferService.transfer(t);
         if (transferResult.equals("Success")){
-            eventService.RecordEvent("Transfer",transferDto.sender, LocalDateTime.now(),t.toString());
+            eventService.RecordEvent("Transfer",transferDto.sender, LocalDateTime.now(),Transfer.ToString(t));
         }
         return transferResult;
     }

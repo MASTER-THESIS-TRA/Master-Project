@@ -165,4 +165,20 @@ public class Resource extends Vector<String, Integer> {
 
         return ret.substring(0,ret.length()-1)+"}";
     }
+
+    /**
+     * Similar to ToString, but writes a resource as {amount1*type1,amount2*type2,..,amountN*typeN}
+     * @param res The resource to be written in string format.
+     * @return The resource written in the format "{amount1*type1,amount2*type2,..,amountN*typeN}"
+     */
+    public static String PrettyPrint(Resource res){
+        if (res.equals(Resource.zero())){
+            return "{}";
+        }
+        String ret = "{";
+        for (String type : res.keySet()){
+            ret = ret + res.get(type).toString() + "*"+ type + ",";
+        }
+        return ret.substring(0,ret.length()-1)+"}";
+    }
 }

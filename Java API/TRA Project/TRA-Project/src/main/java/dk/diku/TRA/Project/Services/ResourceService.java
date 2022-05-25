@@ -88,6 +88,7 @@ public class ResourceService {
         Resource r = resourceManager.GetBalance(agentService.GetAgentById(id));
         List<ResourceDto> ret = new ArrayList<>();
         for (String key : r.keySet()){
+            if (r.get(key)==0){continue;}
             ret.add(new ResourceDto(key,r.get(key)));
         }
         return ret;
