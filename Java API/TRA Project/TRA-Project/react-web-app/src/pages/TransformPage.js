@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {Transfer} from "../components/Transfer/Transfer";
 import Grid from "@mui/material/Grid";
 import {DialogContent, FormControl, InputLabel, MenuItem, MenuList, Paper, Select, TextField} from "@mui/material";
@@ -6,8 +6,7 @@ import {AgentBox} from "../components/Transfer/AgentBox";
 import Title from "../components/Title";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import {CustomTable} from "../components/CustomTable";
-import Divider from "@mui/material/Divider";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const ITEM_HEIGHT = 48;
@@ -21,26 +20,32 @@ const MenuProps = {
     },
 };
 
-const names = [
-    'Borgert'
-]
-
-const columns = [
-    { id: 'name', label: 'Name', minWidth: 200 },
-    { id: 'amount', label: 'Amount', minWidth: 200 },
-];
-
-function createData(name, amount) {
-    return { name, amount};
-}
-
 
 export const TransformPage = () => {
     const[transform, setTransform] = useState('');
     const[amount, setAmount] = useState();
+    const[options, setOptions] = useState([]);
 
     const handleTransformChange = (event) => { setTransform(event.target.value); };
     const handleAmountChange = (event) => { setAmount(event.target.value); };
+
+    let navigate = useNavigate();
+    const routeChange = () =>{
+        let path = `newPath`;
+        navigate(path);
+    }
+
+    useEffect(async () => {
+        const res = await axios.get("http://localhost:8080/transform/allTransforms")
+        if(res.status != 500) {
+            res.data.map((transform) => {
+                setOptions(prevState => ([...prevState, transform]))
+            })
+        }
+    }, [])
+
+
+
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -53,7 +58,7 @@ export const TransformPage = () => {
     const createNewTransform = (transform, amount) => {
         const data = {
             sender: localStorage.getItem('user'),
-            transform: transform,
+            transform: transform.transform,
             amount: amount
         }
         console.log("The transform", data)
@@ -64,6 +69,8 @@ export const TransformPage = () => {
             }})
             .then((response) => {
                     console.log("API Response", response.data)
+                    alert(response.data)
+                    routeChange()
                 }
             )
             .catch((error) => {
@@ -74,6 +81,7 @@ export const TransformPage = () => {
 
     return(
         <div>
+            {console.log("OP", options)},
             <Grid container
                   spacing={0}
                   direction="column"
@@ -105,12 +113,12 @@ export const TransformPage = () => {
                                     label="Resource"
                                     MenuProps={MenuProps}
                                 >
-                                    {names.map((name) => (
+                                    {options.map((option) => (
                                         <MenuItem
-                                            key={name}
-                                            value={name}
+                                            key={option.uuid}
+                                            value={option.name}
                                         >
-                                            {name}
+                                            {option.name}
                                         </MenuItem>
                                     ))}
                                 </Select>

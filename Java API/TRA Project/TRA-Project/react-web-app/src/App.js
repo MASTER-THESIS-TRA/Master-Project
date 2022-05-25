@@ -39,11 +39,15 @@ export const App = () => {
                 'content-type': 'application/json'
             }})
             .then((response) => {
-                    if(response.data != "error") {
+                    if(response.error != "error") {
                         console.log(response.data);
-                        setUser(response.data);
+                        localStorage.setItem('user', response.data.user)
+                        setUser(response.data.user);
                         setLoggedIn(true);
-                        localStorage.setItem('user', response.data);
+                        if(response.data.role == "Admin") {
+                            localStorage.setItem('role', 'admin')
+                        }
+                        //localStorage.setItem('user', response.data);
                     } else {
                         alert("wrong email or password");
                     }

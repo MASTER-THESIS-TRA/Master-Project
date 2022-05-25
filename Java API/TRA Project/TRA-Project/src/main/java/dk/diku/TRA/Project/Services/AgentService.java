@@ -8,8 +8,7 @@ import dk.diku.TRA.Project.repository.AgentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class AgentService {
@@ -50,12 +49,16 @@ public class AgentService {
         return agentRepository.findById(id).isPresent();
     }
 
-    public String validateLogin(String email, String password){
+    public Map<String, String> validateLogin(String email, String password){
+        HashMap<String, String> userInfo = new HashMap<>();
         Agent a = agentRepository.findAgentByEmail(email);
         if (a != null && a.getPassword().equals(password)){
-            return a.getUuid();
+            userInfo.put("user", a.getUuid());
+            userInfo.put("role", a.getName());
+            return userInfo;
         }
-        return "error";
+        userInfo.put("error", "error");
+        return userInfo;
     }
 
     public void DeleteById(String id){
