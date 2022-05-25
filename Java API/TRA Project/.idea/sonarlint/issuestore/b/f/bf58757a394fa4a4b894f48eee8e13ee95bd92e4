@@ -1,14 +1,0 @@
-
-c
-java:S1128"ARemove this unused import 'dk.diku.TRA.Project.Classes.Resource'.(Å™„üÿÿÿÿ8 âºÛ0
-g
-java:S1128"ERemove this unused import 'dk.diku.TRA.Project.Classes.ResourceType'.(‡Àœşÿÿÿÿ8Ù¼Û0
-g
-java:S1128"ERemove this unused import 'dk.diku.TRA.Project.Dtos.ResourceTypeDto'.(¨ëÊüÿÿÿÿ8Ù¼Û0
-k
-java:S1128"IRemove this unused import 'dk.diku.TRA.Project.Services.ResourceService'.(ş…ºúÿÿÿÿ8Ù¼Û0
-u
-java:S1128	"SRemove this unused import 'org.springframework.beans.factory.annotation.Autowired'.(¡¸Îùÿÿÿÿ8Ù¼Û0
-M
-java:S1128"+Remove this unused import 'java.util.List'.(Õë±Äøÿÿÿÿ8Ù¼Û0
-t	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(Êğ¬»ÿÿÿÿÿ
