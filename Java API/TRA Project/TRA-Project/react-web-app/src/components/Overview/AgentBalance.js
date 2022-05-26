@@ -25,7 +25,7 @@ export const AgentBalance = () => {
 
     const cols = [
         { id: 'resourceType', label: 'Resource Type', minWidth: 170 },
-        { id: 'amount', label: 'Amount', minWidth: 170 },
+        { id: 'amount', label: 'Amount (g)', minWidth: 170 },
     ];
 
     function createData(resourceType, amount) {

@@ -36,8 +36,15 @@ export const TransformationModal = (props) => {
 
 
     const handleOk = (event) => {
-        addResource(type, amount)
-        onClose(value);
+        event.preventDefault();
+        if((type || amount) === undefined) {
+            alert("One or more fields are empty")
+        } else if(parseInt(amount) < 0.001) {
+            alert("Amount has a negative value!")
+        } else {
+            addResource(type, amount)
+            onClose(value);
+        }
     };
 
     const handleResourceTypeChange = (event) => {

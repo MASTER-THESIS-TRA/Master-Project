@@ -23,20 +23,21 @@ const MenuProps = {
 
 export const TransferPage = () => {
     const[receiver, setReceiver] = useState('');
-    const[resourceName, setResourceName] = useState('');
+    const[resource, setResource] = useState();
     const[amount, setAmount] = useState();
     const[options, setOptions] = useState([])
 
     const handleReceiverChange = (event) => { setReceiver(event.target.value); };
-    const handleResourceNameChange = (event) => { setResourceName(event.target.value); };
+    const handleResourceNameChange = (event) => { setResource(event.target.value); };
     const handleAmountChange = (event) => { setAmount(event.target.value); };
 
     useEffect(async () => {
         const id = localStorage.getItem('user');
         const res = await axios.get(`http://localhost:8080/overview/getBalance/${id}`)
+        console.log("res:", res)
         if(res.status != 500) {
             res.data.map((resourceType) => {
-                setOptions(prevState => [...prevState, resourceType.type])
+                setOptions(prevState => ([...prevState, resourceType]))
             })
         }
     }, [])
@@ -44,17 +45,20 @@ export const TransferPage = () => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        if((receiver, resourceName, amount) === undefined) {
+        if((receiver || resource || amount) === undefined) {
             alert("One or more fields are empty")
+        } else if(parseInt(amount) < 0.001) {
+            alert("Amount has a negative value!")
+        } else {
+            createNewTransfer(receiver, resource, amount);
         }
-        createNewTransfer(receiver, resourceName, amount);
     }
 
-    const createNewTransfer = (receiver, resourceName, amount) => {
+    const createNewTransfer = (receiver, resource, amount) => {
         const data = {
             sender: localStorage.getItem('user'),
             receiver: receiver,
-            resourceName: resourceName,
+            resourceName: resource.type,
             amount: amount
         }
 
@@ -90,8 +94,8 @@ export const TransferPage = () => {
                         p: 2,
                         display: 'flex',
                         flexDirection: 'column',
-                        height: 450,
-                        width: 450,
+                        height: 400,
+                        width: 500,
                         textAlign: 'center'
                     }}
                 >
@@ -101,18 +105,18 @@ export const TransferPage = () => {
                             required
                             id="outlined-required"
                             label="Email of reciever"
-                            sx={{ minWidth: 330, paddingBottom: '10px' }}
+                            sx={{ minWidth: 400, paddingBottom: '10px' }}
                             onChange={e => handleReceiverChange(e)}
                         />
-                        <Box>
-                            <FormControl sx={{minWidth: 200 }}>
+                        <Box sx={{minWidth: 400 }}>
+                            <FormControl sx={{width: 270 }}>
                                 <InputLabel id="demo-simple-select-autowidth-label">Resource</InputLabel>
                                 <Select
                                     labelId="demo-simple-select-autowidth-label"
                                     id="demo-simple-select-autowidth"
                                     onChange={handleResourceNameChange}
                                     autoWidth
-                                    value={resourceName}
+                                    value={resource}
                                     label="Resource"
                                     MenuProps={MenuProps}
                                 >
@@ -121,7 +125,7 @@ export const TransferPage = () => {
                                             key={name}
                                             value={name}
                                         >
-                                            {name}
+                                            {name.type}
                                         </MenuItem>
                                     ))}
                                 </Select>
@@ -138,6 +142,21 @@ export const TransferPage = () => {
                                 }}
                                 sx={{ width: 130, paddingLeft: "5px" }}
                                 onChange={e => handleAmountChange(e)}
+                            />
+                        </Box>
+                        <Box
+                            component="form"
+                            sx={{'& .MuiTextField-root': { m: 1, width: 400, paddingTop: "15px" },}}
+                            noValidate
+                            autoComplete="off"
+                        >
+                            <TextField
+                                id="outlined-read-only-input"
+                                disabled
+                                multiline
+                                helperText="Details of resource"
+                                value={resource != undefined ? `Name: ${resource.type}\nOwned: ${resource.amount} (g)`: null}
+                                rows={2}
                             />
                         </Box>
                     </DialogContent>

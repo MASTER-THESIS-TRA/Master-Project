@@ -84,6 +84,7 @@ export const AddResourcesToAgent = (props) => {
                 'content-type': 'application/json'
             }})
             .then((response) => {
+                    console.log(response)
                     alert(response.data)
                     window.location.reload();
                 }

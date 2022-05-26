@@ -39,7 +39,7 @@ export const EventTable = ({columns, rows, showPagination, maxHeight}) => {
 
     return (
         <div>
-            <TableContainer sx={{ maxHeight: maxHeight, overflowX: 'hidden'}}>
+            <TableContainer sx={{ maxHeight: maxHeight }}>
                 <Table stickyHeader={true} aria-label="sticky table">
                     <TableHead>
                         <TableRow>

@@ -45,20 +45,21 @@ export const TransformPage = () => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        if((transform, amount) === undefined) {
+        if((transform || amount) === undefined) {
             alert("One or more fields are empty")
+        } else if(parseInt(amount) < 0.001) {
+            alert("Amount has a negative value!")
+        } else {
+            createNewTransform(transform, amount);
         }
-        createNewTransform(transform, amount);
     }
 
     const createNewTransform = (transform, amount) => {
-        console.log("transform", transform)
         const data = {
             sender: localStorage.getItem('user'),
             transform: transform,
             amount: amount
         }
-        console.log("what to send", data)
         axios.post("http://localhost:8080/transform/doTransform", data, {
             headers: {
                 'Accept': 'application/json',
@@ -90,14 +91,14 @@ export const TransformPage = () => {
                         display: 'flex',
                         flexDirection: 'column',
                         height: 450,
-                        width: 450,
+                        width: 600,
                         textAlign: 'center'
                     }}
                 >
                     <Title>Transform</Title>
                     <DialogContent dividers sx={{ overflow: 'hidden'}}>
                         <Box>
-                            <FormControl sx={{minWidth: 200 }}>
+                            <FormControl sx={{minWidth: 300 }}>
                                 <InputLabel id="demo-simple-select-autowidth-label">Transform</InputLabel>
                                 <Select
                                     labelId="demo-simple-select-autowidth-label"
@@ -130,6 +131,21 @@ export const TransformPage = () => {
                                 }}
                                 sx={{ width: 130, paddingLeft: "5px" }}
                                 onChange={e => handleAmountChange(e)}
+                            />
+                        </Box>
+                        <Box
+                            component="form"
+                            sx={{'& .MuiTextField-root': { m: 1, width: 430 },}}
+                            noValidate
+                            autoComplete="off"
+                        >
+                            <TextField
+                                id="outlined-read-only-input"
+                                disabled
+                                multiline
+                                helperText="Details of transformation"
+                                value={transform}
+                                rows={7}
                             />
                         </Box>
                     </DialogContent>

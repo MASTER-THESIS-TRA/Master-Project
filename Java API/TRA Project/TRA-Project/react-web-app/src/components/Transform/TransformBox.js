@@ -10,7 +10,7 @@ import {useEffect, useRef} from "react";
 
 const columns = [
     { id: 'type', label: 'Resource Type', minWidth: 170,  fontWeight: 'bold' },
-    { id: 'amount', label: 'Amount', minWidth: 100, align: 'right'},
+    { id: 'amount', label: 'Amount (g)', minWidth: 100, align: 'right'},
 ];
 
 function createData(type, amount) {
