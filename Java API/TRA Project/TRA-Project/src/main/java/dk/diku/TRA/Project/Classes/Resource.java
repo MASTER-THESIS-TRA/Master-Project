@@ -12,6 +12,13 @@ public class Resource extends Vector<String, Integer> {
     public Resource(String key, Integer val){ super(key,val); }
     public Resource(Map<String, Integer> M) { super(M); }
 
+    /**
+     * Vector method for addition of two vectors. Calls the static method Resource.add()
+     * @param x A Resource
+     * @param y A Resource
+     * @return The sum of the two Resources
+     * @exception ClassCastException If the vectors provided are not resources.
+     */
     @Override
     public Resource Add(IVector x, IVector y) {
         try{
@@ -21,11 +28,22 @@ public class Resource extends Vector<String, Integer> {
         }
     }
 
+    /**
+     * Vector method to obtain the 0 element of the vector space Resources.
+     * @return the Resource 0={}.
+     */
     @Override
     public Vector Zero() {
         return zero();
     }
 
+    /**
+     * Vector method for scalar multiplication. Calls the static method Resource.mult()
+     * @param x A Reosurce
+     * @param y A scalar
+     * @return The Resource X scaled by y: {type1->amount1*y,type2->amount2*y,..,typeN*amountN*y}
+     * @exception ClassCastException If the vectors provided are not resources.
+     */
     @Override
     public Resource Mult(IVector x, Integer y) {
         try{
@@ -36,6 +54,12 @@ public class Resource extends Vector<String, Integer> {
         }
     }
 
+    /**
+     * Static method for Resource addition.
+     * @param x A Resource
+     * @param y A Resource
+     * @return The sum of the resources. The result will map any type contained in both resources to the sum of what they each mapped to, and any type only contained in one of the two input Resources to the amount that it mapped to in that input resource.
+     */
     public static Resource add(Resource x, Resource y) {
         try{
             HashMap<String, Integer> sum = new HashMap();
@@ -53,10 +77,20 @@ public class Resource extends Vector<String, Integer> {
         }
     }
 
+    /**
+     * Static method to obtain the 0 element of the vector space Resources.
+     * @return the Resource 0={}.
+     */
     public static Resource zero(){
         return new Resource(Collections.emptyMap());
     }
 
+    /**
+     * Static method for multiplication.
+     * @param x A Resource.
+     * @param y A scalar.
+     * @return The Resource X scaled by y: {type1->amount1*y,type2->amount2*y,..,typeN*amountN*y}
+     */
     public static Resource mult(Resource x, Integer y) {
         try{
             Map<String, Integer> ret = new HashMap();
@@ -71,9 +105,11 @@ public class Resource extends Vector<String, Integer> {
     }
 
     // Utility functions:
-
-    // It does not make sense to check which resource is "biggest", because of compact resources.
-    // Equality is nice to be able to verify though.
+    /**
+     * Equality for resources.
+     * @param o The object to be compared to.
+     * @return True, if the object is a resource with the same mapping as this. False otherwise.
+     */
     @Override
     public boolean equals(Object o){
         try {

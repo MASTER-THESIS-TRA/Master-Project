@@ -40,12 +40,12 @@ export const App = () => {
             }})
             .then((response) => {
                     if(response.data.error != "error") {
-                        localStorage.setItem('user', response.data.user)
-                        setUser(response.data.user);
-                        setLoggedIn(true);
                         if(response.data.role == "Admin") {
                             localStorage.setItem('role', 'admin')
                         }
+                        localStorage.setItem('user', response.data.user)
+                        setUser(response.data.user);
+                        setLoggedIn(true);
                         //localStorage.setItem('user', response.data);
                     } else {
                         alert("wrong email or password");

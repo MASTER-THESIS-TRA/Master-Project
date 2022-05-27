@@ -6,9 +6,6 @@ import org.junit.jupiter.api.Test;
 import java.util.*;
 
 class ResourceTests {
-
-
-
     @Test
     void TestResourceAdditionBasic() {
         try {
@@ -44,7 +41,6 @@ class ResourceTests {
         Resource r2 = Resource.add(b, a);
         assert(r1.equals(r2));
     }
-
 
     @Test
     void TestMultAssosiative() {

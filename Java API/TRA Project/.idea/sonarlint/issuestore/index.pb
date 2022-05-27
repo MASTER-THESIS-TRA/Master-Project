@@ -1,6 +1,4 @@
 
-p
-@TRA-Project/src/test/java/dk/diku/TRA/Project/ResourceTests.java,9\9\99d8877155b74827e7cdda509389a961bcfcf79a
 w
 GTRA-Project/src/main/java/dk/diku/TRA/Project/Tables/TransferTable.java,f\7\f7c61cb629ffda91838cf60ff15c9f79f7110bcb
 F
