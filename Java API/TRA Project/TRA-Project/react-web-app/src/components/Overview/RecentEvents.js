@@ -20,6 +20,7 @@ export const RecentEvents = () => {
         const id = localStorage.getItem('user');
         const data = [];
         const res = await axios.get(`http://localhost:8080/history/getEventsById/${id}`)
+        console.log(res.data)
         if(res.status != 500) {
             console.log(res.data)
             res.data.map((elem) => {
@@ -36,7 +37,7 @@ export const RecentEvents = () => {
     return (
         <div>
             <Title>Recent Events</Title>
-            <EventTable rows={rows} columns={columns} showPagination={false} maxHeight={240}/>
+            <EventTable rows={rows} columns={columns} showPagination={false} maxHeight={329}/>
         </div>
     )
 }

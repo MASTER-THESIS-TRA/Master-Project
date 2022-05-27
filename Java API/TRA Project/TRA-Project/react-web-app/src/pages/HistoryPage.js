@@ -37,9 +37,9 @@ export const HistoryPage = () => {
     return(
         <div>
             <Grid item xs={12}>
-                <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column', maxHeight:700, height: 700, overflow: 'hidden' }}>
+                <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column', maxHeight:700, overflow: 'hidden' }}>
                     <Title>History of events</Title>
-                    <CustomTable rows={rows} columns={columns} showPagination={true} />
+                    <CustomTable rows={rows} columns={columns} showPagination={true} maxHeight={500}/>
                 </Paper>
             </Grid>
         </div>
