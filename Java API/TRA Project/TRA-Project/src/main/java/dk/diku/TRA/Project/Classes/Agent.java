@@ -3,6 +3,7 @@ package dk.diku.TRA.Project.Classes;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -28,4 +29,15 @@ public class Agent implements Serializable{
 
     @Column (name = "PASSWORD", nullable=false, length = 100)
     private String password;
+
+    @Override
+    public boolean equals(Object _a){
+        try{
+            Agent a = (Agent) _a;
+            if (this.getUuid().equals(a.getUuid())){
+                return true;
+            }
+        } catch (Exception ignored){}
+        return false;
+    }
 }

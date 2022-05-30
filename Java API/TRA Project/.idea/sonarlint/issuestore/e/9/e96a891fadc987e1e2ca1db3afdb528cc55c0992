@@ -1,0 +1,19 @@
+
+c	java:S100 "NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ø«‘à
+c	java:S100("NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(—Ô×’
+c	java:S100,"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(èÀØØ
+c	java:S1005"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(‹ž‚†
+h	java:S1009"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(š‰ž¹ýÿÿÿÿ
+c	java:S100E"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(˜–ùŸ
+c	java:S100V"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ö‚ä®
+K
+java:S1854W"5Remove this useless assignment to local variable "a".(åÔ·É
+<
+java:S1481W"&Remove this unused "a" local variable.(åÔ·É
+O
+java:S2864Z"4Iterate over the "entrySet" instead of the "keySet".(ôçÿúÿÿÿÿ
+c	java:S100m"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¡ÙÎ˜
+W
+java:S1128"<Remove this unused import 'javax.xml.crypto.dsig.Transform'.(ÿ¡ú•ûÿÿÿÿ
+f	java:S117G"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¾ç±
+o	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(ô“ŽÛ

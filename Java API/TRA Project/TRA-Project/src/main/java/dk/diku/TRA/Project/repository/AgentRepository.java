@@ -16,4 +16,7 @@ public interface AgentRepository extends JpaRepository<Agent, String> {
     @Modifying
     @Query(value = "UPDATE Agent set name = :newName where uuid = :id")
     void changeName(@Param("newName") String newName, @Param("id") String id);
+
+    @Query(value= "SELECT * FROM agent WHERE email = :email", nativeQuery = true)
+    Agent findAgentByEmail(@Param("email") String email);
 }

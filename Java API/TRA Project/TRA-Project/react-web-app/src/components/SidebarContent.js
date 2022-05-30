@@ -1,22 +1,26 @@
 import * as React from 'react';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
 import ListSubheader from '@mui/material/ListSubheader';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import PeopleIcon from '@mui/icons-material/People';
 import BarChartIcon from '@mui/icons-material/BarChart';
-import LayersIcon from '@mui/icons-material/Layers';
 import AssignmentIcon from '@mui/icons-material/Assignment';
+import TransformIcon from '@mui/icons-material/Transform';
+import HistoryToggleOffIcon from '@mui/icons-material/HistoryToggleOff';
+import PersonAddAltIcon from '@mui/icons-material/PersonAddAlt';
+import NoteAddIcon from '@mui/icons-material/NoteAdd';
+import CompareArrowsIcon from '@mui/icons-material/CompareArrows';
+import ConnectingAirportsIcon from '@mui/icons-material/ConnectingAirports';
 import {CustomLinkButton} from "./CustomLinkButton";
+import AddLocationAltIcon from '@mui/icons-material/AddLocationAlt';
 
 export const mainListItems = (
     <React.Fragment>
         <CustomLinkButton primary="Overview" to="/" icon={<DashboardIcon />} />
-        <CustomLinkButton primary="Transfer" to="transfer" icon={<ShoppingCartIcon />} />
-        <CustomLinkButton primary="Transform" to="transform" icon={<PeopleIcon />} />
-        <CustomLinkButton primary="History" to="history" icon={<BarChartIcon />} />
+        <CustomLinkButton primary="Transfer" to="transfer" icon={<CompareArrowsIcon />} />
+        <CustomLinkButton primary="Transform" to="transform" icon={<TransformIcon />} />
+        <CustomLinkButton primary="Transport" to="transport" icon={<ConnectingAirportsIcon /> } />
+        <CustomLinkButton primary="History" to="history" icon={<HistoryToggleOffIcon />} />
     </React.Fragment>
 );
 
@@ -25,8 +29,9 @@ export const secondaryListItems = (
         <ListSubheader component="div" inset>
             Administrator
         </ListSubheader>
-        <CustomLinkButton primary="Agents" to="agents" icon={<AssignmentIcon />} />
+        <CustomLinkButton primary="Agents" to="agents" icon={<PersonAddAltIcon />} />
+        <CustomLinkButton primary="Addresses" to="addresses" icon={<AddLocationAltIcon />} />
         <CustomLinkButton primary="Resources" to="resources" icon={<AssignmentIcon />} />
-        <CustomLinkButton primary="Transformations" to="account" icon={<AssignmentIcon />} />
+        <CustomLinkButton primary="Transformations" to="transformations" icon={<NoteAddIcon />} />
     </React.Fragment>
 );

@@ -2,6 +2,16 @@
 <project version="4">
   <component name="RemoteRepositoriesConfiguration">
     <remote-repository>
+      <option name="id" value="artifactory" />
+      <option name="name" value="Artifactory Maven Repo" />
+      <option name="url" value="http://artifactory.danskenet.net/artifactory/joined-maven-releases/" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="snapshots" />
+      <option name="name" value="joined-maven-snapshots" />
+      <option name="url" value="http://artifactory.danskenet.net/artifactory/joined-maven-snapshots" />
+    </remote-repository>
+    <remote-repository>
       <option name="id" value="central" />
       <option name="name" value="Central Repository" />
       <option name="url" value="https://repo.maven.apache.org/maven2" />

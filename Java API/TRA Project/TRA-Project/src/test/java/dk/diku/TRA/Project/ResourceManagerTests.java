@@ -30,17 +30,17 @@ public class ResourceManagerTests {
             knuts = new Resource("Knuts",1);
             sickles = new Resource("Sickles",1);
             galleons = new Resource("Galleons", 1);
-            Fritz = new Agent("","Fritz","","");
-            Alexander = new Agent("","Alexander","","");
-            Daniel = new Agent("","Daniel","","");
+            Fritz = new Agent("1","Fritz","","");
+            Alexander = new Agent("2","Alexander","","");
+            Daniel = new Agent("3","Daniel","","");
             HashMap<Agent, Resource> M = new HashMap<>();
             M.put(Daniel,Resource.add(Resource.mult(knuts,50),Resource.add(Resource.mult(sickles,25),galleons)));
             M.put(Alexander,Resource.add(Resource.mult(knuts,75),Resource.add(Resource.mult(sickles,10),Resource.mult(galleons,2))));
             M.put(Fritz,Resource.add(Resource.mult(knuts,50),Resource.add(Resource.mult(sickles,42),Resource.mult(galleons,1337))));
-            HashMap<String,Double> W = new HashMap<>();
-            W.put("Knuts",1.0);
-            W.put("Sickles",100.0);
-            W.put("Galleons",10000.0);
+            HashMap<String,Integer> W = new HashMap<>();
+            W.put("Knuts",1);
+            W.put("Sickles",100);
+            W.put("Galleons",10000);
             bank = new ResourceManager("Gringotts", M, W);
         }
     }
@@ -62,11 +62,16 @@ public class ResourceManagerTests {
 
     @Test
     void TestOwnershipStateIsTransfer(){
-        Resource negSum = Resource.add(bank.GetOwnerships().get(Daniel),Resource.add(bank.GetOwnerships().get(Fritz),bank.GetOwnerships().get(Alexander)));
-        assert(bank.GetOwnerships().get(bank).equals(Resource.mult(negSum,-1)));
+        Resource sum = Resource.zero();
+        sum = Resource.add(sum,bank.GetOwnerships().get(bank.findAgentById(Daniel.getUuid())));
+        sum = Resource.add(sum,bank.GetOwnerships().get(bank.findAgentById(Alexander.getUuid())));
+        sum = Resource.add(sum,bank.GetOwnerships().get(bank.findAgentById(Fritz.getUuid())));
+        Resource negSum = Resource.mult(sum,-1);
+        Resource bankDebt = bank.GetOwnerships().get(bank);
+        assert(bankDebt.equals(negSum));
     }
 
-    /*
+   /*
     @Test
     void TestResourceManagerCreation() {
         HashMap m = new HashMap();
@@ -84,11 +89,11 @@ public class ResourceManagerTests {
         Transfer t3 = Transfer.add(t1, t2);
         Transfer t4 = Transfer.add(t0, t3);
         assert(t4.equals(rm.getOwnerships()));
-    } */
+    }
 
 
 
-/*
+
     ////////////////////////////////////////////////////////////////
     /////////////////////// Init tests /////////////////////////////
     ////////////////////////////////////////////////////////////////

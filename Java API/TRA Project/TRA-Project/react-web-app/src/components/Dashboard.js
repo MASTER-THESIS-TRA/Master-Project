@@ -17,12 +17,17 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import { mainListItems, secondaryListItems } from './SidebarContent';
 import {Route, Routes} from "react-router-dom";
 import {OverviewPage} from "../pages/OverviewPage";
-import {AccountPage} from "../pages/AccountPage";
 import {TransferPage} from "../pages/TransferPage";
 import {TransformPage} from "../pages/TransformPage";
 import {HistoryPage} from "../pages/HistoryPage";
-import {AgentPage} from "../pages/AgentsPage";
-import {ResourcesPage} from "../pages/ResourcesPage";
+import {AgentPage} from "../pages/admin/AgentsPage";
+import {ResourcesPage} from "../pages/admin/ResourcesPage";
+import {Login} from "@mui/icons-material";
+import {ListItem} from "@mui/material";
+import Button from "@mui/material/Button";
+import {DefineTransformPage} from "../pages/admin/DefineTransformPage";
+import {AddressPage} from "../pages/admin/AddressPage";
+import {TransportPage} from "../pages/TransportPage";
 
 
 function Copyright(props) {
@@ -86,7 +91,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 
 const mdTheme = createTheme();
 
-function DashboardContent() {
+export const Dashboard = ({handleLogout, admin}) => {
     const [open, setOpen] = React.useState(true);
     const toggleDrawer = () => {
         setOpen(!open);
@@ -142,7 +147,10 @@ function DashboardContent() {
                     <List component="nav">
                         {mainListItems}
                         <Divider sx={{ my: 1 }} />
-                        {secondaryListItems}
+                        {localStorage.getItem('role') == "admin" ? secondaryListItems : null}
+                        <ListItem>
+                            <Button onClick={handleLogout}>Log Out</Button>
+                        </ListItem>
                     </List>
                 </Drawer>
                 <Box
@@ -161,12 +169,14 @@ function DashboardContent() {
                     <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
                         <Routes>
                             <Route path="/" element={<OverviewPage />} />
-                            <Route path="account" element={<AccountPage />} />
-                            <Route path="transfer" element={<TransferPage />} />
-                            <Route path="transform" element={<TransformPage />} />
-                            <Route path="history" element={<HistoryPage />} />
-                            <Route path="agents" element={<AgentPage />} />
-                            <Route path="resources" element={<ResourcesPage />} />
+                            <Route path="/transformations" element={<DefineTransformPage />} />
+                            <Route path="/transfer" element={<TransferPage />} />
+                            <Route path="/transform" element={<TransformPage />} />
+                            <Route path="/transport" element={<TransportPage />} />
+                            <Route path="/history" element={<HistoryPage />} />
+                            <Route path="/agents" element={<AgentPage />} />
+                            <Route path="/resources" element={<ResourcesPage />} />
+                            <Route path="/addresses" element={<AddressPage />} />
                         </Routes>
                         <Copyright sx={{ pt: 4 }} />
                     </Container>
@@ -174,8 +184,4 @@ function DashboardContent() {
             </Box>
         </ThemeProvider>
     );
-}
-
-export default function Dashboard() {
-    return <DashboardContent />;
 }
