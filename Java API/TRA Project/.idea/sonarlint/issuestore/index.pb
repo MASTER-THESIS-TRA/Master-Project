@@ -29,3 +29,9 @@ p
 @TRA-Project/src/main/java/dk/diku/TRA/Project/Dtos/AgentDto.java,2\d\2dfb1ba52612508222e6b09eb8c93460499d40ae
 s
 CTRA-Project/src/main/java/dk/diku/TRA/Project/Classes/Location.java,b\d\bd8d5b83e912ac44a89141b85a06a4f2dba7fa9e
+{
+KTRA-Project/src/main/java/dk/diku/TRA/Project/Services/ResourceService.java,e\9\e96a891fadc987e1e2ca1db3afdb528cc55c0992
+x
+HTRA-Project/src/main/java/dk/diku/TRA/Project/Services/EventService.java,0\2\02e109e6528850cae5e2a3c2d5a64ecd9e284bf0
+C
+TRA-Project/pom.xml,9\b\9bc8d75beeafcc2c62feabd07755146da12a639f
